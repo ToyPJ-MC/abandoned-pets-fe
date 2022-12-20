@@ -14,12 +14,33 @@ import {
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DesktopDatePicker } from "@mui/x-date-pickers";
-import React, { useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import dayjs, { Dayjs } from "dayjs";
-import { minWidth } from "@mui/system";
+import { useRecoilState } from "recoil";
+import { sidoDataState } from "../states/atom";
 
 const Search = () => {
-  const [sido, setSido] = useState(""); //시
+  //const [sido, setSido] = useRecoilState(sidoDataState); //시 data
+  const [select, setSelect] = useState(""); //시/도 select
+  const [sido, setSido] = useState([
+    "서울특별시",
+    "부산광역시",
+    "대구광역시",
+    "인천광역시",
+    "광주광역시",
+    "세종특별시",
+    "대전광역시",
+    "울산광역시",
+    "경기도",
+    "강원도",
+    "충청북도",
+    "충청남도",
+    "전라북도",
+    "전라남도",
+    "경상북도",
+    "경상남도",
+    "제주특별자치도",
+  ]); // 시/도
   const [gun, setGun] = useState(""); //군
   const [place, setPlace] = useState(""); //보호소
   const [animal, setAnimal] = useState("");
@@ -31,8 +52,9 @@ const Search = () => {
     dayjs("2022-12-11")
   );
   const [endvalue, setEndvalue] = useState<Dayjs | null>(dayjs("2022-12-15"));
-  const sidohandleChange = (event: SelectChangeEvent) => {
-    setSido(event.target.value);
+
+  const sidohandleChange = (event: SelectChangeEvent<string>): void => {
+    setSelect(event.target.value);
   };
   const gunhandleChange = (event: SelectChangeEvent) => {
     setGun(event.target.value);
@@ -71,13 +93,14 @@ const Search = () => {
           <FormControl sx={{ minWidth: 150 }}>
             <InputLabel id="cido">시/도</InputLabel>
             <Select
-              value={sido}
-              onChange={sidohandleChange}
+              value={select}
+              onChange={(e) => sidohandleChange(e)}
               autoWidth
               label="시/도"
             >
-              <MenuItem value="1">서울특별시</MenuItem>
-              <MenuItem value="2">울산광역시</MenuItem>
+              {sido.map((v) => (
+                <MenuItem value={v}>{v}</MenuItem>
+              ))}
             </Select>
           </FormControl>
           <FormControl sx={{ minWidth: 100 }}>
