@@ -11,15 +11,22 @@ import {
   Stack,
   TextField,
 } from "@mui/material";
-import { LocalizationProvider } from "@mui/x-date-pickers";
+import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DesktopDatePicker } from "@mui/x-date-pickers";
 import React, { ChangeEvent, useEffect, useState } from "react";
 import dayjs, { Dayjs } from "dayjs";
 import Petcard from "./Petcard";
-import { getgunAPI, getCenterAPI, getIndexAPI } from "../api/server";
+import { getgunAPI, getCenterAPI, getIndexAPI, findAPI } from "../api/server";
 import { useRecoilState } from "recoil";
-import { gunguDataState, indexDataState, placeDataState } from "../states/atom";
+import {
+  animalDataState,
+  gunguDataState,
+  indexDataState,
+  placeDataState,
+  stateData,
+  yesDataState,
+} from "../states/atom";
 
 const Search = () => {
   let today = new Date();
@@ -33,6 +40,7 @@ const Search = () => {
   const [indexselect, setIndexselect] = useState("");
   const [stateselect, setStateselect] = useState("");
   const [yesselect, setYeselect] = useState("");
+  const [sselect, setSselect] = useState("");
   const [sido, setSido] = useState([
     "서울특별시",
     "부산광역시",
@@ -52,23 +60,21 @@ const Search = () => {
     "경상남도",
     "제주특별자치도",
   ]); // 시/도
-  //const [gun, setGun] = useState([]); //군
-  //const [place, setPlace] = useState(""); //보호소
-  const [animal, setAnimal] = useState(["개", "고양이"]);
-  //const [index, setIndex] = useState("");
-  const [state, setState] = useState(["공고중", "보호중"]);
-  const [yes, Setyes] = useState(["Yes", "No", "Unknown"]);
+  const [animal, setAnimal] = useRecoilState(animalDataState);
   const [gungu, setGungu] = useRecoilState(gunguDataState);
   const [place, setPlace] = useRecoilState(placeDataState);
   const [index, setIndex] = useRecoilState(indexDataState);
+  const [state, setState] = useRecoilState(stateData);
+  const [yes, setYes] = useRecoilState(yesDataState);
 
-  const [startvalue, setStartvalue] = useState<Dayjs | null>(
+  const [startvalue, setStartvalue] = useState<Dayjs>(
     dayjs(month + "/" + date + "/" + year)
+    //dayjs(year + month + date)
   );
-  const [endvalue, setEndvalue] = useState<Dayjs | null>(
+  const [endvalue, setEndvalue] = useState<Dayjs>(
     dayjs(month + "/" + date + "/" + year)
+    //dayjs(year + month + date)
   );
-
   const sidohandleChange = (event: SelectChangeEvent<any>): void => {
     setSelect(event.target.value);
   };
@@ -80,6 +86,7 @@ const Search = () => {
   };
   const animalhandleChange = (event: SelectChangeEvent<any>) => {
     setAnimalselect(event.target.value);
+    console.log(event.target.value);
   };
   const indexhandleChange = (event: SelectChangeEvent<any>) => {
     setIndexselect(event.target.value);
@@ -90,26 +97,41 @@ const Search = () => {
   const yeshandleChange = (event: SelectChangeEvent<any>) => {
     setYeselect(event.target.value);
   };
-  const startcalendarhandleChange = (startvalue: Dayjs | null) => {
+  const startcalendarhandleChange = (startvalue: Dayjs) => {
     setStartvalue(startvalue);
+    console.log(dayjs(new Date()).format("YYYYMMDD"));
   };
-  const endcalendarhandleChange = (endvalue: Dayjs | null) => {
+  const endcalendarhandleChange = (endvalue: Dayjs) => {
     setEndvalue(endvalue);
+    console.log(dayjs(new Date()).format("YYYYMMDD"));
   };
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (
-      select ||
-      gunselect ||
-      placeselect ||
-      animalselect ||
-      indexselect ||
-      stateselect ||
-      yesselect == ""
-    ) {
-      window.alert("모두다 Select를 하세요!");
-    }
+    // if (
+    //   select ||
+    //   gunselect ||
+    //   placeselect ||
+    //   animalselect ||
+    //   indexselect ||
+    //   stateselect ||
+    //   yesselect == ""
+    // ) {
+    //   window.alert("모두다 Select를 하세요!");
+    // } else {
+    findAPI(
+      placeselect,
+      endvalue.format("YYYYMMDD"),
+      gunselect,
+      indexselect,
+      animalselect,
+      yesselect,
+      select,
+      startvalue.format("YYYYMMDD"),
+      stateselect
+    );
+    //}
   };
+
   useEffect(() => {
     getgunAPI(select, setGungu);
   }, [select]);
@@ -119,6 +141,19 @@ const Search = () => {
   useEffect(() => {
     getIndexAPI(animalselect, setIndex);
   }, [animalselect]);
+  // useEffect(() => {
+  //   findAPI(
+  //     placeselect,
+  //     endvalue.format("YYYYMMDD"),
+  //     gunselect,
+  //     indexselect,
+  //     animalselect,
+  //     yesselect,
+  //     select,
+  //     startvalue.format("YYYYMMDD"),
+  //     stateselect
+  //   );
+  // }, []);
 
   return (
     <>
@@ -179,7 +214,7 @@ const Search = () => {
                 label="개/고양이"
               >
                 {animal.map((v) => (
-                  <MenuItem value={v}>{v}</MenuItem>
+                  <MenuItem value={v.id}>{v.name}</MenuItem>
                 ))}
               </Select>
             </FormControl>
@@ -205,7 +240,7 @@ const Search = () => {
                 label="현재상태"
               >
                 {state.map((v) => (
-                  <MenuItem value={v}>{v}</MenuItem>
+                  <MenuItem value={v.id}>{v.name}</MenuItem>
                 ))}
               </Select>
             </FormControl>
@@ -218,14 +253,14 @@ const Search = () => {
                 label="중성화 여부"
               >
                 {yes.map((v) => (
-                  <MenuItem value={v}>{v}</MenuItem>
+                  <MenuItem value={v.id}>{v.name}</MenuItem>
                 ))}
               </Select>
             </FormControl>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DesktopDatePicker
                 label="시작일"
-                inputFormat="MM/DD/YYYY"
+                inputFormat="YYYYMMDD"
                 value={startvalue}
                 onChange={startcalendarhandleChange}
                 renderInput={(params) => <TextField {...params} />}
@@ -234,7 +269,7 @@ const Search = () => {
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DesktopDatePicker
                 label="종료일"
-                inputFormat="MM/DD/YYYY"
+                inputFormat="YYYYMMDD"
                 value={endvalue}
                 onChange={endcalendarhandleChange}
                 renderInput={(params) => <TextField {...params} />}

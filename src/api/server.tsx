@@ -7,6 +7,7 @@ import { SetterOrUpdater } from "recoil";
 const gunurl = "/find/gungu";
 const centerurl = "/find/center";
 const indexurl = "/find/kind";
+const findurl = "/find/abandonded";
 
 const headerConfig = {
   "Content-Type": "application/json",
@@ -68,4 +69,37 @@ const getIndexAPI = async (
       handleError(error);
     });
 };
-export { getgunAPI, getCenterAPI, getIndexAPI };
+const findAPI = async (
+  center: string,
+  end_time: string,
+  gungu_code: string,
+  kind: string,
+  kind_code: string,
+  neuter: string,
+  si_code: string,
+  start_time: string,
+  state: string
+) => {
+  await axios
+    .post(API_URL + findurl, null, {
+      params: {
+        center,
+        end_time,
+        gungu_code,
+        kind,
+        kind_code,
+        neuter,
+        si_code,
+        start_time,
+        state,
+      },
+      headers: headerConfig,
+    })
+    .then((response) => {
+      console.log(response.data);
+    })
+    .catch((error) => {
+      handleError(error);
+    });
+};
+export { getgunAPI, getCenterAPI, getIndexAPI, findAPI };
