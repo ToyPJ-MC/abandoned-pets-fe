@@ -14,11 +14,12 @@ import {
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DesktopDatePicker } from "@mui/x-date-pickers";
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import dayjs, { Dayjs } from "dayjs";
-import { useRecoilState } from "recoil";
-import { sidoDataState } from "../states/atom";
 import Petcard from "./Petcard";
+import { getgunAPI, getCenterAPI, getIndexAPI } from "../api/server";
+import { useRecoilState } from "recoil";
+import { gunguDataState, indexDataState, placeDataState } from "../states/atom";
 
 const Search = () => {
   let today = new Date();
@@ -26,6 +27,12 @@ const Search = () => {
   let month = today.getMonth() + 1;
   let date = today.getDate();
   const [select, setSelect] = useState(""); //시/도 select
+  const [gunselect, setGunselect] = useState("");
+  const [placeselect, setPlaceselect] = useState("");
+  const [animalselect, setAnimalselect] = useState("");
+  const [indexselect, setIndexselect] = useState("");
+  const [stateselect, setStateselect] = useState("");
+  const [yesselect, setYeselect] = useState("");
   const [sido, setSido] = useState([
     "서울특별시",
     "부산광역시",
@@ -45,12 +52,15 @@ const Search = () => {
     "경상남도",
     "제주특별자치도",
   ]); // 시/도
-  const [gun, setGun] = useState(""); //군
-  const [place, setPlace] = useState(""); //보호소
-  const [animal, setAnimal] = useState("");
-  const [index, setIndex] = useState("");
-  const [state, setState] = useState("");
-  const [yes, Setyes] = useState("");
+  //const [gun, setGun] = useState([]); //군
+  //const [place, setPlace] = useState(""); //보호소
+  const [animal, setAnimal] = useState(["개", "고양이"]);
+  //const [index, setIndex] = useState("");
+  const [state, setState] = useState(["공고중", "보호중"]);
+  const [yes, Setyes] = useState(["Yes", "No", "Unknown"]);
+  const [gungu, setGungu] = useRecoilState(gunguDataState);
+  const [place, setPlace] = useRecoilState(placeDataState);
+  const [index, setIndex] = useRecoilState(indexDataState);
 
   const [startvalue, setStartvalue] = useState<Dayjs | null>(
     dayjs(month + "/" + date + "/" + year)
@@ -59,26 +69,26 @@ const Search = () => {
     dayjs(month + "/" + date + "/" + year)
   );
 
-  const sidohandleChange = (event: SelectChangeEvent<string>): void => {
+  const sidohandleChange = (event: SelectChangeEvent<any>): void => {
     setSelect(event.target.value);
   };
-  const gunhandleChange = (event: SelectChangeEvent) => {
-    setGun(event.target.value);
+  const gunhandleChange = (event: SelectChangeEvent<any>) => {
+    setGunselect(event.target.value);
   };
-  const placehandleChange = (event: SelectChangeEvent) => {
-    setPlace(event.target.value);
+  const placehandleChange = (event: SelectChangeEvent<any>) => {
+    setPlaceselect(event.target.value);
   };
-  const animalhandleChange = (event: SelectChangeEvent) => {
-    setAnimal(event.target.value);
+  const animalhandleChange = (event: SelectChangeEvent<any>) => {
+    setAnimalselect(event.target.value);
   };
-  const indexhandleChange = (event: SelectChangeEvent) => {
-    setIndex(event.target.value);
+  const indexhandleChange = (event: SelectChangeEvent<any>) => {
+    setIndexselect(event.target.value);
   };
-  const statehandleChange = (event: SelectChangeEvent) => {
-    setState(event.target.value);
+  const statehandleChange = (event: SelectChangeEvent<any>) => {
+    setStateselect(event.target.value);
   };
-  const yeshandleChange = (event: SelectChangeEvent) => {
-    Setyes(event.target.value);
+  const yeshandleChange = (event: SelectChangeEvent<any>) => {
+    setYeselect(event.target.value);
   };
   const startcalendarhandleChange = (startvalue: Dayjs | null) => {
     setStartvalue(startvalue);
@@ -88,10 +98,27 @@ const Search = () => {
   };
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (select || gun || place || animal || index || state || yes == "") {
+    if (
+      select ||
+      gunselect ||
+      placeselect ||
+      animalselect ||
+      indexselect ||
+      stateselect ||
+      yesselect == ""
+    ) {
       window.alert("모두다 Select를 하세요!");
     }
   };
+  useEffect(() => {
+    getgunAPI(select, setGungu);
+  }, [select]);
+  useEffect(() => {
+    getCenterAPI(select, gunselect, setPlace);
+  }, [gunselect]);
+  useEffect(() => {
+    getIndexAPI(animalselect, setIndex);
+  }, [animalselect]);
 
   return (
     <>
@@ -120,73 +147,79 @@ const Search = () => {
             <FormControl sx={{ minWidth: 100 }}>
               <InputLabel id="gun">군/구</InputLabel>
               <Select
-                value={gun}
+                value={gunselect}
                 onChange={gunhandleChange}
                 autoWidth
                 label="군/구"
               >
-                <MenuItem value="1">동구</MenuItem>
-                <MenuItem value="2">강남구</MenuItem>
+                {gungu.map((value) => (
+                  <MenuItem value={value}>{value}</MenuItem>
+                ))}
               </Select>
             </FormControl>
             <FormControl sx={{ minWidth: 150 }}>
               <InputLabel id="place">보호소</InputLabel>
               <Select
-                value={place}
+                value={placeselect}
                 onChange={placehandleChange}
                 autoWidth
                 label="보호소"
               >
-                <MenuItem value="1">한국보호소</MenuItem>
-                <MenuItem value="2">외국보호소</MenuItem>
+                {place.map((value) => (
+                  <MenuItem value={value}>{value}</MenuItem>
+                ))}
               </Select>
             </FormControl>
             <FormControl sx={{ minWidth: 100 }}>
               <InputLabel id="place">개/고양이</InputLabel>
               <Select
-                value={animal}
+                value={animalselect}
                 onChange={animalhandleChange}
                 autoWidth
                 label="개/고양이"
               >
-                <MenuItem value="1">개</MenuItem>
-                <MenuItem value="2">고양이</MenuItem>
+                {animal.map((v) => (
+                  <MenuItem value={v}>{v}</MenuItem>
+                ))}
               </Select>
             </FormControl>
             <FormControl sx={{ minWidth: 150 }}>
               <InputLabel id="place">품종</InputLabel>
               <Select
-                value={index}
+                value={indexselect}
                 onChange={indexhandleChange}
                 autoWidth
                 label="품종"
               >
-                <MenuItem value="1">골든 리트리버</MenuItem>
-                <MenuItem value="2">스코티쉬폴드</MenuItem>
+                {index.map((v) => (
+                  <MenuItem value={v}>{v}</MenuItem>
+                ))}
               </Select>
             </FormControl>
             <FormControl sx={{ minWidth: 100 }}>
               <InputLabel id="place">현재상태</InputLabel>
               <Select
-                value={state}
+                value={stateselect}
                 onChange={statehandleChange}
                 autoWidth
                 label="현재상태"
               >
-                <MenuItem value="notice">공고중</MenuItem>
-                <MenuItem value="protect">보호중</MenuItem>
+                {state.map((v) => (
+                  <MenuItem value={v}>{v}</MenuItem>
+                ))}
               </Select>
             </FormControl>
             <FormControl sx={{ minWidth: 120 }}>
               <InputLabel id="place">중성화 여부</InputLabel>
               <Select
-                value={yes}
+                value={yesselect}
                 onChange={yeshandleChange}
                 autoWidth
                 label="중성화 여부"
               >
-                <MenuItem value="y">중성화 O</MenuItem>
-                <MenuItem value="n">중성화 X</MenuItem>
+                {yes.map((v) => (
+                  <MenuItem value={v}>{v}</MenuItem>
+                ))}
               </Select>
             </FormControl>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
