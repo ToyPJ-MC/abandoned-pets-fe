@@ -6,7 +6,7 @@ const Main = () => {
     <>
       <div className="h-full w-full flex flex-col">
         <div className="ml-10">
-          <h1>MJ PET</h1>
+          <h1 className="text-green-700">MJ PET</h1>
         </div>
         <div className="left-1/2 mt-10">
           <Search />

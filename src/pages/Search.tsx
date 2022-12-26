@@ -86,6 +86,13 @@ const Search = () => {
   const endcalendarhandleChange = (endvalue: Dayjs | null) => {
     setEndvalue(endvalue);
   };
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (select || gun || place || animal || index || state || yes == "") {
+      window.alert("모두다 Select를 하세요!");
+    }
+  };
+
   return (
     <>
       <div className="container mx-auto">
@@ -200,14 +207,23 @@ const Search = () => {
                 renderInput={(params) => <TextField {...params} />}
               />
             </LocalizationProvider>
-            <Button variant="contained" size="medium">
-              조회
-            </Button>
+            <form onSubmit={handleSubmit}>
+              <Button variant="contained" size="medium" type="submit">
+                조회
+              </Button>
+            </form>
           </Stack>
         </Paper>
       </div>
       <div className="container mx-auto mt-20 mb-10">
-        <Paper sx={{ height: "600px", minWidth: 200, paddingTop: 10 }}>
+        <Paper
+          sx={{
+            height: "600px",
+            minWidth: 200,
+            paddingTop: 10,
+            borderRadius: "30px",
+          }}
+        >
           <Petcard />
         </Paper>
       </div>
