@@ -1,1 +1,65 @@
-import React from 'react';
+import { atom } from "recoil";
+
+const gunguDataState = atom({
+  key: "gun",
+  default: ["없음"],
+});
+const placeDataState = atom({
+  key: "place",
+  default: ["없음"],
+});
+const indexDataState = atom({
+  key: "index",
+  default: ["default"],
+});
+const animalDataState = atom({
+  key: "animal",
+  default: [
+    {
+      id: 417000,
+      name: "개",
+    },
+    {
+      id: 422400,
+      name: "고양이",
+    },
+  ],
+});
+const stateData = atom({
+  key: "state",
+  default: [
+    {
+      id: "notice",
+      name: "공고중",
+    },
+    {
+      id: "protect",
+      name: "보호중",
+    },
+  ],
+});
+const yesDataState = atom({
+  key: "Yes",
+  default: [
+    {
+      id: "Y",
+      name: "중성화 O",
+    },
+    {
+      id: "N",
+      name: "중성화 X",
+    },
+    {
+      id: "U",
+      name: "미상",
+    },
+  ],
+});
+export {
+  gunguDataState,
+  placeDataState,
+  indexDataState,
+  animalDataState,
+  stateData,
+  yesDataState,
+};

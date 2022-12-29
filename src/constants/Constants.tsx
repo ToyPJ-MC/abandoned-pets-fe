@@ -1,3 +1,3 @@
-const API_URL = 'localhost:3000';
+const API_URL = "http://192.168.0.16:8080/api";
 
 export { API_URL };
