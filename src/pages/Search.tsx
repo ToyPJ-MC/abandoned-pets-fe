@@ -40,7 +40,6 @@ const Search = () => {
   const [indexselect, setIndexselect] = useState("");
   const [stateselect, setStateselect] = useState("");
   const [yesselect, setYeselect] = useState("");
-  const [sselect, setSselect] = useState("");
   const [sido, setSido] = useState([
     "서울특별시",
     "부산광역시",
@@ -99,37 +98,37 @@ const Search = () => {
   };
   const startcalendarhandleChange = (startvalue: Dayjs) => {
     setStartvalue(startvalue);
-    console.log(dayjs(new Date()).format("YYYYMMDD"));
+    //console.log(dayjs(new Date()).format("YYYYMMDD"));
   };
   const endcalendarhandleChange = (endvalue: Dayjs) => {
     setEndvalue(endvalue);
-    console.log(dayjs(new Date()).format("YYYYMMDD"));
+    //console.log(dayjs(new Date()).format("YYYYMMDD"));
   };
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // if (
-    //   select ||
-    //   gunselect ||
-    //   placeselect ||
-    //   animalselect ||
-    //   indexselect ||
-    //   stateselect ||
-    //   yesselect == ""
-    // ) {
-    //   window.alert("모두다 Select를 하세요!");
-    // } else {
-    findAPI(
-      placeselect,
-      endvalue.format("YYYYMMDD"),
-      gunselect,
-      indexselect,
-      animalselect,
-      yesselect,
-      select,
-      startvalue.format("YYYYMMDD"),
-      stateselect
-    );
-    //}
+    if (
+      select == "" ||
+      gunselect == "" ||
+      placeselect == "" ||
+      animalselect == "" ||
+      indexselect == "" ||
+      stateselect == "" ||
+      yesselect == ""
+    ) {
+      window.alert("모두다 Select를 하세요!");
+    } else {
+      findAPI(
+        placeselect,
+        endvalue.format("YYYYMMDD"),
+        gunselect,
+        indexselect,
+        animalselect,
+        yesselect,
+        select,
+        startvalue.format("YYYYMMDD"),
+        stateselect
+      );
+    }
   };
 
   useEffect(() => {
@@ -141,19 +140,6 @@ const Search = () => {
   useEffect(() => {
     getIndexAPI(animalselect, setIndex);
   }, [animalselect]);
-  // useEffect(() => {
-  //   findAPI(
-  //     placeselect,
-  //     endvalue.format("YYYYMMDD"),
-  //     gunselect,
-  //     indexselect,
-  //     animalselect,
-  //     yesselect,
-  //     select,
-  //     startvalue.format("YYYYMMDD"),
-  //     stateselect
-  //   );
-  // }, []);
 
   return (
     <>
