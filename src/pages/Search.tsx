@@ -23,16 +23,19 @@ import {
   animalDataState,
   gunguDataState,
   indexDataState,
+  petindexDataState,
   placeDataState,
   stateData,
   yesDataState,
 } from "../states/atom";
+import { useNavigate } from "react-router-dom";
 
 const Search = () => {
   let today = new Date();
   let year = today.getFullYear();
   let month = today.getMonth() + 1;
   let date = today.getDate();
+  let navigate = useNavigate();
   const [select, setSelect] = useState(""); //시/도 select
   const [gunselect, setGunselect] = useState("");
   const [placeselect, setPlaceselect] = useState("");
@@ -65,6 +68,7 @@ const Search = () => {
   const [index, setIndex] = useRecoilState(indexDataState);
   const [state, setState] = useRecoilState(stateData);
   const [yes, setYes] = useRecoilState(yesDataState);
+  const [petindex, setPetindex] = useRecoilState(petindexDataState);
 
   const [startvalue, setStartvalue] = useState<Dayjs>(
     dayjs(month + "/" + date + "/" + year)
@@ -85,7 +89,7 @@ const Search = () => {
   };
   const animalhandleChange = (event: SelectChangeEvent<any>) => {
     setAnimalselect(event.target.value);
-    console.log(event.target.value);
+    //console.log(event.target.value);
   };
   const indexhandleChange = (event: SelectChangeEvent<any>) => {
     setIndexselect(event.target.value);
@@ -126,8 +130,10 @@ const Search = () => {
         yesselect,
         select,
         startvalue.format("YYYYMMDD"),
-        stateselect
+        stateselect,
+        setPetindex
       );
+      navigate("/Petindex");
     }
   };
 

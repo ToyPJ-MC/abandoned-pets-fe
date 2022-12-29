@@ -78,7 +78,8 @@ const findAPI = async (
   neuter: string,
   si_code: string,
   start_time: string,
-  state: string
+  state: string,
+  setPetindex: SetterOrUpdater<any>
 ) => {
   await axios
     .post(API_URL + findurl, null, {
@@ -97,6 +98,7 @@ const findAPI = async (
     })
     .then((response) => {
       console.log(response.data);
+      setPetindex(response.data);
     })
     .catch((error) => {
       handleError(error);

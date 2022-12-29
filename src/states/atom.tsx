@@ -55,6 +55,35 @@ const yesDataState = atom({
     },
   ],
 });
+const petindexDataState = atom({
+  key: "petindex",
+  default: [
+    {
+      sexCd: "",
+      kindCd: "",
+      noticeNo: "",
+      processState: "",
+      careAddr: "",
+      noticeSdt: "",
+      weight: "",
+      chargeNm: "",
+      desertionNo: "",
+      careNm: "",
+      careTel: "",
+      happenPlace: "",
+      officatel: "",
+      orgNm: "",
+      filename: "",
+      popfile: "",
+      noticeEdt: "",
+      netureYn: "",
+      specailMark: "",
+      colorCd: "",
+      happenDt: "",
+      age: "",
+    },
+  ],
+});
 export {
   gunguDataState,
   placeDataState,
@@ -62,4 +91,5 @@ export {
   animalDataState,
   stateData,
   yesDataState,
+  petindexDataState,
 };

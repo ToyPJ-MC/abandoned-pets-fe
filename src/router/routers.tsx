@@ -1,8 +1,9 @@
-import { Main } from '../pages';
+import { Main } from "../pages";
 const Router = [
   {
-    title: 'Home',
-    url: '/',
+    title: "Home",
+    url: "/",
     component: <Main />,
   },
 ];
+export default Router;
