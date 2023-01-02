@@ -136,7 +136,10 @@ const Search = () => {
       navigate("/Petindex");
     }
   };
-
+const [windowSize, setWindowSize] = useState(0);
+const handleresize = () =>{
+  setWindowSize(window.innerWidth);
+}
   useEffect(() => {
     getgunAPI(select, setGungu);
   }, [select]);
@@ -147,16 +150,21 @@ const Search = () => {
     getIndexAPI(animalselect, setIndex);
   }, [animalselect]);
 
+  useEffect(()=>{ //화면사이즈 측정
+    window.addEventListener('resize',handleresize);
+    return()=>{
+      window.removeEventListener('resze',handleresize);
+    }
+  },[])
+
   return (
     <>
       <div className="container mx-auto">
-        <Paper sx={{ height: "140px", borderRadius: "30px", minWidth: 100 }}>
-          <Stack
-            direction="row"
-            justifyContent="space-evenly"
-            alignItems="center"
-            spacing={3}
-            sx={{ paddingTop: 5, paddingLeft: 5, paddingRight: 5 }}
+        <Paper sx={{ borderRadius: "30px", minWidth: 100, maxHeight:900 }}>
+          {windowSize <=1500 ? <Stack direction="column" justifyContent="space-evenly"
+          alignContent="center"
+          spacing={3}
+          sx={{ paddingTop: 5, paddingLeft: 5, paddingRight: 5, paddingBottom:5 }}
           >
             <FormControl sx={{ minWidth: 150 }}>
               <InputLabel id="cido">시/도</InputLabel>
@@ -197,7 +205,7 @@ const Search = () => {
                 ))}
               </Select>
             </FormControl>
-            <FormControl sx={{ minWidth: 100 }}>
+            <FormControl sx={{ minWidth: 110 }}>
               <InputLabel id="place">개/고양이</InputLabel>
               <Select
                 value={animalselect}
@@ -223,7 +231,7 @@ const Search = () => {
                 ))}
               </Select>
             </FormControl>
-            <FormControl sx={{ minWidth: 100 }}>
+            <FormControl sx={{ minWidth: 110 }}>
               <InputLabel id="place">현재상태</InputLabel>
               <Select
                 value={stateselect}
@@ -236,7 +244,129 @@ const Search = () => {
                 ))}
               </Select>
             </FormControl>
-            <FormControl sx={{ minWidth: 120 }}>
+            <FormControl sx={{ minWidth: 130 }}>
+              <InputLabel id="place">중성화 여부</InputLabel>
+              <Select
+                value={yesselect}
+                onChange={yeshandleChange}
+                autoWidth
+                label="중성화 여부"
+              >
+                {yes.map((v) => (
+                  <MenuItem value={v.id}>{v.name}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DesktopDatePicker
+                label="시작일"
+                inputFormat="YYYYMMDD"
+                value={startvalue}
+                onChange={startcalendarhandleChange}
+                renderInput={(params) => <TextField {...params} />}
+              />
+            </LocalizationProvider>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DesktopDatePicker
+                label="종료일"
+                inputFormat="YYYYMMDD"
+                value={endvalue}
+                onChange={endcalendarhandleChange}
+                renderInput={(params) => <TextField {...params} />}
+              />
+            </LocalizationProvider>
+            <form onSubmit={handleSubmit}>
+              <Button variant="contained" size="medium" type="submit">
+                조회
+              </Button>
+            </form>
+          </Stack> : 
+          <Stack
+            direction="row"
+            justifyContent="space-evenly"
+            alignItems="center"
+            spacing={3}
+            sx={{ paddingTop: 5, paddingLeft: 5, paddingRight: 5, paddingBottom: 5 }}
+          >
+            <FormControl sx={{ minWidth: 150 }}>
+              <InputLabel id="cido">시/도</InputLabel>
+              <Select
+                value={select}
+                onChange={(e) => sidohandleChange(e)}
+                autoWidth
+                label="시/도"
+              >
+                {sido.map((v) => (
+                  <MenuItem value={v}>{v}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <FormControl sx={{ minWidth: 100 }}>
+              <InputLabel id="gun">군/구</InputLabel>
+              <Select
+                value={gunselect}
+                onChange={gunhandleChange}
+                autoWidth
+                label="군/구"
+              >
+                {gungu.map((value) => (
+                  <MenuItem value={value}>{value}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <FormControl sx={{ minWidth: 150 }}>
+              <InputLabel id="place">보호소</InputLabel>
+              <Select
+                value={placeselect}
+                onChange={placehandleChange}
+                autoWidth
+                label="보호소"
+              >
+                {place.map((value) => (
+                  <MenuItem value={value}>{value}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <FormControl sx={{ minWidth: 110 }}>
+              <InputLabel id="place">개/고양이</InputLabel>
+              <Select
+                value={animalselect}
+                onChange={animalhandleChange}
+                autoWidth
+                label="개/고양이"
+              >
+                {animal.map((v) => (
+                  <MenuItem value={v.id}>{v.name}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <FormControl sx={{ minWidth: 150 }}>
+              <InputLabel id="place">품종</InputLabel>
+              <Select
+                value={indexselect}
+                onChange={indexhandleChange}
+                autoWidth
+                label="품종"
+              >
+                {index.map((v) => (
+                  <MenuItem value={v}>{v}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <FormControl sx={{ minWidth: 110 }}>
+              <InputLabel id="place">현재상태</InputLabel>
+              <Select
+                value={stateselect}
+                onChange={statehandleChange}
+                autoWidth
+                label="현재상태"
+              >
+                {state.map((v) => (
+                  <MenuItem value={v.id}>{v.name}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <FormControl sx={{ minWidth: 130 }}>
               <InputLabel id="place">중성화 여부</InputLabel>
               <Select
                 value={yesselect}
@@ -273,6 +403,7 @@ const Search = () => {
               </Button>
             </form>
           </Stack>
+          } 
         </Paper>
       </div>
       <div className="container mx-auto mt-20 mb-10">
@@ -283,6 +414,7 @@ const Search = () => {
             paddingTop: 10,
             borderRadius: "30px",
           }}
+          elevation={3}
         >
           <Petcard />
         </Paper>
