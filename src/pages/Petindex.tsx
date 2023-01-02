@@ -1,4 +1,5 @@
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
@@ -62,6 +63,16 @@ import { Card, CardContent, CardMedia } from "@mui/material";
 import { findAPI } from "../api/server";
 
 const Petindex = () => {
+=======
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { petindexDataState } from "../states/atom";
+import { Card, CardContent, CardMedia } from "@mui/material";
+import { findAPI } from "../api/server";
+
+const Petindex = () => {
+>>>>>>> Stashed changes
   let navigate = useNavigate();
   const [petindex, setPetindex] = useRecoilState(petindexDataState);
   //const [petindex, setPetindex] = useState("");
@@ -119,6 +130,9 @@ const Petindex = () => {
       </div>
     </>
   );
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 };
 export default Petindex;

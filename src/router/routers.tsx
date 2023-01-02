@@ -1,5 +1,9 @@
 import { Main } from "../pages";
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+import Petindex from "../pages/Petindex";
+>>>>>>> Stashed changes
 =======
 import Petindex from "../pages/Petindex";
 >>>>>>> Stashed changes
