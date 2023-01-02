@@ -89,7 +89,6 @@ const Search = () => {
   };
   const animalhandleChange = (event: SelectChangeEvent<any>) => {
     setAnimalselect(event.target.value);
-    //console.log(event.target.value);
   };
   const indexhandleChange = (event: SelectChangeEvent<any>) => {
     setIndexselect(event.target.value);
@@ -102,11 +101,9 @@ const Search = () => {
   };
   const startcalendarhandleChange = (startvalue: Dayjs) => {
     setStartvalue(startvalue);
-    //console.log(dayjs(new Date()).format("YYYYMMDD"));
   };
   const endcalendarhandleChange = (endvalue: Dayjs) => {
     setEndvalue(endvalue);
-    //console.log(dayjs(new Date()).format("YYYYMMDD"));
   };
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -404,19 +401,6 @@ const handleresize = () =>{
             </form>
           </Stack>
           } 
-        </Paper>
-      </div>
-      <div className="container mx-auto mt-20 mb-10">
-        <Paper
-          sx={{
-            height: "600px",
-            minWidth: 200,
-            paddingTop: 10,
-            borderRadius: "30px",
-          }}
-          elevation={3}
-        >
-          <Petcard />
         </Paper>
       </div>
     </>
