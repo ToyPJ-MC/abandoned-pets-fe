@@ -136,7 +136,7 @@ const Search = () => {
       navigate("/Petindex");
     }
   };
-const [windowSize, setWindowSize] = useState(0);
+const [windowSize, setWindowSize] = useState(window.innerWidth);
 const handleresize = () =>{
   setWindowSize(window.innerWidth);
 }
