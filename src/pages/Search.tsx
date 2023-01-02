@@ -20,6 +20,7 @@ import Petcard from './Petcard';
 import { getgunAPI, getCenterAPI, getIndexAPI, findAPI } from '../api/server';
 import { useRecoilState } from 'recoil';
 import {
+<<<<<<< Updated upstream
    animalDataState,
    gunguDataState,
    indexDataState,
@@ -146,6 +147,124 @@ const Search = () => {
    useEffect(() => {
       getIndexAPI(animalselect, setIndex);
    }, [animalselect]);
+=======
+  animalDataState,
+  gunguDataState,
+  indexDataState,
+  petindexDataState,
+  placeDataState,
+  stateData,
+  yesDataState,
+} from "../states/atom";
+import { useNavigate } from "react-router-dom";
+
+const Search = () => {
+  let today = new Date();
+  let year = today.getFullYear();
+  let month = today.getMonth() + 1;
+  let date = today.getDate();
+  let navigate = useNavigate();
+  const [select, setSelect] = useState(""); //시/도 select
+  const [gunselect, setGunselect] = useState("");
+  const [placeselect, setPlaceselect] = useState("");
+  const [animalselect, setAnimalselect] = useState("");
+  const [indexselect, setIndexselect] = useState("");
+  const [stateselect, setStateselect] = useState("");
+  const [yesselect, setYeselect] = useState("");
+  const [sido, setSido] = useState([
+    "서울특별시",
+    "부산광역시",
+    "대구광역시",
+    "인천광역시",
+    "광주광역시",
+    "세종특별시",
+    "대전광역시",
+    "울산광역시",
+    "경기도",
+    "강원도",
+    "충청북도",
+    "충청남도",
+    "전라북도",
+    "전라남도",
+    "경상북도",
+    "경상남도",
+    "제주특별자치도",
+  ]); // 시/도
+  const [animal, setAnimal] = useRecoilState(animalDataState);
+  const [gungu, setGungu] = useRecoilState(gunguDataState);
+  const [place, setPlace] = useRecoilState(placeDataState);
+  const [index, setIndex] = useRecoilState(indexDataState);
+  const [state, setState] = useRecoilState(stateData);
+  const [yes, setYes] = useRecoilState(yesDataState);
+  const [petindex, setPetindex] = useRecoilState(petindexDataState);
+
+  const [startvalue, setStartvalue] = useState<Dayjs>(
+    dayjs(month + "/" + date + "/" + year)
+    //dayjs(year + month + date)
+  );
+  const [endvalue, setEndvalue] = useState<Dayjs>(
+    dayjs(month + "/" + date + "/" + year)
+    //dayjs(year + month + date)
+  );
+  const sidohandleChange = (event: SelectChangeEvent<any>): void => {
+    setSelect(event.target.value);
+  };
+  const gunhandleChange = (event: SelectChangeEvent<any>) => {
+    setGunselect(event.target.value);
+  };
+  const placehandleChange = (event: SelectChangeEvent<any>) => {
+    setPlaceselect(event.target.value);
+  };
+  const animalhandleChange = (event: SelectChangeEvent<any>) => {
+    setAnimalselect(event.target.value);
+    //console.log(event.target.value);
+  };
+  const indexhandleChange = (event: SelectChangeEvent<any>) => {
+    setIndexselect(event.target.value);
+  };
+  const statehandleChange = (event: SelectChangeEvent<any>) => {
+    setStateselect(event.target.value);
+  };
+  const yeshandleChange = (event: SelectChangeEvent<any>) => {
+    setYeselect(event.target.value);
+  };
+  const startcalendarhandleChange = (startvalue: Dayjs) => {
+    setStartvalue(startvalue);
+    //console.log(dayjs(new Date()).format("YYYYMMDD"));
+  };
+  const endcalendarhandleChange = (endvalue: Dayjs) => {
+    setEndvalue(endvalue);
+    //console.log(dayjs(new Date()).format("YYYYMMDD"));
+  };
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (
+      select == "" ||
+      gunselect == "" ||
+      placeselect == "" ||
+      animalselect == "" ||
+      indexselect == "" ||
+      stateselect == "" ||
+      yesselect == ""
+    ) {
+      window.alert("모두다 Select를 하세요!");
+    } else {
+      findAPI(
+        placeselect,
+        endvalue.format("YYYYMMDD"),
+        gunselect,
+        indexselect,
+        animalselect,
+        yesselect,
+        select,
+        startvalue.format("YYYYMMDD"),
+        stateselect,
+        setPetindex
+      );
+      navigate("/Petindex");
+    }
+  };
+>>>>>>> Stashed changes
 
    useEffect(() => {
       //화면사이즈 측정
