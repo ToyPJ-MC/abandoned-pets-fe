@@ -8,7 +8,6 @@ import { findAPI } from '../api/server';
 const Petindex = () => {
    let navigate = useNavigate();
    const [petindex, setPetindex] = useRecoilState(petindexDataState);
-   //const [petindex, setPetindex] = useState("");
 
    const homeClick = () => {
       navigate('/');
