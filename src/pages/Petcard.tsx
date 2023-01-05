@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Card,
   CardActions,
   CardContent,
-  CardMedia,
+  Pagination,
   Grid,
   Button,
   Stack,
@@ -12,20 +12,25 @@ import {
 import { allAPI } from "../api/server";
 import { useRecoilState } from "recoil";
 import { petcardDataState } from "../states/atom";
+import "../index.css";
 
 const Petcard = () => {
   const [alldata, setAlldata] = useRecoilState(petcardDataState);
+  const [page, setPage] = useState(1);
   useEffect(() => {
-    allAPI(1, 6, setAlldata);
-  }, []);
+    allAPI(page, 6, setAlldata);
+  }, [page]);
+  const pagehandleChange = (event: React.ChangeEvent<any>, value: number) => {
+    setPage(value);
+  };
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
-        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+        <Grid container rowSpacing={5} columnSpacing={{ xs: 1, sm: 1, md: 1 }}>
           {alldata.map((v, index) => (
             <Grid item xs={2} sm={4} md={4} key={index}>
-              <Card sx={{ maxWidth: 300, marginLeft: 10 }}>
-                <img src={alldata[index].popfile} className="w-40 h-30" />
+              <Card sx={{ maxWidth: 300, marginLeft: 10, maxHeight: 500 }}>
+                <img src={alldata[index].popfile} className="h-30" />
                 <CardContent>
                   <li>나이 : {v.age}</li>
                   <li>털색 : {v.colorCd}</li>
@@ -42,6 +47,16 @@ const Petcard = () => {
             </Grid>
           ))}
         </Grid>
+        <div>
+          <Stack spacing={2} className="place-content-center mt-5">
+            <Pagination
+              count={3}
+              page={page}
+              onChange={pagehandleChange}
+              sx={{ paddingLeft: "45%" }}
+            />
+          </Stack>
+        </div>
       </Box>
     </>
   );

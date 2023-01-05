@@ -9,9 +9,10 @@ const Petnotice = () => {
         <h2>유기동물 공고</h2>
         <Paper
           sx={{
-            height: "600px",
+            height: "800px",
             minWidth: 200,
             paddingTop: 10,
+            paddingBottom: 10,
             borderRadius: "30px",
           }}
           elevation={3}
