@@ -9,17 +9,21 @@ import {
   Stack,
   Box,
 } from "@mui/material";
-import { allAPI } from "../api/server";
+import { MaxpageAPI, allAPI } from "../api/server";
 import { useRecoilState } from "recoil";
-import { petcardDataState } from "../states/atom";
+import { maxpageDataState, petcardDataState } from "../states/atom";
 import "../index.css";
 
 const Petcard = () => {
   const [alldata, setAlldata] = useRecoilState(petcardDataState);
+  const [maxpage, setMaxpage] = useRecoilState(maxpageDataState);
   const [page, setPage] = useState(1);
   useEffect(() => {
     allAPI(page, 6, setAlldata);
   }, [page]);
+  useEffect(() => {
+    MaxpageAPI(setMaxpage);
+  }, []);
   const pagehandleChange = (event: React.ChangeEvent<any>, value: number) => {
     setPage(value);
   };
@@ -50,10 +54,10 @@ const Petcard = () => {
         <div>
           <Stack spacing={2} className="place-content-center mt-5">
             <Pagination
-              count={3}
+              count={10}
               page={page}
               onChange={pagehandleChange}
-              sx={{ paddingLeft: "45%" }}
+              sx={{ paddingLeft: "40%" }}
             />
           </Stack>
         </div>

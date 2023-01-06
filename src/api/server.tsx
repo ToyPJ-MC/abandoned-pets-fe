@@ -9,6 +9,7 @@ const centerurl = "/find/center";
 const indexurl = "/find/kind";
 const findurl = "/find/abandonded";
 const allurl = "/find/all";
+const maxurl = "/find/page";
 
 const headerConfig = {
   "Content-Type": "application/json",
@@ -126,4 +127,15 @@ const allAPI = async (
       handleError(error);
     });
 };
-export { getgunAPI, getCenterAPI, getIndexAPI, findAPI, allAPI };
+const MaxpageAPI = async (setMaxpage: SetterOrUpdater<any>) => {
+  await axios
+    .get(API_URL + maxurl, {
+      params: {},
+      headers: headerConfig,
+    })
+    .then(async (response) => {
+      //console.log(response.data * 6);
+      setMaxpage(response.data);
+    });
+};
+export { getgunAPI, getCenterAPI, getIndexAPI, findAPI, allAPI, MaxpageAPI };

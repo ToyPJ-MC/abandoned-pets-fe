@@ -139,6 +139,10 @@ const petcardDataState = atom({
     },
   ],
 });
+const maxpageDataState = atom({
+  key: "Page",
+  default: 0,
+});
 export {
   gunguDataState,
   placeDataState,
@@ -148,4 +152,5 @@ export {
   yesDataState,
   petindexDataState,
   petcardDataState,
+  maxpageDataState,
 };
