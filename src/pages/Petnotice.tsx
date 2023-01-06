@@ -1,12 +1,16 @@
 import React, { useEffect } from "react";
 import { Paper } from "@mui/material";
 import Petcard from "./Petcard";
-import { MaxpageAPI } from "../api/server";
+import { MaxpageAPI, allAPI } from "../api/server";
 import { useRecoilState } from "recoil";
-import { maxpageDataState } from "../states/atom";
+import { maxpageDataState, petcardDataState } from "../states/atom";
 
 const Petnotice = () => {
+  const [alldata, setAlldata] = useRecoilState(petcardDataState);
   const [maxpage, setPage] = useRecoilState(maxpageDataState);
+  useEffect(() => {
+    allAPI(maxpage, 6, setAlldata);
+  }, []);
   useEffect(() => {
     MaxpageAPI(setPage);
   }, []);
@@ -14,7 +18,9 @@ const Petnotice = () => {
     <>
       <div className="container mx-auto mt-20 mb-10">
         <div className="text-center">
-          <h1>총 유기동물 : {maxpage * 6}마리</h1>
+          {alldata.map((v, index) =>
+            index == 5 ? <h1>총 유기동물 : {v.id}마리</h1> : null
+          )}
         </div>
         <h2>유기동물 공고</h2>
         <Paper
