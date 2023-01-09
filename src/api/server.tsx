@@ -8,6 +8,9 @@ const gunurl = "/find/gungu";
 const centerurl = "/find/center";
 const indexurl = "/find/kind";
 const findurl = "/find/abandonded";
+const allurl = "/find/all";
+const maxurl = "/find/page";
+const searchurl = "/find/search";
 
 const headerConfig = {
   "Content-Type": "application/json",
@@ -78,7 +81,8 @@ const findAPI = async (
   neuter: string,
   si_code: string,
   start_time: string,
-  state: string
+  state: string,
+  setPetindex: SetterOrUpdater<any>
 ) => {
   await axios
     .post(API_URL + findurl, null, {
@@ -97,9 +101,60 @@ const findAPI = async (
     })
     .then((response) => {
       console.log(response.data);
+      setPetindex(response.data);
     })
     .catch((error) => {
       handleError(error);
     });
 };
-export { getgunAPI, getCenterAPI, getIndexAPI, findAPI };
+const allAPI = async (
+  page: number,
+  size: number,
+  setAllData: SetterOrUpdater<any>
+) => {
+  await axios
+    .get(API_URL + allurl, {
+      params: {
+        page,
+        size,
+      },
+      headers: headerConfig,
+    })
+    .then(async (response: AxiosResponse) => {
+      //console.log(response.data);
+      setAllData(response.data);
+    })
+    .catch((error) => {
+      handleError(error);
+    });
+};
+const MaxpageAPI = async (setMaxpage: SetterOrUpdater<any>) => {
+  await axios
+    .get(API_URL + maxurl, {
+      params: {},
+      headers: headerConfig,
+    })
+    .then(async (response) => {
+      //console.log(response.data * 6);
+      setMaxpage(response.data);
+    });
+};
+const SearchAPI = async (setSearchpage: SetterOrUpdater<any>) => {
+  await axios
+    .post(API_URL + searchurl, null, {
+      params: {},
+      headers: headerConfig,
+    })
+    .then(async (response) => {
+      setSearchpage(response.data);
+    });
+};
+export {
+  getgunAPI,
+  getCenterAPI,
+  getIndexAPI,
+  findAPI,
+  allAPI,
+  MaxpageAPI,
+  SearchAPI,
+};

@@ -1,16 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { Card, CardContent, Box, Grid } from "@mui/material";
 import { useRecoilState } from "recoil";
 import { petindexDataState } from "../states/atom";
-import { Card, CardContent, CardMedia, Stack, Box, Grid } from "@mui/material";
+import { SearchAPI } from "../api/server";
 
-const Petindex = () => {
+const Latestsearch = () => {
   let navigate = useNavigate();
-  const [petindex, setPetindex] = useRecoilState(petindexDataState);
-
+  const [searchpage, setSearchpage] = useRecoilState(petindexDataState);
   const homeClick = () => {
     navigate("/");
   };
+  useEffect(() => {
+    SearchAPI(setSearchpage);
+  }, []);
   return (
     <>
       <div className="h-full w-full flex flex-col">
@@ -18,8 +21,7 @@ const Petindex = () => {
           <h1 className="text-green-700" onClick={homeClick}>
             MJ PET
           </h1>
-          <h3>{petindex[0].careNm}</h3>
-          <h3>{petindex[0].kindCd}</h3>
+          <h1>최근 조회 목록</h1>
           <div>
             <Box sx={{ flexGrow: 1 }}>
               <Grid
@@ -27,11 +29,11 @@ const Petindex = () => {
                 spacing={{ xs: 2, md: 3 }}
                 columns={{ xs: 4, sm: 8, md: 12 }}
               >
-                {petindex.map((v, index) => (
+                {searchpage.map((v, index) => (
                   <Grid item xs={2} sm={4} md={4} key={index}>
-                    <Card sx={{ minWidth: 300 }}>
+                    <Card sx={{ minWidth: 300, marginTop: 5 }}>
                       <img
-                        src={petindex[index].popfile}
+                        src={searchpage[index].popfile}
                         className="w-60 h-60"
                       />
                       <CardContent>
@@ -67,4 +69,4 @@ const Petindex = () => {
     </>
   );
 };
-export default Petindex;
+export default Latestsearch;
