@@ -16,7 +16,6 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DesktopDatePicker } from "@mui/x-date-pickers";
 import React, { ChangeEvent, useEffect, useState } from "react";
 import dayjs, { Dayjs } from "dayjs";
-import Petcard from "./Petcard";
 import { getgunAPI, getCenterAPI, getIndexAPI, findAPI } from "../api/server";
 import { useRecoilState } from "recoil";
 import {

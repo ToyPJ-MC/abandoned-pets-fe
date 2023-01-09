@@ -1,12 +1,6 @@
 import { Main } from "../pages";
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-=======
+import Latestsearch from "../pages/Latestsearch";
 import Petindex from "../pages/Petindex";
->>>>>>> Stashed changes
-=======
-import Petindex from "../pages/Petindex";
->>>>>>> Stashed changes
 const Router = [
   {
     title: "Home",
@@ -17,6 +11,11 @@ const Router = [
     title: "반려동물 조회",
     url: "Petindex",
     component: <Petindex />,
+  },
+  {
+    title: "최근 조회",
+    url: "Latestsearch",
+    component: <Latestsearch />,
   },
 ];
 export default Router;

@@ -10,6 +10,7 @@ const indexurl = "/find/kind";
 const findurl = "/find/abandonded";
 const allurl = "/find/all";
 const maxurl = "/find/page";
+const searchurl = "/find/search";
 
 const headerConfig = {
   "Content-Type": "application/json",
@@ -120,7 +121,7 @@ const allAPI = async (
       headers: headerConfig,
     })
     .then(async (response: AxiosResponse) => {
-      console.log(response.data);
+      //console.log(response.data);
       setAllData(response.data);
     })
     .catch((error) => {
@@ -138,4 +139,22 @@ const MaxpageAPI = async (setMaxpage: SetterOrUpdater<any>) => {
       setMaxpage(response.data);
     });
 };
-export { getgunAPI, getCenterAPI, getIndexAPI, findAPI, allAPI, MaxpageAPI };
+const SearchAPI = async (setSearchpage: SetterOrUpdater<any>) => {
+  await axios
+    .post(API_URL + searchurl, null, {
+      params: {},
+      headers: headerConfig,
+    })
+    .then(async (response) => {
+      setSearchpage(response.data);
+    });
+};
+export {
+  getgunAPI,
+  getCenterAPI,
+  getIndexAPI,
+  findAPI,
+  allAPI,
+  MaxpageAPI,
+  SearchAPI,
+};

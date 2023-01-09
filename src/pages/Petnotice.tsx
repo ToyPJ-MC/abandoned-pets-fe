@@ -1,18 +1,26 @@
 import React, { useEffect } from "react";
 import { Paper } from "@mui/material";
 import Petcard from "./Petcard";
-import { MaxpageAPI, allAPI } from "../api/server";
+import { MaxpageAPI, SearchAPI, allAPI } from "../api/server";
 import { useRecoilState } from "recoil";
-import { maxpageDataState, petcardDataState } from "../states/atom";
+import {
+  SearchDataState,
+  maxpageDataState,
+  petcardDataState,
+} from "../states/atom";
 
 const Petnotice = () => {
   const [alldata, setAlldata] = useRecoilState(petcardDataState);
   const [maxpage, setPage] = useRecoilState(maxpageDataState);
+  const [searchpage, setSearchpage] = useRecoilState(SearchDataState);
   useEffect(() => {
     allAPI(maxpage, 6, setAlldata);
   }, []);
   useEffect(() => {
     MaxpageAPI(setPage);
+  }, []);
+  useEffect(() => {
+    SearchAPI(setSearchpage);
   }, []);
   return (
     <>
