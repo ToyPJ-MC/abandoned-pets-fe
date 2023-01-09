@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Paper } from "@mui/material";
 import Petcard from "./Petcard";
-import { MaxpageAPI, SearchAPI, allAPI } from "../api/server";
+import { MaxpageAPI, allAPI } from "../api/server";
 import { useRecoilState } from "recoil";
 import {
   SearchDataState,
@@ -18,9 +18,6 @@ const Petnotice = () => {
   }, []);
   useEffect(() => {
     MaxpageAPI(setPage);
-  }, []);
-  useEffect(() => {
-    SearchAPI(setSearchpage);
   }, []);
   return (
     <>
