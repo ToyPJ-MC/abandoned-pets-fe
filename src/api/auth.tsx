@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect } from "react";
 import { API_URL } from "../constants/Constants";
+import Profile from "../pages/Profile";
 
 const auth = () => {
   const code = new URL(window.location.href).searchParams.get("code"); // 인가 코드 받는 부분
@@ -39,6 +40,10 @@ const auth = () => {
     getToken();
   }, []);
 
-  return <div>{code}</div>;
+  return (
+    <div>
+      <Profile />
+    </div>
+  );
 };
 export default auth;
