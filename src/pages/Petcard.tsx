@@ -17,7 +17,7 @@ import "../index.css";
 const Petcard = () => {
   const [alldata, setAlldata] = useRecoilState(petcardDataState);
   const [maxpage, setMaxpage] = useRecoilState(maxpageDataState);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
   useEffect(() => {
     allAPI(page, 6, setAlldata);
   }, [page]);
@@ -55,7 +55,7 @@ const Petcard = () => {
           <Stack spacing={2} className="place-content-center mt-5">
             <Pagination
               count={10}
-              page={page}
+              page={page + 1}
               onChange={pagehandleChange}
               sx={{ paddingLeft: "40%" }}
             />

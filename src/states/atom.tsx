@@ -198,6 +198,10 @@ const SearchDataState = atom({
     },
   ],
 });
+const totalDataState = atom({
+  key: "Total",
+  default: "  ",
+});
 export {
   gunguDataState,
   placeDataState,
@@ -209,4 +213,5 @@ export {
   petcardDataState,
   maxpageDataState,
   SearchDataState,
+  totalDataState,
 };
