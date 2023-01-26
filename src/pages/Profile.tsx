@@ -6,16 +6,18 @@ const Profile = () => {
   const [user_id, setUerid] = useState();
   const [nickname, setNickname] = useState();
   const [profileimage, setProfileimage] = useState();
+  const teststring = "accessToken";
   const headerConfig = {
     "Content-Type": "application/json",
-    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Origin": "http://203.241.228.50:18000",
   };
 
   const getProfile = async () => {
     try {
       axios
-        .get(API_URL + "/user/info", {
-          params: {},
+        .post(API_URL + "/user/info", null, {
+          params: null,
+          withCredentials: true,
           headers: headerConfig,
         })
         .then((response) => {
@@ -24,7 +26,7 @@ const Profile = () => {
           setProfileimage(response.data.properties.profie_image);
         });
     } catch (error) {
-      window.alert(error);
+      console.log(error);
     }
   };
 
@@ -33,6 +35,7 @@ const Profile = () => {
   }, []);
   return (
     <div>
+      <h1>프로필 페이지</h1>
       <h1>{user_id}</h1>
       <h3>{nickname}</h3>
       <img src={profileimage}></img>
