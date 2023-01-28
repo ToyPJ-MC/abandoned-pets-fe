@@ -22,6 +22,7 @@ const auth = () => {
     navigate("/Profile");
   };
   const [cookies, setCookie] = useCookies(["access_token"]); // cookie
+  const [refreshcookie, setRefreshcookie] = useCookies(["refresh_token"]); // refreshcookie
   const kakaologout = `https://kauth.kakao.com/oauth/logout?client_id=${REST_API_KEY}&logout_redirect_uri=${LOGOUT_REDIRECT_URI}`;
   const getToken = async () => {
     const payload = qs.stringify({
@@ -37,6 +38,7 @@ const auth = () => {
         .then((response) => {
           console.log(response);
           setCookie("access_token", response.data.access_token);
+          setRefreshcookie("refresh_token", response.data.refresh_token);
         });
     } catch (error) {
       console.log(error);

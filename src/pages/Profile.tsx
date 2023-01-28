@@ -17,7 +17,7 @@ const Profile = () => {
     const token = cookies.access_token;
     try {
       axios
-        .get("https://kapi.kakao.com/v2/user/me", {
+        .get("https://kapi.kakao.com/v1/api/talk/profile", {
           headers: { ...headerConfig, Authorization: "Bearer" + token },
         })
         .then((response) => {
