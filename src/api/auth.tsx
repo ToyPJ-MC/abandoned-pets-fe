@@ -1,9 +1,9 @@
 import axios from "axios";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { API_URL } from "../constants/Constants";
-import Profile from "../pages/Profile";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import qs from "qs";
 
 const auth = () => {
   const code = new URL(window.location.href).searchParams.get("code"); // 인가 코드 받는 부분
@@ -18,49 +18,42 @@ const auth = () => {
   const profiletest = () => {
     navigate("/Profile");
   };
-  const resetpage = () => {
-    navigate("/Auth");
-  };
+  const [accesstoken, setaccesstoken] = useState("");
 
   const getToken = async () => {
-    // const payload = JSON.stringify({
-    //   grant_type: "authorization_code",
-    //   client_id: REST_API_KEY,
-    //   redirect_uri: REDIRECT_URI,
-    //   code: code,
-    //   client_secret: CLIENT_SECRET,
-    // });
-    // try {
-    //   const response = await axios.post(API_URL + "/user/login", payload);
-    //   await axios
-    //     .post(API_URL + "/user/login", null, {
-    //       params: null,
-    //       withCredentials: true,
-    //       headers: headerConfig,
-    //     })
-    //     .then((response) => {
-    //       console.log(response);
-    //     });
-    //   response;
-    // } catch (error) {
-    //   console.log(error);
-    // }
-    await axios
-      .post(API_URL + "/user/login", null, {
-        params: { code },
-        headers: headerConfig,
-      })
-      .then((response) => {
-        console.log(response); //토큰
-        const ACCESS_TOKEN = response.data.accessToken;
-        localStorage.setItem("accesstoken", ACCESS_TOKEN);
-        profiletest;
-      })
-      .catch((error) => {
-        console.log("login error" + error);
-        window.alert("로그인 실패");
-        resetpage;
-      });
+    const payload = qs.stringify({
+      grant_type: "authorization_code",
+      client_id: REST_API_KEY,
+      redirect_uri: REDIRECT_URI,
+      code: code,
+      client_secret: CLIENT_SECRET,
+    });
+    try {
+      await axios
+        .post("https://kauth.kakao.com/oauth/token", payload)
+        .then((response) => {
+          console.log(response);
+          setaccesstoken(response.data.access_token);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+    // await axios
+    //   .post(API_URL + "/user/login", null, {
+    //     params: { code },
+    //     headers: headerConfig,
+    //   })
+    //   .then((response) => {
+    //     console.log(response); //토큰
+    //     const ACCESS_TOKEN = response.data.accessToken;
+    //     localStorage.setItem("accesstoken", ACCESS_TOKEN);
+    //     profiletest;
+    //   })
+    //   .catch((error) => {
+    //     console.log("login error" + error);
+    //     window.alert("로그인 실패");
+    //     resetpage;
+    //   });
   };
   useEffect(() => {
     getToken();
