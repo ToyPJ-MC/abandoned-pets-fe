@@ -4,21 +4,22 @@ import { API_URL } from "../constants/Constants";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import qs from "qs";
+import { useCookies } from "react-cookie";
 
 const auth = () => {
   const code = new URL(window.location.href).searchParams.get("code"); // 인가 코드 받는 부분
   const REST_API_KEY = "f572e34312b48d6cebb3d5ce372cf2a7";
   const REDIRECT_URI = "http://localhost:5173/oauth/kakao/callback";
   const CLIENT_SECRET = "8pDR4lGFWqrXfTZiDkhbBffMXBbCERxi"; // 보안에 있음(owner만 가능)
-  const headerConfig = {
-    "Content-Type": "application/json",
-    "Access-Control-Allow-Origin": "http://203.241.228.50:18000",
-  };
+  // const headerConfig = {
+  //   "Content-Type": "application/json",
+  //   "Access-Control-Allow-Origin": "http://203.241.228.50:18000",
+  // };
   const navigate = useNavigate();
   const profiletest = () => {
     navigate("/Profile");
   };
-  const [accesstoken, setaccesstoken] = useState("");
+  const [cookies, setCookie] = useCookies(["access_token"]); // cookie
 
   const getToken = async () => {
     const payload = qs.stringify({
@@ -33,7 +34,7 @@ const auth = () => {
         .post("https://kauth.kakao.com/oauth/token", payload)
         .then((response) => {
           console.log(response);
-          setaccesstoken(response.data.access_token);
+          setCookie("access_token", response.data.access_token);
         });
     } catch (error) {
       console.log(error);

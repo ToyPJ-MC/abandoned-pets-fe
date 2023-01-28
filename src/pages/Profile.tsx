@@ -1,26 +1,27 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { API_URL } from "../constants/Constants";
+import { useCookies } from "react-cookie";
 
 const Profile = () => {
   const [user_id, setUerid] = useState();
   const [nickname, setNickname] = useState();
   const [profileimage, setProfileimage] = useState();
-  const teststring = "accessToken";
+  const [cookies, Setcookie] = useCookies(["access_token"]);
+
   const headerConfig = {
     "Content-Type": "application/json",
-    "Access-Control-Allow-Origin": "http://203.241.228.50:18000",
+    "Access-Control-Allow-Origin": "*",
   };
 
   const getProfile = async () => {
+    const token = cookies.access_token;
     try {
       axios
-        .post(API_URL + "/user/info", null, {
-          params: null,
-          withCredentials: true,
-          headers: headerConfig,
+        .get("https://kapi.kakao.com/v2/user/me", {
+          headers: { ...headerConfig, Authorization: "Bearer" + token },
         })
         .then((response) => {
+          console.log(response);
           setUerid(response.data.id);
           setNickname(response.data.properties.nickname);
           setProfileimage(response.data.properties.profie_image);
