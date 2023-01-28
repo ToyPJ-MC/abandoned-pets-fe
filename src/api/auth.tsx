@@ -11,16 +11,18 @@ const auth = () => {
   const REST_API_KEY = "f572e34312b48d6cebb3d5ce372cf2a7";
   const REDIRECT_URI = "http://localhost:5173/oauth/kakao/callback";
   const CLIENT_SECRET = "8pDR4lGFWqrXfTZiDkhbBffMXBbCERxi"; // 보안에 있음(owner만 가능)
-  // const headerConfig = {
-  //   "Content-Type": "application/json",
-  //   "Access-Control-Allow-Origin": "http://203.241.228.50:18000",
-  // };
+  const ADMIN_KEY = "070dc3f693269f960dff79d25a6a00e5";
+  const LOGOUT_REDIRECT_URI = "http://localhost:5173";
+  const headerConfig = {
+    "Content-Type": "application/json",
+    "Access-Control-Allow-Origin": "http://203.241.228.50:18000",
+  };
   const navigate = useNavigate();
   const profiletest = () => {
     navigate("/Profile");
   };
   const [cookies, setCookie] = useCookies(["access_token"]); // cookie
-
+  const kakaologout = `https://kauth.kakao.com/oauth/logout?client_id=${REST_API_KEY}&logout_redirect_uri=${LOGOUT_REDIRECT_URI}`;
   const getToken = async () => {
     const payload = qs.stringify({
       grant_type: "authorization_code",
@@ -56,6 +58,9 @@ const auth = () => {
     //     resetpage;
     //   });
   };
+  // const logout = () => {
+  //   window.alert("로그아웃 성공!");
+  // };
   useEffect(() => {
     getToken();
     console.log(code);
@@ -65,6 +70,7 @@ const auth = () => {
     <div>
       <h1>Hello</h1>
       <Button onClick={profiletest}>Profile</Button>
+      <Button href={kakaologout}>로그아웃</Button>
     </div>
   );
 };
