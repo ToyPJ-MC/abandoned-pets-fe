@@ -6,7 +6,7 @@ const Profile = () => {
   const [user_id, setUerid] = useState();
   const [nickname, setNickname] = useState();
   const [profileimage, setProfileimage] = useState();
-  const [cookies, Setcookie] = useCookies(["access_token"]);
+  //const [cookies, Setcookie] = useCookies(["access_token"]);
 
   const headerConfig = {
     "Content-Type": "application/json",
@@ -14,11 +14,11 @@ const Profile = () => {
   };
 
   const getProfile = async () => {
-    const token = cookies.access_token;
+    //const token = cookies.access_token;
     try {
       axios
         .get("https://kapi.kakao.com/v1/api/talk/profile", {
-          headers: { ...headerConfig, Authorization: "Bearer" + token },
+          //headers: { ...headerConfig, Authorization: "Bearer" + token },
         })
         .then((response) => {
           console.log(response);

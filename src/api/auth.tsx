@@ -18,61 +18,50 @@ const auth = () => {
     "Access-Control-Allow-Origin": "http://203.241.228.50:18000",
   };
   const navigate = useNavigate();
-  const profiletest = () => {
-    navigate("/Profile");
+  const home = () => {
+    navigate("/");
   };
-  const [cookies, setCookie] = useCookies(["access_token"]); // cookie
+  const [cookies, setCookie, removeCookie] = useCookies(["access_token"]); // cookie
   const [refreshcookie, setRefreshcookie] = useCookies(["refresh_token"]); // refreshcookie
   const kakaologout = `https://kauth.kakao.com/oauth/logout?client_id=${REST_API_KEY}&logout_redirect_uri=${LOGOUT_REDIRECT_URI}`;
+  const [user_id, setUerid] = useState();
+  const [nickname, setNickname] = useState();
+  const [profileimage, setProfileimage] = useState();
   const getToken = async () => {
-    const payload = qs.stringify({
-      grant_type: "authorization_code",
-      client_id: REST_API_KEY,
-      redirect_uri: REDIRECT_URI,
-      code: code,
-      client_secret: CLIENT_SECRET,
-    });
     try {
       await axios
-        .post("https://kauth.kakao.com/oauth/token", payload)
+        .get(API_URL + "/user/login", {
+          params: { code },
+          headers: headerConfig,
+        })
         .then((response) => {
-          console.log(response);
-          setCookie("access_token", response.data.access_token);
-          setRefreshcookie("refresh_token", response.data.refresh_token);
+          setUerid(response.data.id);
+          setNickname(response.data.nickname);
+          //console.log(response.headers["refresh_token"]);
+          setRefreshcookie("refresh_token", response.headers["refresh_token"]);
+          setProfileimage(response.data.picture);
+          setCookie("access_token", response.headers["access_token"]);
+          //console.log(response.headers["access_token"]);
         });
     } catch (error) {
       console.log(error);
     }
-    // await axios
-    //   .post(API_URL + "/user/login", null, {
-    //     params: { code },
-    //     headers: headerConfig,
-    //   })
-    //   .then((response) => {
-    //     console.log(response); //토큰
-    //     const ACCESS_TOKEN = response.data.accessToken;
-    //     localStorage.setItem("accesstoken", ACCESS_TOKEN);
-    //     profiletest;
-    //   })
-    //   .catch((error) => {
-    //     console.log("login error" + error);
-    //     window.alert("로그인 실패");
-    //     resetpage;
-    //   });
   };
-  // const logout = () => {
-  //   window.alert("로그아웃 성공!");
-  // };
   useEffect(() => {
     getToken();
-    console.log(code);
   }, []);
+  const logout = () => {
+    window.location.href = kakaologout;
+  };
 
   return (
     <div>
       <h1>Hello</h1>
-      <Button onClick={profiletest}>Profile</Button>
-      <Button href={kakaologout}>로그아웃</Button>
+      <h1>{user_id}</h1>
+      <h3>{nickname}</h3>
+      <img src={profileimage}></img>
+      <Button onClick={logout}>로그아웃</Button>
+      <Button onClick={home}>홈으로</Button>
     </div>
   );
 };
