@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { API_URL } from "../constants/Constants";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import qs from "qs";
 import { useCookies } from "react-cookie";
 
 const auth = () => {
