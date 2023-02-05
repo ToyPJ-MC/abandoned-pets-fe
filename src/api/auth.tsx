@@ -11,7 +11,7 @@ const auth = () => {
   const REDIRECT_URI = "http://localhost:5173/oauth/kakao/callback";
   const CLIENT_SECRET = "8pDR4lGFWqrXfTZiDkhbBffMXBbCERxi"; // 보안에 있음(owner만 가능)
   const ADMIN_KEY = "070dc3f693269f960dff79d25a6a00e5";
-  const LOGOUT_REDIRECT_URI = "http://localhost:5173";
+  const LOGOUT_REDIRECT_URI = "http://203.241.228.50:55173";
   const headerConfig = {
     "Content-Type": "application/json",
     "Access-Control-Allow-Origin": "http://203.241.228.50:18000",
@@ -36,8 +36,10 @@ const auth = () => {
         .then((response) => {
           setUerid(response.data.id);
           setNickname(response.data.nickname);
-          //console.log(response.headers["refresh_token"]);
-          setRefreshcookie("refresh_token", response.headers["refresh_token"]);
+          console.log(response.data);
+          console.log(response.headers);
+          console.log(response.headers["Set-Cookie"]);
+          setRefreshcookie("refresh_token", response.headers["Set-Cookie"]);
           setProfileimage(response.data.picture);
           setCookie("access_token", response.headers["access_token"]);
           //console.log(response.headers["access_token"]);
