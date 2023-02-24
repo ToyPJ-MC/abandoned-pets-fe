@@ -12,6 +12,12 @@
 
 🧾 사용자가 자신의 최근 검색 기록을 볼 수 있다.
 
+## 🤹 팀 소개
+| 역할       | Who am I?    |
+| ---------- | ------------ |
+| 프론트     | 최진서       |
+| 백엔드     | 문상원       |
+
 ## ⚙️ 사용 기술
 <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black">
 <img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=TypeScript&logoColor=white"/>
