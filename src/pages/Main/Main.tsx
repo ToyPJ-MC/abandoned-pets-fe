@@ -5,8 +5,12 @@ import Petnotice from "../Petnotice";
 import Search from "../Search";
 import { useNavigate } from "react-router-dom";
 
+const { VITE_APP_KAKAO_KEY } = import.meta.env;
+
 const Main = () => {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
+  const REDIRECT_URI = "http://localhost:5173/oauth/kakao/callback";
+  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${VITE_APP_KAKAO_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
   const [open, setOpen] = useState(true);
 
   const handleClose = () => {
@@ -17,7 +21,8 @@ const Main = () => {
     navigate("/Latestsearch");
   }
   const loginClick = () => {
-    navigate("/Loginpage");
+    //navigate("/Loginpage");
+    navigate("/Auth");
   };
 
   return (
@@ -26,9 +31,11 @@ const Main = () => {
       <div className="h-full w-full flex flex-col">
         <div className="ml-10">
           <h1 className="text-green-700">MJ PET</h1>
-          <Button variant="contained" size="medium" onClick={loginClick}>
-            로그인
-          </Button>
+          <a href={KAKAO_AUTH_URL}>
+            <Button variant="contained" size="medium" onClick={loginClick}>
+              로그인
+            </Button>
+          </a>
           <div className="text-right pr-16">
             <Button variant="contained" size="medium" onClick={handleClick}>
               최근 조회
