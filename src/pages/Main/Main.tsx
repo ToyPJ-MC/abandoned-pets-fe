@@ -16,6 +16,9 @@ const Main = () => {
   function handleClick() {
     navigate("/Latestsearch");
   }
+  const loginClick = () => {
+    navigate("/Loginpage");
+  };
 
   return (
     <>
@@ -23,6 +26,9 @@ const Main = () => {
       <div className="h-full w-full flex flex-col">
         <div className="ml-10">
           <h1 className="text-green-700">MJ PET</h1>
+          <Button variant="contained" size="medium" onClick={loginClick}>
+            로그인
+          </Button>
           <div className="text-right pr-16">
             <Button variant="contained" size="medium" onClick={handleClick}>
               최근 조회

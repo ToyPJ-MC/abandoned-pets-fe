@@ -1,18 +1,20 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Paper } from "@mui/material";
 import Petcard from "./Petcard";
-import { MaxpageAPI, SearchAPI, allAPI } from "../api/server";
+import { MaxpageAPI, TotalAPI, allAPI } from "../api/server";
 import { useRecoilState } from "recoil";
 import {
   SearchDataState,
   maxpageDataState,
   petcardDataState,
+  totalDataState,
 } from "../states/atom";
 
 const Petnotice = () => {
   const [alldata, setAlldata] = useRecoilState(petcardDataState);
   const [maxpage, setPage] = useRecoilState(maxpageDataState);
   const [searchpage, setSearchpage] = useRecoilState(SearchDataState);
+  const [total, setTotal] = useRecoilState(totalDataState);
   useEffect(() => {
     allAPI(maxpage, 6, setAlldata);
   }, []);
@@ -20,15 +22,13 @@ const Petnotice = () => {
     MaxpageAPI(setPage);
   }, []);
   useEffect(() => {
-    SearchAPI(setSearchpage);
+    TotalAPI(setTotal);
   }, []);
   return (
     <>
       <div className="container mx-auto mt-20 mb-10">
         <div className="text-center">
-          {alldata.map((v, index) =>
-            index == 5 ? <h1>총 유기동물 : {v.id}마리</h1> : null
-          )}
+          <h1>총 {total}마리</h1>
         </div>
         <h2>유기동물 공고</h2>
         <Paper
