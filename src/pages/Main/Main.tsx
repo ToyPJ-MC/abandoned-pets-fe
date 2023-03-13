@@ -9,7 +9,10 @@ const { VITE_APP_KAKAO_KEY } = import.meta.env;
 
 const Main = () => {
   const navigate = useNavigate();
-  const REDIRECT_URI = "http://localhost:5173/oauth/kakao/callback";
+  const LOGOUT_REDIRECT_URI = "http://localhost:5173";
+  const kakaologout = `https://kauth.kakao.com/oauth/logout?client_id=${VITE_APP_KAKAO_KEY}&logout_redirect_uri=${LOGOUT_REDIRECT_URI}`;
+  //const REDIRECT_URI = "http://localhost:5173/oauth/kakao/callback";
+  const REDIRECT_URI = "http://localhost:5173";
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${VITE_APP_KAKAO_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
   const [open, setOpen] = useState(true);
 
@@ -21,7 +24,10 @@ const Main = () => {
     navigate("/Latestsearch");
   }
   const loginClick = () => {
-    navigate("/Auth");
+    navigate("/");
+  };
+  const logout = () => {
+    window.location.href = kakaologout;
   };
 
   return (
@@ -36,6 +42,7 @@ const Main = () => {
                 로그인
               </Button>
             </a>
+            <Button onClick={logout}>로그아웃</Button>
           </div>
         </div>
         <div className="text-right pr-16">
