@@ -6,31 +6,47 @@ import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { Main } from "../pages";
 
+const { VITE_APP_KAKAO_KEY } = import.meta.env;
+
 const headerConfig = {
   "Content-Type": "application/json",
   //"Access-Control-Allow-Credentials": true,
   "Access-Control-Allow-Origin": "*",
 };
+const loginAPI = async () => {
+  const REDIRECT_URI = "http://localhost:5173";
+  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${VITE_APP_KAKAO_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
-const profileAPI = async () => {
-  const code = new URL(window.location.href).searchParams.get("code"); // 인가 코드 받는 부분
+  await axios
+    .get(KAKAO_AUTH_URL, { headers: headerConfig })
+    .then((response) => {
+      console.log(response);
+    });
+};
+
+const TokenAPI = async () => {
+  const code = new URL(window.location.href).searchParams.get("code");
   try {
     await axios
       .get(API_URL + "/user/login", {
         params: { code },
-        headers: { ...headerConfig, withCredentials: true },
-        withCredentials: true,
+        headers: headerConfig,
       })
       .then((response) => {
-        //setUerid(response.data.id);
-        //setNickname(response.data.nickname);
-        console.log(response.data);
         console.log(response);
-        //setProfileimage(response.data.picture);
       });
   } catch (error) {
-    console.log("error");
     console.log(error);
   }
 };
-export default profileAPI;
+const ProfileAPI = async () => {
+  await axios
+    .get(API_URL + "/user/info", {
+      params: {},
+      headers: headerConfig,
+    })
+    .then((response) => {
+      console.log(response);
+    });
+};
+export { TokenAPI, ProfileAPI, loginAPI };

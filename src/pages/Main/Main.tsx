@@ -4,11 +4,12 @@ import Lawdialog from "../../components/Lawdialog";
 import Petnotice from "../Petnotice";
 import Search from "../Search";
 import { useNavigate } from "react-router-dom";
-import profileAPI from "../../api/auth";
+import { ProfileAPI, TokenAPI, loginAPI } from "../../api/auth";
 
 const { VITE_APP_KAKAO_KEY } = import.meta.env;
 
 const Main = () => {
+  const code = new URL(window.location.href).searchParams.get("code"); // 인가 코드 받는 부분
   const navigate = useNavigate();
   const LOGOUT_REDIRECT_URI = "http://localhost:5173";
   const kakaologout = `https://kauth.kakao.com/oauth/logout?client_id=${VITE_APP_KAKAO_KEY}&logout_redirect_uri=${LOGOUT_REDIRECT_URI}`;
@@ -20,13 +21,13 @@ const Main = () => {
   const handleClose = () => {
     setOpen(false);
   };
-
   const profileclick = () => {
-    //navigate("/Latestsearch");
-    profileAPI();
+    ProfileAPI();
   };
-  const loginClick = () => {
-    navigate("/");
+
+  const loginClick = async () => {
+    //loginAPI();
+    await TokenAPI();
   };
   const logout = () => {
     window.location.href = kakaologout;

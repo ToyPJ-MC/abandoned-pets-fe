@@ -39,6 +39,7 @@ const Petcard = () => {
                   marginLeft: 10,
                   maxHeight: 500,
                   marginRight: 10,
+                  borderRadius: 5,
                 }}
               >
                 <img src={alldata[index].popfile} className="h-30" />
