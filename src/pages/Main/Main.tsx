@@ -4,6 +4,7 @@ import Lawdialog from "../../components/Lawdialog";
 import Petnotice from "../Petnotice";
 import Search from "../Search";
 import { useNavigate } from "react-router-dom";
+import profileAPI from "../../api/auth";
 
 const { VITE_APP_KAKAO_KEY } = import.meta.env;
 
@@ -20,9 +21,10 @@ const Main = () => {
     setOpen(false);
   };
 
-  function handleClick() {
-    navigate("/Latestsearch");
-  }
+  const profileclick = () => {
+    //navigate("/Latestsearch");
+    profileAPI();
+  };
   const loginClick = () => {
     navigate("/");
   };
@@ -46,8 +48,8 @@ const Main = () => {
           </div>
         </div>
         <div className="text-right pr-16">
-          <Button variant="contained" size="medium" onClick={handleClick}>
-            최근 조회
+          <Button variant="contained" size="medium" onClick={profileclick}>
+            프로필
           </Button>
         </div>
         <div className="left-1/2 mt-10">

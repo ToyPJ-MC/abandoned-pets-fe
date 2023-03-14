@@ -1,7 +1,6 @@
 import { Main } from "../pages";
 import Latestsearch from "../pages/Latestsearch";
 import Petindex from "../pages/Petindex";
-import Auth from "../api/auth";
 const Router = [
   {
     title: "Home",
@@ -17,10 +16,6 @@ const Router = [
     title: "최근 조회",
     url: "Latestsearch",
     component: <Latestsearch />,
-  },
-  {
-    title: "카카오 로그인 페이지",
-    component: <Auth />,
   },
 ];
 export default Router;
