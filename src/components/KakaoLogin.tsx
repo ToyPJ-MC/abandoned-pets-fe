@@ -19,9 +19,9 @@ const KakaoLogin = () => {
       redirectUri: "http://localhost:5173",
     });
   };
-  useEffect(() => {
-    TokenAPI();
-  }, []);
+  //   useEffect(() => {
+  //     TokenAPI();
+  //   }, []);
   //   useEffect(() => {
   //     axios.post(
   //       "/oauth/token",

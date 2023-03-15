@@ -54,6 +54,7 @@ const TokenAPI = () => {
         code: code,
       },
       headers: headerConfig,
+      WithCredentials: true,
     })
     .then((response) => {
       console.log(response.data);
