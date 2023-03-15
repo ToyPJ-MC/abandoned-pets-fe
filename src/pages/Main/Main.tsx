@@ -1,12 +1,16 @@
 import { Button, Dialog } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Lawdialog from "../../components/Lawdialog";
 import Petnotice from "../Petnotice";
 import Search from "../Search";
 import { useNavigate } from "react-router-dom";
-import { ProfileAPI, TokenAPI, loginAPI } from "../../api/auth";
+import { ProfileAPI } from "../../api/auth";
+import KakaoLogin from "../../components/KakaoLogin";
+import { Cookies, useCookies } from "react-cookie";
+import { getCookie } from "../../util/Cookie";
+import Kakaoprofile from "../../components/Kakaoprofile";
 
-const { VITE_APP_KAKAO_KEY } = import.meta.env;
+const { VITE_APP_KAKAO_KEY, VITE_APP_KAKAO_JS_KEY } = import.meta.env;
 
 const Main = () => {
   const code = new URL(window.location.href).searchParams.get("code"); // 인가 코드 받는 부분
@@ -17,21 +21,18 @@ const Main = () => {
   const REDIRECT_URI = "http://localhost:5173";
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${VITE_APP_KAKAO_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
   const [open, setOpen] = useState(true);
-
   const handleClose = () => {
     setOpen(false);
   };
   const profileclick = () => {
     ProfileAPI();
   };
-
-  const loginClick = async () => {
-    //loginAPI();
-    await TokenAPI();
-  };
   const logout = () => {
     window.location.href = kakaologout;
   };
+  useEffect(() => {
+    window.Kakao.init(VITE_APP_KAKAO_JS_KEY);
+  }, []);
 
   return (
     <>
@@ -40,11 +41,7 @@ const Main = () => {
         <div className="ml-10 mt-5">
           <div className="text-6xl font-bold">MJ PET</div>
           <div className="text-right pr-16 mb-4">
-            <a href={KAKAO_AUTH_URL}>
-              <Button variant="contained" size="medium" onClick={loginClick}>
-                로그인
-              </Button>
-            </a>
+            <KakaoLogin />
             <Button onClick={logout}>로그아웃</Button>
           </div>
         </div>
