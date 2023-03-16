@@ -202,6 +202,15 @@ const totalDataState = atom({
   key: "Total",
   default: "  ",
 });
+const userDataState = atom({
+  key: "User",
+  default: {
+    email: "",
+    id: 0,
+    nickname: "",
+    picture: "",
+  },
+});
 export {
   gunguDataState,
   placeDataState,
@@ -214,4 +223,5 @@ export {
   maxpageDataState,
   SearchDataState,
   totalDataState,
+  userDataState,
 };

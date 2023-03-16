@@ -24,6 +24,7 @@ import {
   placeDataState,
   stateData,
   yesDataState,
+  userDataState,
 } from "../states/atom";
 import { useNavigate } from "react-router-dom";
 
@@ -66,6 +67,7 @@ const Search = () => {
   const [state, setState] = useRecoilState(stateData);
   const [yes, setYes] = useRecoilState(yesDataState);
   const [petindex, setPetindex] = useRecoilState(petindexDataState);
+  const [user, setUser] = useRecoilState(userDataState);
 
   const [startvalue, setStartvalue] = useState(
     dayjs(month + "/" + date + "/" + year)
@@ -125,7 +127,8 @@ const Search = () => {
         select,
         startvalue.format("YYYYMMDD"),
         stateselect,
-        setPetindex
+        setPetindex,
+        String(user.id)
       );
       navigate("/Petindex");
     }

@@ -9,30 +9,31 @@ import KakaoLogin from "../../components/KakaoLogin";
 import { Cookies, useCookies } from "react-cookie";
 import { getCookie } from "../../util/Cookie";
 import Kakaoprofile from "../../components/Kakaoprofile";
+import { useRecoilState } from "recoil";
+import { userDataState } from "../../states/atom";
 
 const { VITE_APP_KAKAO_KEY, VITE_APP_KAKAO_JS_KEY } = import.meta.env;
 
 const Main = () => {
-  const code = new URL(window.location.href).searchParams.get("code"); // 인가 코드 받는 부분
+  const cookies = getCookie("access_token");
   const navigate = useNavigate();
   const LOGOUT_REDIRECT_URI = "http://localhost:5173";
   const kakaologout = `https://kauth.kakao.com/oauth/logout?client_id=${VITE_APP_KAKAO_KEY}&logout_redirect_uri=${LOGOUT_REDIRECT_URI}`;
-  //const REDIRECT_URI = "http://localhost:5173/oauth/kakao/callback";
   const REDIRECT_URI = "http://localhost:5173";
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${VITE_APP_KAKAO_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
   const [open, setOpen] = useState(true);
+  const [, , removeCookie] = useCookies(["access_token"]);
+  const [user, setUser] = useRecoilState(userDataState);
   const handleClose = () => {
     setOpen(false);
   };
   const profileclick = () => {
-    ProfileAPI();
+    ProfileAPI(setUser);
   };
   const logout = () => {
     window.location.href = kakaologout;
+    removeCookie("access_token", { path: "/" });
   };
-  useEffect(() => {
-    window.Kakao.init(VITE_APP_KAKAO_JS_KEY);
-  }, []);
 
   return (
     <>
@@ -41,8 +42,11 @@ const Main = () => {
         <div className="ml-10 mt-5">
           <div className="text-6xl font-bold">MJ PET</div>
           <div className="text-right pr-16 mb-4">
-            <KakaoLogin />
-            <Button onClick={logout}>로그아웃</Button>
+            {!cookies ? (
+              <KakaoLogin />
+            ) : (
+              <Button onClick={logout}>로그아웃</Button>
+            )}
           </div>
         </div>
         <div className="text-right pr-16">

@@ -2,7 +2,8 @@ import React from "react";
 import axios from "axios";
 import { AxiosResponse } from "axios";
 import { API_URL } from "../constants/Constants";
-import { SetterOrUpdater } from "recoil";
+import { SetterOrUpdater, useRecoilState } from "recoil";
+import { userDataState } from "../states/atom";
 
 const gunurl = "/find/gungu";
 const centerurl = "/find/center";
@@ -83,7 +84,8 @@ const findAPI = async (
   si_code: string,
   start_time: string,
   state: string,
-  setPetindex: SetterOrUpdater<any>
+  setPetindex: SetterOrUpdater<any>,
+  member_id: string
 ) => {
   await axios
     .post(API_URL + findurl, null, {
@@ -97,6 +99,7 @@ const findAPI = async (
         si_code,
         start_time,
         state,
+        member_id,
       },
       headers: headerConfig,
     })

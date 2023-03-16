@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { Cookies, useCookies } from "react-cookie";
 import { Main } from "../pages";
 import { getCookie } from "../util/Cookie";
+import { SetterOrUpdater } from "recoil";
 
 const { VITE_APP_KAKAO_KEY } = import.meta.env;
 
@@ -29,32 +30,12 @@ export const loginAPI = () => {
     </div>
   );
 };
-// const TokenAPI = () => {
-//   const code = new URL(window.location.href).searchParams.get("code");
-//   axios
-//     .get(API_URL + "/user/login", {
-//       params: { code },
-//       headers: headerConfig,
-//     })
-//     .then((response) => {
-//       console.log(response.data);
-//     })
-//     .catch((error) => {
-//       console.log(error);
-//     });
-// };
 const TokenAPI = () => {
   const code = new URL(window.location.href).searchParams.get("code");
   axios
-    .post("/oauth/token", {
-      params: {
-        grant_type: "authorization_code",
-        client_id: VITE_APP_KAKAO_KEY,
-        redirect_uri: "http://localhost:5173",
-        code: code,
-      },
+    .get(API_URL + "/user/login", {
+      params: { code },
       headers: headerConfig,
-      WithCredentials: true,
     })
     .then((response) => {
       console.log(response.data);
@@ -63,15 +44,17 @@ const TokenAPI = () => {
       console.log(error);
     });
 };
-
-const ProfileAPI = () => {
-  // await axios
-  //   .get(API_URL + "/user/info", {
-  //     params: {},
-  //     headers: headerConfig,
-  //   })
-  //   .then((response) => {
-  //     console.log(response);
-  //   });
+const ProfileAPI = (setUser: SetterOrUpdater<any>) => {
+  const cookies = getCookie("access_token");
+  let token = cookies;
+  axios
+    .get(API_URL + "/user/info", {
+      params: { access_token: token },
+      headers: headerConfig,
+    })
+    .then((response) => {
+      console.log(response);
+      setUser(response.data);
+    });
 };
 export { ProfileAPI, TokenAPI };
