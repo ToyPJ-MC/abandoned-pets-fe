@@ -27,7 +27,6 @@ const Petcard = () => {
   const pagehandleChange = (event: React.ChangeEvent<any>, value: number) => {
     setPage(value - 1);
   };
-  console.log("page", page);
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
