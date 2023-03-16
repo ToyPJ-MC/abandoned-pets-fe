@@ -25,8 +25,9 @@ const Petcard = () => {
     MaxpageAPI(setMaxpage);
   }, []);
   const pagehandleChange = (event: React.ChangeEvent<any>, value: number) => {
-    setPage(value);
+    setPage(value - 1);
   };
+  console.log("page", page);
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
@@ -63,7 +64,7 @@ const Petcard = () => {
           <Stack spacing={2} className="place-content-center mt-5">
             <Pagination
               count={10}
-              page={page + 1}
+              page={page}
               onChange={pagehandleChange}
               sx={{ paddingLeft: "40%" }}
             />
