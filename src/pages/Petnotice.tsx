@@ -11,13 +11,8 @@ import {
 } from "../states/atom";
 
 const Petnotice = () => {
-  const [alldata, setAlldata] = useRecoilState(petcardDataState);
   const [maxpage, setPage] = useRecoilState(maxpageDataState);
-  const [searchpage, setSearchpage] = useRecoilState(SearchDataState);
   const [total, setTotal] = useRecoilState(totalDataState);
-  useEffect(() => {
-    allAPI(maxpage, 6, setAlldata);
-  }, []);
   useEffect(() => {
     MaxpageAPI(setPage);
   }, []);
