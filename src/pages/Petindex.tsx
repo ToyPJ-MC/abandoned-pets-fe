@@ -20,7 +20,7 @@ const Petindex = () => {
           </h1>
           <h3>{petindex[0].careNm}</h3>
           <h3>{petindex[0].kindCd}</h3>
-          <div>
+          <div className="pb-6">
             <Box sx={{ flexGrow: 1 }}>
               <Grid
                 container
@@ -29,10 +29,10 @@ const Petindex = () => {
               >
                 {petindex.map((v, index) => (
                   <Grid item xs={2} sm={4} md={4} key={index}>
-                    <Card sx={{ minWidth: 300 }}>
+                    <Card sx={{ minWidth: 300, borderRadius: 5 }}>
                       <img
                         src={petindex[index].popfile}
-                        className="w-60 h-60"
+                        className="w-full h-60"
                       />
                       <CardContent>
                         <>

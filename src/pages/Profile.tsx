@@ -11,11 +11,13 @@ const Profile = () => {
   }, []);
 
   return (
-    <div className="text-center">
+    <div className="text-center grid place-items-center">
       <h1>Profile</h1>
-      <img src={user.picture} className="h-full"></img>
-      <h1>{user.nickname}</h1>
-      <h3>이메일: {user.email}</h3>
+      <div>
+        <img src={user.picture} className="h-full mt-6"></img>
+        <h1>{user.nickname}</h1>
+        <h3>이메일: {user.email}</h3>
+      </div>
     </div>
   );
 };

@@ -53,7 +53,6 @@ const ProfileAPI = (setUser: SetterOrUpdater<any>) => {
       headers: headerConfig,
     })
     .then((response) => {
-      console.log(response);
       setUser(response.data);
     });
 };

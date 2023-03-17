@@ -147,14 +147,6 @@ const Search = () => {
     getIndexAPI(animalselect, setIndex);
   }, [animalselect]);
 
-  // useEffect(() => {
-  //   //화면사이즈 측정
-  //   window.addEventListener("resize", handleresize);
-  //   return () => {
-  //     window.removeEventListener("resze", handleresize);
-  //   };
-  // }, []);
-
   return (
     <>
       <div className="container mx-auto">
