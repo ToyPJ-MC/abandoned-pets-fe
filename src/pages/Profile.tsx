@@ -1,43 +1,21 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useCookies } from "react-cookie";
+import { ProfileAPI } from "../api/auth";
+import { useRecoilState } from "recoil";
+import { userDataState } from "../states/atom";
 
 const Profile = () => {
-  const [user_id, setUerid] = useState();
-  const [nickname, setNickname] = useState();
-  const [profileimage, setProfileimage] = useState();
-
-  const headerConfig = {
-    "Content-Type": "application/json",
-    "Access-Control-Allow-Origin": "*",
-  };
-
-  const getProfile = async () => {
-    try {
-      axios
-        .get("https://kapi.kakao.com/v1/api/talk/profile", {
-          //headers: { ...headerConfig, Authorization: "Bearer" + token },
-        })
-        .then((response) => {
-          console.log(response);
-          setUerid(response.data.id);
-          setNickname(response.data.properties.nickname);
-          setProfileimage(response.data.properties.profie_image);
-        });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
+  const [user, setUser] = useRecoilState(userDataState);
   useEffect(() => {
-    getProfile();
+    ProfileAPI(setUser);
   }, []);
+
   return (
-    <div>
-      <h1>프로필 페이지</h1>
-      <h1>{user_id}</h1>
-      <h3>{nickname}</h3>
-      <img src={profileimage}></img>
+    <div className="text-center">
+      <h1>Profile</h1>
+      <img src={user.picture} className="h-full"></img>
+      <h1>{user.nickname}</h1>
+      <h3>이메일: {user.email}</h3>
     </div>
   );
 };

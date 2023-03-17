@@ -8,27 +8,20 @@ import { ProfileAPI } from "../../api/auth";
 import KakaoLogin from "../../components/KakaoLogin";
 import { Cookies, useCookies } from "react-cookie";
 import { getCookie } from "../../util/Cookie";
-import Kakaoprofile from "../../components/Kakaoprofile";
-import { useRecoilState } from "recoil";
-import { userDataState } from "../../states/atom";
-
-const { VITE_APP_KAKAO_KEY, VITE_APP_KAKAO_JS_KEY } = import.meta.env;
+const { VITE_APP_KAKAO_KEY } = import.meta.env;
 
 const Main = () => {
   const cookies = getCookie("access_token");
   const navigate = useNavigate();
   const LOGOUT_REDIRECT_URI = "http://localhost:5173";
   const kakaologout = `https://kauth.kakao.com/oauth/logout?client_id=${VITE_APP_KAKAO_KEY}&logout_redirect_uri=${LOGOUT_REDIRECT_URI}`;
-  const REDIRECT_URI = "http://localhost:5173";
-  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${VITE_APP_KAKAO_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
   const [open, setOpen] = useState(true);
   const [, , removeCookie] = useCookies(["access_token"]);
-  const [user, setUser] = useRecoilState(userDataState);
   const handleClose = () => {
     setOpen(false);
   };
   const profileclick = () => {
-    ProfileAPI(setUser);
+    navigate("/profile");
   };
   const logout = () => {
     window.location.href = kakaologout;

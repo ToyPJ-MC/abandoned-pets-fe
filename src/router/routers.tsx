@@ -2,7 +2,7 @@ import { Main } from "../pages";
 import Latestsearch from "../pages/Latestsearch";
 import Petindex from "../pages/Petindex";
 import KakaoLogin from "../components/KakaoLogin";
-import Kakaoprofile from "../components/Kakaoprofile";
+import Profile from "../pages/Profile";
 const Router = [
   {
     title: "Home",
@@ -26,8 +26,8 @@ const Router = [
   },
   {
     title: "카카오프로필",
-    url: "/Kakaoprofile",
-    component: <Kakaoprofile />,
+    url: "/profile",
+    component: <Profile />,
   },
 ];
 export default Router;

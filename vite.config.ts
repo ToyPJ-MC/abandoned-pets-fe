@@ -9,8 +9,7 @@ export default defineConfig({
     proxy: {
       "/api": {
         //target: "http://203.241.228.50:18000/api",
-        //target: "http://192.168.0.16:8080/api",
-        target: "http://172.20.10.10:8080/api",
+        target: "http://192.168.0.16:8080/api",
         changeOrigin: true,
         secure: false,
         rewrite: (path) => path.replace(/^\/api/, ""),
