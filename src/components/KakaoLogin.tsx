@@ -23,7 +23,9 @@ const KakaoLogin = () => {
   return (
     <div>
       <a id="kakao-login-btn" href="#">
-        <Button onClick={login}>로그인</Button>
+        <button onClick={login} className="bg-white text-lg">
+          로그인
+        </button>
       </a>
     </div>
   );

@@ -38,15 +38,20 @@ const Main = () => {
             {!cookies ? (
               <KakaoLogin />
             ) : (
-              <Button onClick={logout}>로그아웃</Button>
+              <button onClick={logout} className="bg-white text-lg">
+                로그아웃
+              </button>
             )}
           </div>
         </div>
-        <div className="text-right pr-16">
-          <Button variant="contained" size="medium" onClick={profileclick}>
-            프로필
-          </Button>
-        </div>
+        {cookies ? (
+          <div className="text-right pr-16">
+            <Button variant="contained" size="medium" onClick={profileclick}>
+              프로필
+            </Button>
+          </div>
+        ) : null}
+
         <div className="left-1/2 mt-10">
           <Search />
           <Petnotice />
