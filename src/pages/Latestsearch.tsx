@@ -51,11 +51,20 @@ const Latestsearch = () => {
                           <li>몸무게 : {v.weight}</li>
                           <li>보호소 : {v.careAddr}</li>
                           <li>상태 : {v.processState}</li>
-                          <li>공고 시작일 : {v.noticeSdt}</li>
+                          <li>
+                            공고 시작일 :{" "}
+                            {v.noticeSdt.substring(0, v.noticeSdt.indexOf("T"))}
+                          </li>
                           <li>공고번호 : {v.noticeNo}</li>
-                          <li>공고 종료일 : {v.noticeEdt}</li>
+                          <li>
+                            공고 종료일 :{" "}
+                            {v.noticeEdt.substring(0, v.noticeEdt.indexOf("T"))}
+                          </li>
                           <li>발견장소 : {v.happenPlace}</li>
-                          <li>발견날짜 : {v.happenDt}</li>
+                          <li>
+                            발견날짜 :{" "}
+                            {v.happenDt.substring(0, v.happenDt.indexOf("T"))}
+                          </li>
                         </>
                       </CardContent>
                     </Card>
