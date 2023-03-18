@@ -4,6 +4,7 @@ import { AxiosResponse } from "axios";
 import { API_URL } from "../constants/Constants";
 import { SetterOrUpdater, useRecoilState } from "recoil";
 import { userDataState } from "../states/atom";
+import { getCookie } from "../util/Cookie";
 
 const gunurl = "/find/gungu";
 const centerurl = "/find/center";
@@ -11,7 +12,8 @@ const indexurl = "/find/kind";
 const findurl = "/find/abandonded";
 const allurl = "/find/all";
 const maxurl = "/find/page";
-const searchurl = "/find/search";
+//const searchurl = "/find/search";
+const searchurl = "/user/select";
 const sizeurl = "/find/size";
 
 const headerConfig = {
@@ -144,9 +146,11 @@ const MaxpageAPI = async (setMaxpage: SetterOrUpdater<any>) => {
     });
 };
 const SearchAPI = async (setSearchpage: SetterOrUpdater<any>) => {
+  const cookies = getCookie("member_id");
+  const member = cookies.toString();
   await axios
-    .post(API_URL + searchurl, null, {
-      params: {},
+    .get(API_URL + searchurl, {
+      params: { member_id: member },
       headers: headerConfig,
     })
     .then(async (response) => {
