@@ -5,7 +5,7 @@ import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { Cookies, useCookies } from "react-cookie";
 import { Main } from "../pages";
-import { getCookie } from "../util/Cookie";
+import { getCookie, setCookie } from "../util/Cookie";
 import { SetterOrUpdater } from "recoil";
 
 const { VITE_APP_KAKAO_KEY } = import.meta.env;
@@ -56,4 +56,15 @@ const ProfileAPI = (setUser: SetterOrUpdater<any>) => {
       setUser(response.data);
     });
 };
-export { ProfileAPI, TokenAPI };
+const beforeProfileAPI = () => {
+  const cookies = getCookie("access_token");
+  axios
+    .get(API_URL + "/user/info", {
+      params: { access_token: cookies },
+      headers: headerConfig,
+    })
+    .then((response) => {
+      setCookie(response.data.id);
+    });
+};
+export { ProfileAPI, TokenAPI, beforeProfileAPI };

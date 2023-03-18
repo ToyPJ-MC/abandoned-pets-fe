@@ -4,7 +4,7 @@ import Lawdialog from "../../components/Lawdialog";
 import Petnotice from "../Petnotice";
 import Search from "../Search";
 import { useNavigate } from "react-router-dom";
-import { ProfileAPI } from "../../api/auth";
+import { ProfileAPI, beforeProfileAPI } from "../../api/auth";
 import KakaoLogin from "../../components/KakaoLogin";
 import { Cookies, useCookies } from "react-cookie";
 import { getCookie } from "../../util/Cookie";
@@ -27,6 +27,12 @@ const Main = () => {
     window.location.href = kakaologout;
     removeCookie("access_token", { path: "/" });
   };
+  const latestsearch = () => {
+    navigate("/latestsearch");
+  };
+  useEffect(() => {
+    beforeProfileAPI();
+  }, []);
 
   return (
     <>
@@ -38,7 +44,10 @@ const Main = () => {
             {!cookies ? (
               <KakaoLogin />
             ) : (
-              <button onClick={logout} className="bg-white text-lg">
+              <button
+                onClick={logout}
+                className="bg-white text-lg outline-none"
+              >
                 로그아웃
               </button>
             )}
@@ -48,6 +57,9 @@ const Main = () => {
           <div className="text-right pr-16">
             <Button variant="contained" size="medium" onClick={profileclick}>
               프로필
+            </Button>
+            <Button variant="contained" size="medium" onClick={latestsearch}>
+              최근조회
             </Button>
           </div>
         ) : null}
