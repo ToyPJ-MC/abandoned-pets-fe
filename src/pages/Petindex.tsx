@@ -18,8 +18,6 @@ const Petindex = () => {
           <h1 className="text-green-700" onClick={homeClick}>
             MJ PET
           </h1>
-          {/* <h3>{petindex[0].careNm}</h3> */}
-          {/* <h3>{petindex[0].kindCd}</h3> */}
           <div className="pb-6">
             <Box sx={{ flexGrow: 1 }}>
               <Grid
