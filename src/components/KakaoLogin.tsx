@@ -1,9 +1,5 @@
-import { Button } from "@mui/material";
 import { useEffect } from "react";
-import { Cookies } from "react-cookie";
 import { TokenAPI } from "../api/auth";
-import axios from "axios";
-import { getCookie } from "../util/Cookie";
 
 const { VITE_APP_KAKAO_JS_KEY } = import.meta.env;
 
