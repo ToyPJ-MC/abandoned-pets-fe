@@ -43,7 +43,7 @@ const Petcard = () => {
                 }}
               >
                 <img src={alldata[index].popfile} className="h-30" />
-                <CardContent>
+                <CardContent className="list-none">
                   <li>나이 : {v.age}</li>
                   <li>털색 : {v.colorCd}</li>
                   <li>

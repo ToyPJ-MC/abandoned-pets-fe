@@ -33,8 +33,7 @@ const Petindex = () => {
                         className="w-full h-60"
                       />
                       <CardContent>
-                        <>
-                          <li>나이 : {v.age}</li>
+                        <ul className="list-none">
                           <li>털색 : {v.colorCd}</li>
                           <li>
                             성별 :{" "}
@@ -52,7 +51,7 @@ const Petindex = () => {
                           <li>공고 종료일 : {v.noticeEdt}</li>
                           <li>발견장소 : {v.happenPlace}</li>
                           <li>발견날짜 : {v.happenDt}</li>
-                        </>
+                        </ul>
                       </CardContent>
                     </Card>
                   </Grid>
