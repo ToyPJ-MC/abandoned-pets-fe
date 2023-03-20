@@ -9,7 +9,6 @@ import { getCookie } from "../util/Cookie";
 const gunurl = "/gungu/find";
 const centerurl = "/center/find";
 const maxurl = "/find/page";
-const searchurl = "/user/select";
 const sizeurl = "/pets/count/all";
 
 const headerConfig = {

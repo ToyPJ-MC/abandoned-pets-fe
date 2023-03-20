@@ -22,14 +22,17 @@ const Latestsearch = () => {
           <h2>최근 조회 목록</h2>
           <div>
             <Box sx={{ flexGrow: 1 }}>
-              {/* <Grid
-                container
-                spacing={{ xs: 2, md: 3 }}
-                columns={{ xs: 4, sm: 8, md: 12 }}
-              > */}
               {searchpage.map((v, index) => (
                 <Grid item xs={2} sm={4} md={4} key={index}>
-                  <Card sx={{ minWidth: 300, marginTop: 3, borderRadius: 5 }}>
+                  <Card
+                    sx={{
+                      minWidth: 300,
+                      marginTop: 3,
+                      borderRadius: 5,
+                    }}
+                    elevation={0}
+                    variant="outlined"
+                  >
                     <div className="grid grid-cols-3">
                       <div className="w-10">
                         <img
