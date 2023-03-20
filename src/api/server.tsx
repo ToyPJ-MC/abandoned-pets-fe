@@ -107,11 +107,13 @@ const findAPI = async (
       headers: headerConfig,
     })
     .then((response) => {
+      setError("");
       setPetindex(response.data);
     })
     .catch((error) => {
       const err = error as AxiosError;
       if (err.response) {
+        console.log(err.response.data);
         setError(err.response.data);
       }
     });

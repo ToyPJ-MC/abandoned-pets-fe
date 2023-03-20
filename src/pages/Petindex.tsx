@@ -20,6 +20,7 @@ const Petindex = () => {
   const homeClick = () => {
     navigate("/");
   };
+  console.log(error);
   return (
     <>
       {error === "잘못된 조회" ? (
