@@ -38,7 +38,7 @@ const Latestsearch = () => {
                         />
                       </div>
                       <div className="mt-8">
-                        <CardContent className="list-none text-center font-bold">
+                        <CardContent className="list-none text-center font-bold text-lg">
                           <>
                             <li>나이 : {v.age}</li>
                             <li>털색 : {v.colorCd}</li>
@@ -57,7 +57,7 @@ const Latestsearch = () => {
                         </CardContent>
                       </div>
                       <div className="mt-10">
-                        <CardContent className="text-center list-none font-bold">
+                        <CardContent className="text-center list-none font-bold text-lg">
                           <li>
                             공고 시작일 :{" "}
                             {v.noticeSdt.substring(0, v.noticeSdt.indexOf("T"))}
