@@ -154,7 +154,11 @@ const Search = () => {
   return (
     <>
       <div className="container mx-auto">
-        <Paper sx={{ borderRadius: "30px", minWidth: 100, maxHeight: 900 }}>
+        <Paper
+          sx={{ borderRadius: "30px", minWidth: 100, maxHeight: 900 }}
+          elevation={0}
+          variant="outlined"
+        >
           {windowSize <= 1500 ? (
             <Stack
               direction="column"

@@ -6,15 +6,15 @@ import { SetterOrUpdater, useRecoilState } from "recoil";
 import { userDataState } from "../states/atom";
 import { getCookie } from "../util/Cookie";
 
-const gunurl = "/find/gungu";
-const centerurl = "/find/center";
-const indexurl = "/find/kind";
+const gunurl = "/gungu/find";
+const centerurl = "/center/find";
+const indexurl = "/kind/kindcode=";
 const findurl = "/find/abandonded";
 const allurl = "/find/all";
 const maxurl = "/find/page";
 //const searchurl = "/find/search";
 const searchurl = "/user/select";
-const sizeurl = "/find/size";
+const sizeurl = "/pets/count/all";
 
 const headerConfig = {
   "Content-Type": "application/json",
@@ -30,10 +30,10 @@ const handleError = (error: any) => {
   }
 };
 
-const getgunAPI = async (Si_name: string, setGun: SetterOrUpdater<any>) => {
+const getgunAPI = async (si_name: string, setGun: SetterOrUpdater<any>) => {
   await axios
     .post(API_URL + gunurl, null, {
-      params: { Si_name },
+      params: { name: si_name },
       headers: headerConfig,
     })
     .then((response) => {
@@ -50,7 +50,7 @@ const getCenterAPI = async (
 ) => {
   await axios
     .post(API_URL + centerurl, null, {
-      params: { si_name, gungu_name },
+      params: { si_name: si_name, gungu_name: gungu_name },
       headers: headerConfig,
     })
     .then((response) => {
@@ -65,8 +65,8 @@ const getIndexAPI = async (
   setIndex: SetterOrUpdater<any>
 ) => {
   await axios
-    .post(API_URL + indexurl, null, {
-      params: { kind_name },
+    .post(API_URL + `/kind/find/kindcode=${kind_name}`, null, {
+      params: { kind_code: kind_name },
       headers: headerConfig,
     })
     .then((response) => {
@@ -91,7 +91,7 @@ const findAPI = async (
   setError: SetterOrUpdater<any>
 ) => {
   await axios
-    .post(API_URL + findurl, null, {
+    .post(API_URL + `/select/memberid=${member_id}/kind=${kind}`, null, {
       params: {
         center,
         end_time,
@@ -124,7 +124,7 @@ const allAPI = async (
   setAllData: SetterOrUpdater<any>
 ) => {
   await axios
-    .get(API_URL + allurl, {
+    .get(API_URL + `pets/page=${page}/size=${size}`, {
       params: {
         page,
         size,
