@@ -200,7 +200,7 @@ const SearchDataState = atom({
 });
 const totalDataState = atom({
   key: "Total",
-  default: "  ",
+  default: "",
 });
 const userDataState = atom({
   key: "User",
@@ -210,6 +210,10 @@ const userDataState = atom({
     nickname: "",
     picture: "",
   },
+});
+const errorState = atom({
+  key: "Error",
+  default: "",
 });
 export {
   gunguDataState,
@@ -224,4 +228,5 @@ export {
   SearchDataState,
   totalDataState,
   userDataState,
+  errorState,
 };

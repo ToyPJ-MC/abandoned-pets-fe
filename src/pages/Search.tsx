@@ -25,6 +25,7 @@ import {
   stateData,
   yesDataState,
   userDataState,
+  errorState,
 } from "../states/atom";
 import { useNavigate } from "react-router-dom";
 import { getCookie } from "../util/Cookie";
@@ -69,6 +70,7 @@ const Search = () => {
   const [yes, setYes] = useRecoilState(yesDataState);
   const [petindex, setPetindex] = useRecoilState(petindexDataState);
   const member = getCookie("member_id");
+  const [error, setError] = useRecoilState(errorState);
 
   const [startvalue, setStartvalue] = useState(
     dayjs(month + "/" + date + "/" + year)
@@ -129,7 +131,8 @@ const Search = () => {
         startvalue.format("YYYYMMDD"),
         stateselect,
         setPetindex,
-        String(member)
+        String(member),
+        setError
       );
       navigate("/Petindex");
     }

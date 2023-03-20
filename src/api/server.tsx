@@ -1,5 +1,5 @@
 import React from "react";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { AxiosResponse } from "axios";
 import { API_URL } from "../constants/Constants";
 import { SetterOrUpdater, useRecoilState } from "recoil";
@@ -87,7 +87,8 @@ const findAPI = async (
   start_time: string,
   state: string,
   setPetindex: SetterOrUpdater<any>,
-  member_id: string
+  member_id: string,
+  setError: SetterOrUpdater<any>
 ) => {
   await axios
     .post(API_URL + findurl, null, {
@@ -106,11 +107,13 @@ const findAPI = async (
       headers: headerConfig,
     })
     .then((response) => {
-      //console.log(response.data);
       setPetindex(response.data);
     })
     .catch((error) => {
-      handleError(error);
+      const err = error as AxiosError;
+      if (err.response) {
+        setError(err.response.data);
+      }
     });
 };
 const allAPI = async (
@@ -127,7 +130,7 @@ const allAPI = async (
       headers: headerConfig,
     })
     .then(async (response: AxiosResponse) => {
-      console.log(response.data);
+      //console.log(response.data);
       setAllData(response.data);
     })
     .catch((error) => {
