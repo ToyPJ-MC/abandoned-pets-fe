@@ -47,7 +47,7 @@ const Petcard = () => {
                   <li className="font-bold">나이 : {v.age}</li>
                   <li className="font-bold">털색 : {v.colorCd}</li>
                   <li className="font-bold">
-                    성별 :{" "}
+                    성별 :
                     {v.sexCd == "F" ? "여자" : v.sexCd == "M" ? "남자" : "미상"}
                   </li>
                   <li className="font-bold">몸무게 : {v.weight}</li>

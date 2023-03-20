@@ -55,12 +55,18 @@ const Main = () => {
         </div>
         {cookies ? (
           <div className="text-right pr-16">
-            <Button size="medium" onClick={profileclick} className="mr-2">
+            <button
+              onClick={profileclick}
+              className="mr-2 bg-white text-lg outline-none"
+            >
               프로필
-            </Button>
-            <Button size="medium" onClick={latestsearch}>
+            </button>
+            <button
+              onClick={latestsearch}
+              className="bg-white text-lg outline-none"
+            >
               최근조회
-            </Button>
+            </button>
           </div>
         ) : null}
 
