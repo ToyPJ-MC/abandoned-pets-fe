@@ -81,7 +81,6 @@ const Latestsearch = () => {
                   </Card>
                 </Grid>
               ))}
-              {/* </Grid> */}
             </Box>
           </div>
         </div>

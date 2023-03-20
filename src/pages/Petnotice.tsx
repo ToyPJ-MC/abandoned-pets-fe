@@ -33,8 +33,9 @@ const Petnotice = () => {
             paddingTop: 10,
             paddingBottom: 10,
             borderRadius: "30px",
-            backgroundColor: "#FFFFF0",
           }}
+          elevation={0}
+          variant="outlined"
         >
           <Petcard />
         </Paper>

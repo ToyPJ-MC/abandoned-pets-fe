@@ -41,6 +41,8 @@ const Petcard = () => {
                   marginRight: 10,
                   borderRadius: 5,
                 }}
+                elevation={0}
+                variant="outlined"
               >
                 <img src={alldata[index].popfile} className="h-30" />
                 <CardContent className="list-none text-lg">
