@@ -29,7 +29,7 @@ const Latestsearch = () => {
               >
                 {searchpage.map((v, index) => (
                   <Grid item xs={2} sm={4} md={4} key={index}>
-                    <Card sx={{ minWidth: 300, marginTop: 3 }}>
+                    <Card sx={{ minWidth: 300, marginTop: 3, borderRadius: 5 }}>
                       <img
                         src={searchpage[index].popfile}
                         className="w-full h-60"

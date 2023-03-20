@@ -55,10 +55,10 @@ const Main = () => {
         </div>
         {cookies ? (
           <div className="text-right pr-16">
-            <Button variant="contained" size="medium" onClick={profileclick}>
+            <Button size="medium" onClick={profileclick} className="mr-2">
               프로필
             </Button>
-            <Button variant="contained" size="medium" onClick={latestsearch}>
+            <Button size="medium" onClick={latestsearch}>
               최근조회
             </Button>
           </div>

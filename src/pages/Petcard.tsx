@@ -43,21 +43,21 @@ const Petcard = () => {
                 }}
               >
                 <img src={alldata[index].popfile} className="h-30" />
-                <CardContent className="list-none">
-                  <li>나이 : {v.age}</li>
-                  <li>털색 : {v.colorCd}</li>
-                  <li>
+                <CardContent className="list-none text-lg">
+                  <li className="font-bold">나이 : {v.age}</li>
+                  <li className="font-bold">털색 : {v.colorCd}</li>
+                  <li className="font-bold">
                     성별 :{" "}
                     {v.sexCd == "F" ? "여자" : v.sexCd == "M" ? "남자" : "미상"}
                   </li>
-                  <li>몸무게 : {v.weight}</li>
+                  <li className="font-bold">몸무게 : {v.weight}</li>
                 </CardContent>
               </Card>
             </Grid>
           ))}
         </Grid>
-        <div className="mt-20">
-          <Stack spacing={2} className="place-content-center mt-5">
+        <div>
+          <Stack spacing={2} className="place-content-center mt-10">
             <Pagination
               count={10}
               page={page}
