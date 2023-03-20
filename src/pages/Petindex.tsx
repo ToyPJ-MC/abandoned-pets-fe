@@ -69,6 +69,11 @@ const Petindex = () => {
                             <li>발견날짜 : {v.happenDt}</li>
                           </ul>
                         </CardContent>
+                        <div className="text-end mr-6 mb-6">
+                          <button className="bg-white outline-none text-lg">
+                            ❤️
+                          </button>
+                        </div>
                       </Card>
                     </Grid>
                   ))}
