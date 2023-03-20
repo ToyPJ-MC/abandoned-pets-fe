@@ -18,10 +18,8 @@ const Latestsearch = () => {
     <>
       <div className="h-full w-full flex flex-col">
         <div className="ml-10 mr-10">
-          <h1 className="text-green-700" onClick={homeClick}>
-            MJ PET
-          </h1>
-          <h1>최근 조회 목록</h1>
+          <h1 onClick={homeClick}>MJ PET</h1>
+          <h2>최근 조회 목록</h2>
           <div>
             <Box sx={{ flexGrow: 1 }}>
               <Grid
@@ -31,12 +29,12 @@ const Latestsearch = () => {
               >
                 {searchpage.map((v, index) => (
                   <Grid item xs={2} sm={4} md={4} key={index}>
-                    <Card sx={{ minWidth: 300, marginTop: 5 }}>
+                    <Card sx={{ minWidth: 300, marginTop: 3 }}>
                       <img
                         src={searchpage[index].popfile}
-                        className="w-60 h-60"
+                        className="w-full h-60"
                       />
-                      <CardContent>
+                      <CardContent className="list-none text-center">
                         <>
                           <li>나이 : {v.age}</li>
                           <li>털색 : {v.colorCd}</li>

@@ -52,14 +52,11 @@ const Petcard = () => {
                   </li>
                   <li>몸무게 : {v.weight}</li>
                 </CardContent>
-                <CardActions>
-                  <Button size="small">Detail</Button>
-                </CardActions>
               </Card>
             </Grid>
           ))}
         </Grid>
-        <div>
+        <div className="mt-20">
           <Stack spacing={2} className="place-content-center mt-5">
             <Pagination
               count={10}
