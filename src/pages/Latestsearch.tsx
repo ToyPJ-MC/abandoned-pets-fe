@@ -30,33 +30,15 @@ const Latestsearch = () => {
               {searchpage.map((v, index) => (
                 <Grid item xs={2} sm={4} md={4} key={index}>
                   <Card sx={{ minWidth: 300, marginTop: 3, borderRadius: 5 }}>
-                    <div className="w-10 float-left">
-                      <img
-                        src={searchpage[index].popfile}
-                        className="w-80 h-64"
-                      />
-                    </div>
-                    <div className="grid grid-cols-2">
-                      <div className="">
-                        <CardContent className="text-center list-none">
-                          <li>
-                            공고 시작일 :{" "}
-                            {v.noticeSdt.substring(0, v.noticeSdt.indexOf("T"))}
-                          </li>
-                          <li>공고번호 : {v.noticeNo}</li>
-                          <li>
-                            공고 종료일 :{" "}
-                            {v.noticeEdt.substring(0, v.noticeEdt.indexOf("T"))}
-                          </li>
-                          <li>발견장소 : {v.happenPlace}</li>
-                          <li>
-                            발견날짜 :{" "}
-                            {v.happenDt.substring(0, v.happenDt.indexOf("T"))}
-                          </li>
-                        </CardContent>
+                    <div className="grid grid-cols-3">
+                      <div className="w-10">
+                        <img
+                          src={searchpage[index].popfile}
+                          className="w-80 h-full"
+                        />
                       </div>
-                      <div className="float-right mt-8">
-                        <CardContent className="list-none text-center">
+                      <div className="mt-8">
+                        <CardContent className="list-none text-center font-bold">
                           <>
                             <li>나이 : {v.age}</li>
                             <li>털색 : {v.colorCd}</li>
@@ -72,6 +54,24 @@ const Latestsearch = () => {
                             <li>보호소 : {v.careAddr}</li>
                             <li>상태 : {v.processState}</li>
                           </>
+                        </CardContent>
+                      </div>
+                      <div className="mt-10">
+                        <CardContent className="text-center list-none font-bold">
+                          <li>
+                            공고 시작일 :{" "}
+                            {v.noticeSdt.substring(0, v.noticeSdt.indexOf("T"))}
+                          </li>
+                          <li>공고번호 : {v.noticeNo}</li>
+                          <li>
+                            공고 종료일 :{" "}
+                            {v.noticeEdt.substring(0, v.noticeEdt.indexOf("T"))}
+                          </li>
+                          <li>발견장소 : {v.happenPlace}</li>
+                          <li>
+                            발견날짜 :{" "}
+                            {v.happenDt.substring(0, v.happenDt.indexOf("T"))}
+                          </li>
                         </CardContent>
                       </div>
                     </div>

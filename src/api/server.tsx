@@ -8,11 +8,7 @@ import { getCookie } from "../util/Cookie";
 
 const gunurl = "/gungu/find";
 const centerurl = "/center/find";
-const indexurl = "/kind/kindcode=";
-const findurl = "/find/abandonded";
-const allurl = "/find/all";
 const maxurl = "/find/page";
-//const searchurl = "/find/search";
 const searchurl = "/user/select";
 const sizeurl = "/pets/count/all";
 
@@ -154,7 +150,7 @@ const SearchAPI = async (setSearchpage: SetterOrUpdater<any>) => {
   const cookies = getCookie("member_id");
   const member = cookies.toString();
   await axios
-    .get(API_URL + searchurl, {
+    .get(API_URL + `/member/searchlist/memberid=${member}`, {
       params: { member_id: member },
       headers: headerConfig,
     })

@@ -33,7 +33,7 @@ export const loginAPI = () => {
 const TokenAPI = () => {
   const code = new URL(window.location.href).searchParams.get("code");
   axios
-    .get(API_URL + "/user/login", {
+    .get(API_URL + "/kakao/login", {
       params: { code },
       headers: headerConfig,
     })
@@ -48,7 +48,7 @@ const ProfileAPI = (setUser: SetterOrUpdater<any>) => {
   const cookies = getCookie("access_token");
   let token = cookies;
   axios
-    .get(API_URL + "/user/info", {
+    .get(API_URL + "/kakao/info", {
       params: { access_token: token },
       headers: headerConfig,
     })
@@ -59,7 +59,7 @@ const ProfileAPI = (setUser: SetterOrUpdater<any>) => {
 const beforeProfileAPI = () => {
   const cookies = getCookie("access_token");
   axios
-    .get(API_URL + "/user/info", {
+    .get(API_URL + "/kakao/info", {
       params: { access_token: cookies },
       headers: headerConfig,
     })
