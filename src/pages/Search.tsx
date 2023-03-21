@@ -282,9 +282,9 @@ const Search = () => {
                 />
               </LocalizationProvider>
               <form onSubmit={handleSubmit}>
-                <Button variant="contained" size="medium" type="submit">
-                  조회
-                </Button>
+                <button className="bg-white text-lg outline-none" type="submit">
+                  🔎
+                </button>
               </form>
             </Stack>
           ) : (

@@ -111,6 +111,7 @@ const petcardDataState = atom({
       colorCd: "",
       happenDt: "",
       age: "",
+      petregist: "not regist",
     },
     {
       id: 1,
@@ -136,6 +137,7 @@ const petcardDataState = atom({
       colorCd: "",
       happenDt: "",
       age: "",
+      petregist: "not regist",
     },
   ],
 });

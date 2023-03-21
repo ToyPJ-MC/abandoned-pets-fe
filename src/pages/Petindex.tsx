@@ -71,7 +71,7 @@ const Petindex = () => {
                         </CardContent>
                         <div className="text-end mr-6 mb-6">
                           <button className="bg-white outline-none text-lg">
-                            ❤️
+                            📦
                           </button>
                         </div>
                       </Card>
