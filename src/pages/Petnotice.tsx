@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { Paper } from "@mui/material";
 import Petcard from "./Petcard";
 import { MaxpageAPI, TotalAPI, allAPI } from "../api/server";
@@ -37,7 +37,9 @@ const Petnotice = () => {
           elevation={0}
           variant="outlined"
         >
-          <Petcard />
+          <Suspense fallback={<h1>Loading....</h1>}>
+            <Petcard />
+          </Suspense>
         </Paper>
       </div>
     </>
