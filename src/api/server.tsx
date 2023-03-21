@@ -72,32 +72,27 @@ const getIndexAPI = async (
     });
 };
 const findAPI = async (
-  center: string,
-  end_time: string,
-  gungu_code: string,
-  kind: string,
-  kind_code: string,
-  neuter: string,
   si_code: string,
-  start_time: string,
-  state: string,
+  gungu_code: string,
+  center: string,
+  kind_code: string,
+  kind: string,
+  neuter: string,
   setPetindex: SetterOrUpdater<any>,
   member_id: string,
   setError: SetterOrUpdater<any>
 ) => {
+  const cookies = getCookie("member_id");
+  const member = cookies;
   await axios
-    .post(API_URL + `/select/memberid=${member_id}/kind=${kind}`, null, {
+    .get(API_URL + `pets/select/memberid=${member_id}/kindcode=${kind_code}`, {
       params: {
-        center,
-        end_time,
-        gungu_code,
-        kind,
-        kind_code,
-        neuter,
-        si_code,
-        start_time,
-        state,
-        member_id,
+        member_id: member,
+        kind_cd: kind,
+        care_nm: center,
+        org_nm: si_code + " " + gungu_code,
+        neuter_yn: neuter,
+        kind_code: kind_code,
       },
       headers: headerConfig,
     })
@@ -116,7 +111,8 @@ const findAPI = async (
 const allAPI = async (
   page: number,
   size: number,
-  setAllData: SetterOrUpdater<any>
+  setAllData: SetterOrUpdater<any>,
+  setLoading?: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
   await axios
     .get(API_URL + `pets/page=${page}/size=${size}`, {
@@ -129,6 +125,7 @@ const allAPI = async (
     .then(async (response: AxiosResponse) => {
       //console.log(response.data);
       setAllData(response.data);
+      setLoading && setLoading(false);
     })
     .catch((error) => {
       handleError(error);

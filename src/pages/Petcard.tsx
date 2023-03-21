@@ -19,8 +19,9 @@ const Petcard = () => {
   const [maxpage, setMaxpage] = useRecoilState(maxpageDataState);
   const [petregist, setPetregist] = useState(false);
   const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
-    allAPI(page - 1, 6, setAlldata);
+    allAPI(page - 1, 6, setAlldata, setLoading);
   }, [page]);
   useEffect(() => {
     MaxpageAPI(setMaxpage);
@@ -33,11 +34,15 @@ const Petcard = () => {
   };
   return (
     <>
-      <Box sx={{ flexGrow: 1 }}>
-        <Grid container rowSpacing={3} columnSpacing={{ xs: 1, sm: 1, md: 1 }}>
-          {alldata.map((v, index) => (
-            <Grid item xs={2} sm={4} md={4} key={index}>
-              <Suspense fallback={<h1>Loading...</h1>}>
+      {!loading ? (
+        <Box sx={{ flexGrow: 1 }}>
+          <Grid
+            container
+            rowSpacing={3}
+            columnSpacing={{ xs: 1, sm: 1, md: 1 }}
+          >
+            {alldata.map((v, index) => (
+              <Grid item xs={2} sm={4} md={4} key={index}>
                 <Card
                   sx={{
                     maxWidth: 300,
@@ -74,21 +79,23 @@ const Petcard = () => {
                     </div>
                   </div>
                 </Card>
-              </Suspense>
-            </Grid>
-          ))}
-        </Grid>
-        <div>
-          <Stack spacing={2} className="place-content-center mt-10">
-            <Pagination
-              count={10}
-              page={page}
-              onChange={pagehandleChange}
-              sx={{ paddingLeft: "40%" }}
-            />
-          </Stack>
-        </div>
-      </Box>
+              </Grid>
+            ))}
+          </Grid>
+          <div>
+            <Stack spacing={2} className="place-content-center mt-10">
+              <Pagination
+                count={10}
+                page={page}
+                onChange={pagehandleChange}
+                sx={{ paddingLeft: "40%" }}
+              />
+            </Stack>
+          </div>
+        </Box>
+      ) : (
+        <></>
+      )}
     </>
   );
 };

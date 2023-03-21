@@ -9,6 +9,7 @@ const placeDataState = atom({
   default: ["없음"],
 });
 const indexDataState = atom({
+  //품종
   key: "index",
   default: ["default"],
 });
@@ -16,11 +17,11 @@ const animalDataState = atom({
   key: "animal",
   default: [
     {
-      id: 417000,
+      id: "417000",
       name: "개",
     },
     {
-      id: 422400,
+      id: "422400",
       name: "고양이",
     },
   ],
@@ -150,31 +151,6 @@ const SearchDataState = atom({
   default: [
     {
       id: 0,
-      sexCd: "",
-      kindCd: "",
-      noticeNo: "",
-      processState: "",
-      careAddr: "",
-      noticeSdt: "",
-      weight: "",
-      chargeNm: "",
-      desertionNo: "",
-      careNm: "",
-      careTel: "",
-      happenPlace: "",
-      officetel: "",
-      orgNm: "",
-      filename: "",
-      popfile: "",
-      noticeEdt: "",
-      neuterYn: "",
-      specialMark: "",
-      colorCd: "",
-      happenDt: "",
-      age: "",
-    },
-    {
-      id: 1,
       sexCd: "",
       kindCd: "",
       noticeNo: "",
