@@ -63,26 +63,15 @@ const Petcard = () => {
                     </li>
                     <li className="font-bold">몸무게 : {v.weight}</li>
                   </CardContent>
-                  <div className="text-end absolute h-14 w-36 -right-0 -bottom-1">
+                  <div className="text-end absolute h-14 w-36 right-2 -bottom-1">
                     <button
-                      className="bg-white outline-none text-2xl animate-bounce rounded-full"
+                      className="bg-white outline-none text-2xl animate-bounce rounded-full text-center"
                       onClick={petregister}
                     >
                       📦
                     </button>
                   </div>
                 </div>
-
-                {/* {petregist == false ? (
-                  <div className="text-end mr-4">
-                    <button
-                      className="bg-white outline-none text-lg"
-                      onClick={petregister}
-                    >
-                      📦
-                    </button>
-                  </div>
-                ) : null} */}
               </Card>
             </Grid>
           ))}
