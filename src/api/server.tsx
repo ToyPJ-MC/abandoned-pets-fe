@@ -164,6 +164,36 @@ const TotalAPI = async (setTotal: SetterOrUpdater<any>) => {
       setTotal(response.data);
     });
 };
+const likeAPI = async (noticeNo: string) => {
+  const cookies = getCookie("member_id");
+  const member = cookies.toString();
+  await axios
+    .post(API_URL + `/member/like/memberid=${member}`, null, {
+      params: { member_id: member, noticeNo: noticeNo },
+      headers: headerConfig,
+    })
+    .then((response) => {
+      console.log(response.data);
+    })
+    .catch((error) => {
+      handleError(error);
+    });
+};
+const likelistAPI = async (setLike: SetterOrUpdater<any>) => {
+  const cookies = getCookie("member_id");
+  const member = cookies.toString();
+  await axios
+    .get(API_URL + `/member/like/list/memberid=${member}`, {
+      params: { member_id: member },
+      headers: headerConfig,
+    })
+    .then((response) => {
+      setLike(response.data);
+    })
+    .catch((error) => {
+      handleError(error);
+    });
+};
 export {
   getgunAPI,
   getCenterAPI,
@@ -173,4 +203,6 @@ export {
   MaxpageAPI,
   SearchAPI,
   TotalAPI,
+  likeAPI,
+  likelistAPI,
 };

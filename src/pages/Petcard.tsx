@@ -9,7 +9,7 @@ import {
   Stack,
   Box,
 } from "@mui/material";
-import { MaxpageAPI, allAPI } from "../api/server";
+import { MaxpageAPI, allAPI, likeAPI } from "../api/server";
 import { useRecoilState } from "recoil";
 import { maxpageDataState, petcardDataState } from "../states/atom";
 import "../index.css";
@@ -28,9 +28,6 @@ const Petcard = () => {
   }, []);
   const pagehandleChange = (event: React.ChangeEvent<any>, value: number) => {
     setPage(value);
-  };
-  const petregister = () => {
-    setPetregist(true);
   };
   return (
     <>
@@ -72,7 +69,7 @@ const Petcard = () => {
                     <div className="text-end absolute h-14 w-36 right-2 -bottom-1">
                       <button
                         className="bg-white outline-none text-2xl animate-bounce rounded-full text-center"
-                        onClick={petregister}
+                        onClick={() => likeAPI(v.noticeNo)}
                       >
                         📦
                       </button>

@@ -2,19 +2,24 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { ProfileAPI } from "../api/auth";
 import { useRecoilState } from "recoil";
-import { userDataState } from "../states/atom";
+import { petregistDataState, userDataState } from "../states/atom";
 import { useNavigate } from "react-router-dom";
 import { Paper } from "@mui/material";
+import { likelistAPI } from "../api/server";
 
 const Profile = () => {
   const navigate = useNavigate();
   const [user, setUser] = useRecoilState(userDataState);
+  const [like, setLike] = useRecoilState(petregistDataState);
   useEffect(() => {
     ProfileAPI(setUser);
   }, []);
   const homeClick = () => {
     navigate("/");
   };
+  useEffect(() => {
+    likelistAPI(setLike);
+  }, []);
 
   return (
     <>
@@ -46,6 +51,17 @@ const Profile = () => {
         </div>
         <div>
           <h1>내가 관심 있는 유기동물</h1>
+          <div>
+            {like.map((item, index) => (
+              <div key={index}>
+                <img src={item.popfile} className="h-60"></img>
+                <li>{item.kindCd}</li>
+                <li>{item.colorCd}</li>
+                <li>{item.age}</li>
+                <li>{item.weight}</li>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </>
