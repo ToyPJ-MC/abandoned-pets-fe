@@ -24,13 +24,16 @@ const Profile = () => {
   useEffect(() => {
     likelistAPI(setLike);
   }, []);
+
   const allcheckbtn = (checked: boolean) => {
     if (checked) {
       const noticeArray: any = [];
       like.map((item) => noticeArray.push(item.noticeNo));
       setCheckitems(noticeArray);
+      console.log(checkitems);
     } else {
       setCheckitems([]);
+      console.log(checkitems);
     }
   };
   const singlecheckbtn = (checked: boolean, noticeNo: string) => {
@@ -49,6 +52,12 @@ const Profile = () => {
   const singlecheck = () => {
     setCheck(false);
     setScheck(true);
+  };
+  useEffect(() => {
+    console.log(checkitems);
+  }, []);
+  const testclick = () => {
+    console.log(checkitems);
   };
 
   return (
@@ -89,9 +98,10 @@ const Profile = () => {
               개별선택
             </button>
           </div>
+          <button onClick={testclick}>TEST</button>
           <div className="grid grid-cols-2 gap-6 mb-8 mt-4">
             {like.map((item, index) => (
-              <div>
+              <div key={index} className="list-none">
                 {scheck == true ? (
                   <input
                     type="checkbox"
@@ -99,21 +109,25 @@ const Profile = () => {
                     onChange={(e) =>
                       singlecheckbtn(e.target.checked, e.target.value)
                     }
+                    checked={checkitems.includes(item.noticeNo)}
                   />
                 ) : check == true ? (
                   <input
                     type="checkbox"
                     value={item.noticeNo}
                     onChange={(e) => allcheckbtn(e.target.checked)}
+                    defaultChecked={
+                      checkitems.length === like.length ? true : false
+                    }
                   />
                 ) : null}
-                <div key={index} className="list-none">
-                  <img src={item.popfile} className="h-60"></img>
-                  <li>{item.kindCd}</li>
-                  <li>{item.colorCd}</li>
-                  <li>{item.age}</li>
-                  <li>{item.weight}</li>
-                </div>
+                {/* <div key={index} className="list-none"> */}
+                <img src={item.popfile} className="h-60"></img>
+                <li>{item.kindCd}</li>
+                <li>{item.colorCd}</li>
+                <li>{item.age}</li>
+                <li>{item.weight}</li>
+                {/* </div> */}
               </div>
             ))}
           </div>
