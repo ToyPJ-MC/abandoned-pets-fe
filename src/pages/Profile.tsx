@@ -116,18 +116,14 @@ const Profile = () => {
                     type="checkbox"
                     value={item.noticeNo}
                     onChange={(e) => allcheckbtn(e.target.checked)}
-                    defaultChecked={
-                      checkitems.length === like.length ? true : false
-                    }
+                    checked={checkitems.length === like.length}
                   />
                 ) : null}
-                {/* <div key={index} className="list-none"> */}
                 <img src={item.popfile} className="h-60"></img>
                 <li>{item.kindCd}</li>
                 <li>{item.colorCd}</li>
                 <li>{item.age}</li>
                 <li>{item.weight}</li>
-                {/* </div> */}
               </div>
             ))}
           </div>
