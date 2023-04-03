@@ -8,6 +8,7 @@ import { ProfileAPI, beforeProfileAPI } from "../../api/auth";
 import KakaoLogin from "../../components/KakaoLogin";
 import { Cookies, useCookies } from "react-cookie";
 import { getCookie } from "../../util/Cookie";
+import axios from "axios";
 const { VITE_APP_KAKAO_KEY } = import.meta.env;
 
 const Main = () => {
@@ -33,6 +34,24 @@ const Main = () => {
   useEffect(() => {
     beforeProfileAPI();
   }, []);
+  const kakobtn = () => {
+    axios
+      .get("/oauth2/authorization/kakao", {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+      })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  const kakaologin = () => {
+    location.href = "/oauth2/authorization/kakao";
+  };
 
   return (
     <>
@@ -42,7 +61,13 @@ const Main = () => {
           <div className="text-6xl font-bold">MJ PET</div>
           <div className="text-right pr-16 mb-4">
             {!cookies ? (
-              <KakaoLogin />
+              <button
+                type="button"
+                onClick={kakaologin}
+                className="bg-white text-lg"
+              >
+                로그인
+              </button>
             ) : (
               <button
                 onClick={logout}

@@ -14,22 +14,22 @@ const headerConfig = {
   "Content-Type": "application/json",
   "Access-Control-Allow-Origin": "*",
 };
-export const loginAPI = () => {
-  const login = () => {
-    window.Kakao.Auth.authorize({
-      redirectUri: "http://localhost:5173",
-    });
-  };
-  return (
-    <div>
-      <a id="" href="#">
-        <Button variant="contained" size="medium" onClick={login}>
-          로그인
-        </Button>
-      </a>
-    </div>
-  );
-};
+// export const loginAPI = () => {
+//   const login = () => {
+//     window.Kakao.Auth.authorize({
+//       redirectUri: "http://localhost:8080/oauth/authorize",
+//     });
+//   };
+//   return (
+//     <div>
+//       <a id="" href="#">
+//         <Button variant="contained" size="medium" onClick={login}>
+//           로그인
+//         </Button>
+//       </a>
+//     </div>
+//   );
+// };
 const TokenAPI = () => {
   const code = new URL(window.location.href).searchParams.get("code");
   axios

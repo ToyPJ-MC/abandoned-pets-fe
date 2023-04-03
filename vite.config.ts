@@ -26,7 +26,14 @@ export default defineConfig({
         secure: true,
         ws: true,
       },
+      "/oauth2": {
+        target: "http://192.168.0.16:8080",
+        changeOrigin: true,
+        secure: true,
+        ws: false,
+      },
     },
     port: 5173,
   },
 });
+//http://localhost:8080/oauth2/authorization/kakao
