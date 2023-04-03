@@ -9,7 +9,7 @@ const KakaoLogin = () => {
   }, []);
   const login = () => {
     window.Kakao.Auth.authorize({
-      redirectUri: "http://localhost:5173",
+      redirectUri: "http://192.168.0.16:8080/oauth2/authorization/kakao", //"http://localhost:5173",
     });
   };
   useEffect(() => {

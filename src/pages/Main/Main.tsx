@@ -1,4 +1,3 @@
-import { Button, Dialog } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import Lawdialog from "../../components/Lawdialog";
 import Petnotice from "../Petnotice";
@@ -68,14 +67,10 @@ const Main = () => {
               >
                 로그인
               </button>
-            ) : (
-              <button
-                onClick={logout}
-                className="bg-white text-lg outline-none"
-              >
-                로그아웃
-              </button>
-            )}
+            ) : null}
+            <button onClick={logout} className="bg-white text-lg outline-none">
+              로그아웃
+            </button>
           </div>
         </div>
         {cookies ? (
@@ -94,7 +89,6 @@ const Main = () => {
             </button>
           </div>
         ) : null}
-
         <div className="left-1/2 mt-10">
           <Search />
           <Petnotice />
