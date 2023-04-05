@@ -49,7 +49,7 @@ const Main = () => {
       });
   };
   const kakaologin = () => {
-    location.href = "/oauth2/authorization/kakao";
+    location.href = "/api/oauth2/authorization/kakao";
   };
 
   return (
