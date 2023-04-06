@@ -27,7 +27,7 @@ const handleError = (error: any) => {
 
 const getgunAPI = async (si_name: string, setGun: SetterOrUpdater<any>) => {
   await axios
-    .post(API_URL + gunurl, null, {
+    .post(API_URL + "/api" + gunurl, null, {
       params: { name: si_name },
       headers: headerConfig,
     })
@@ -44,7 +44,7 @@ const getCenterAPI = async (
   setCenter: SetterOrUpdater<any>
 ) => {
   await axios
-    .post(API_URL + centerurl, null, {
+    .post(API_URL + "/api" + centerurl, null, {
       params: { si_name: si_name, gungu_name: gungu_name },
       headers: headerConfig,
     })
@@ -60,7 +60,7 @@ const getIndexAPI = async (
   setIndex: SetterOrUpdater<any>
 ) => {
   await axios
-    .post(API_URL + `/kind/find/kindcode=${kind_name}`, null, {
+    .post(API_URL + `/api/kind/find/kindcode=${kind_name}`, null, {
       params: { kind_code: kind_name },
       headers: headerConfig,
     })
@@ -85,17 +85,20 @@ const findAPI = async (
   const cookies = getCookie("member_id");
   const member = cookies;
   await axios
-    .get(API_URL + `pets/select/memberid=${member_id}/kindcode=${kind_code}`, {
-      params: {
-        member_id: member,
-        kind_cd: kind,
-        care_nm: center,
-        org_nm: si_code + " " + gungu_code,
-        neuter_yn: neuter,
-        kind_code: kind_code,
-      },
-      headers: headerConfig,
-    })
+    .get(
+      API_URL + `/api/pets/select/memberid=${member_id}/kindcode=${kind_code}`,
+      {
+        params: {
+          member_id: member,
+          kind_cd: kind,
+          care_nm: center,
+          org_nm: si_code + " " + gungu_code,
+          neuter_yn: neuter,
+          kind_code: kind_code,
+        },
+        headers: headerConfig,
+      }
+    )
     .then((response) => {
       setError("");
       setPetindex(response.data);
@@ -115,7 +118,7 @@ const allAPI = async (
   setLoading?: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
   await axios
-    .get(API_URL + `pets/page=${page}/size=${size}`, {
+    .get(API_URL + `/api/pets/page=${page}/size=${size}`, {
       params: {
         page,
         size,
@@ -146,7 +149,7 @@ const SearchAPI = async (setSearchpage: SetterOrUpdater<any>) => {
   const cookies = getCookie("member_id");
   const member = cookies.toString();
   await axios
-    .get(API_URL + `/member/searchlist/memberid=${member}`, {
+    .get(API_URL + `/api/member/searchlist/memberid=${member}`, {
       params: { member_id: member },
       headers: headerConfig,
     })
@@ -156,7 +159,7 @@ const SearchAPI = async (setSearchpage: SetterOrUpdater<any>) => {
 };
 const TotalAPI = async (setTotal: SetterOrUpdater<any>) => {
   await axios
-    .get(API_URL + sizeurl, {
+    .get(API_URL + "/api" + sizeurl, {
       params: {},
       headers: headerConfig,
     })
@@ -168,7 +171,7 @@ const likeAPI = async (noticeNo: string) => {
   const cookies = getCookie("member_id");
   const member = cookies.toString();
   await axios
-    .post(API_URL + `/member/like/memberid=${member}`, null, {
+    .post(API_URL + `/api/member/like/memberid=${member}`, null, {
       params: { member_id: member, noticeNo: noticeNo },
       headers: headerConfig,
     })
@@ -183,7 +186,7 @@ const likelistAPI = async (setLike: SetterOrUpdater<any>) => {
   const cookies = getCookie("member_id");
   const member = cookies.toString();
   await axios
-    .get(API_URL + `/member/like/list/memberid=${member}`, {
+    .get(API_URL + `/api/member/like/list/memberid=${member}`, {
       params: { member_id: member },
       headers: headerConfig,
     })

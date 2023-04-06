@@ -7,6 +7,9 @@ const cookies = new Cookies();
 export const getCookie = (name: string) => {
   return cookies.get(name);
 };
-export const setCookie = (name: number) => {
-  return cookies.set("member_id", name);
+export const setCookie = (name: string) => {
+  return cookies.set("access_token", name, {
+    path: "/",
+    expires: new Date(Date.now() + 360000), // server 만료시간
+  });
 };

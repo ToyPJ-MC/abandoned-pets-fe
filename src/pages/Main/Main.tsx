@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import Lawdialog from "../../components/Lawdialog";
 import Petnotice from "../Petnotice";
 import Search from "../Search";
-import { useNavigate } from "react-router-dom";
-import { ProfileAPI, beforeProfileAPI } from "../../api/auth";
+import { Link, useNavigate } from "react-router-dom";
+import { ProfileAPI, beforeProfileAPI, loginAPI } from "../../api/auth";
 import KakaoLogin from "../../components/KakaoLogin";
 import { Cookies, useCookies } from "react-cookie";
 import { getCookie } from "../../util/Cookie";
@@ -33,25 +33,11 @@ const Main = () => {
   useEffect(() => {
     beforeProfileAPI();
   }, []);
-  const kakobtn = () => {
-    axios
-      .get("/oauth2/authorization/kakao", {
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-        },
-      })
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-  const kakaologin = () => {
-    location.href = "/api/oauth2/authorization/kakao";
-  };
 
+  const kakaologin = () => {
+    location.href = "http://192.168.0.16:8080/oauth2/authorization/kakao";
+    // navigate("/KakaoLogin");
+  };
   return (
     <>
       <Lawdialog open={open} onClose={handleClose} />

@@ -1,29 +1,11 @@
 import { useEffect } from "react";
-import { TokenAPI } from "../api/auth";
-
-const { VITE_APP_KAKAO_JS_KEY } = import.meta.env;
+import { setCookie } from "../util/Cookie";
+import { Main } from "../pages";
 
 const KakaoLogin = () => {
-  useEffect(() => {
-    window.Kakao.init(VITE_APP_KAKAO_JS_KEY);
-  }, []);
-  const login = () => {
-    window.Kakao.Auth.authorize({
-      redirectUri: "http://192.168.0.16:8080/oauth2/authorization/kakao", //"http://localhost:5173",
-    });
-  };
-  useEffect(() => {
-    TokenAPI();
-  }, []);
-
-  return (
-    <div>
-      <a id="kakao-login-btn" href="#">
-        <button onClick={login} className="bg-white text-lg">
-          로그인
-        </button>
-      </a>
-    </div>
-  );
+  const code = new URL(window.location.href).searchParams.get("code");
+  setCookie(code as string);
+  location.href = "/";
+  return <></>;
 };
 export default KakaoLogin;

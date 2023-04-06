@@ -14,22 +14,15 @@ const headerConfig = {
   "Content-Type": "application/json",
   "Access-Control-Allow-Origin": "*",
 };
-// export const loginAPI = () => {
-//   const login = () => {
-//     window.Kakao.Auth.authorize({
-//       redirectUri: "http://localhost:8080/oauth/authorize",
-//     });
-//   };
-//   return (
-//     <div>
-//       <a id="" href="#">
-//         <Button variant="contained" size="medium" onClick={login}>
-//           로그인
-//         </Button>
-//       </a>
-//     </div>
-//   );
-// };
+const baseurl = axios.create({
+  baseURL: API_URL + "/oauth2/authorization/kakao",
+});
+const loginAPI = () => {
+  baseurl.interceptors.response.use((response: any) => {
+    // oauth2/redirect?code={accss_token} -> 쿠키 저장
+    return response;
+  });
+};
 const TokenAPI = () => {
   const code = new URL(window.location.href).searchParams.get("code");
   axios
@@ -67,4 +60,4 @@ const beforeProfileAPI = () => {
       setCookie(response.data.id);
     });
 };
-export { ProfileAPI, TokenAPI, beforeProfileAPI };
+export { ProfileAPI, TokenAPI, beforeProfileAPI, loginAPI };
