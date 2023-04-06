@@ -16,7 +16,7 @@ const App = () => {
       <Route path="/Profile" element={<Profile />} />
       <Route path="/oauth2/redirect" element={<KakaoLogin />} />
       <Route path="/profile" element={<Profile />} />
-      {/* <Route path="/oauth2/redirect" element={<Errorpage />} /> */}
+      <Route path="*" element={<Errorpage />} />
     </Routes>
   );
 };
