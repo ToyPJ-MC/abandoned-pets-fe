@@ -9,6 +9,7 @@ const placeDataState = atom({
   default: ["없음"],
 });
 const indexDataState = atom({
+  //품종
   key: "index",
   default: ["default"],
 });
@@ -16,11 +17,11 @@ const animalDataState = atom({
   key: "animal",
   default: [
     {
-      id: 417000,
+      id: "417000",
       name: "개",
     },
     {
-      id: 422400,
+      id: "422400",
       name: "고양이",
     },
   ],
@@ -111,31 +112,7 @@ const petcardDataState = atom({
       colorCd: "",
       happenDt: "",
       age: "",
-    },
-    {
-      id: 1,
-      sexCd: "",
-      kindCd: "",
-      noticeNo: "",
-      processState: "",
-      careAddr: "",
-      noticeSdt: "",
-      weight: "",
-      chargeNm: "",
-      desertionNo: "",
-      careNm: "",
-      careTel: "",
-      happenPlace: "",
-      officetel: "",
-      orgNm: "",
-      filename: "",
-      popfile: "",
-      noticeEdt: "",
-      neuterYn: "",
-      specialMark: "",
-      colorCd: "",
-      happenDt: "",
-      age: "",
+      petregist: "not regist",
     },
   ],
 });
@@ -171,8 +148,30 @@ const SearchDataState = atom({
       happenDt: "",
       age: "",
     },
+  ],
+});
+const totalDataState = atom({
+  key: "Total",
+  default: "",
+});
+const userDataState = atom({
+  key: "User",
+  default: {
+    email: "",
+    id: 0,
+    nickname: "",
+    picture: "",
+  },
+});
+const errorState = atom({
+  key: "Error",
+  default: "",
+});
+const petregistDataState = atom({
+  key: "Petregist",
+  default: [
     {
-      id: 1,
+      id: 0,
       sexCd: "",
       kindCd: "",
       noticeNo: "",
@@ -180,7 +179,6 @@ const SearchDataState = atom({
       careAddr: "",
       noticeSdt: "",
       weight: "",
-      chargeNm: "",
       desertionNo: "",
       careNm: "",
       careTel: "",
@@ -195,12 +193,9 @@ const SearchDataState = atom({
       colorCd: "",
       happenDt: "",
       age: "",
+      createAt: "",
     },
   ],
-});
-const totalDataState = atom({
-  key: "Total",
-  default: "  ",
 });
 export {
   gunguDataState,
@@ -214,4 +209,7 @@ export {
   maxpageDataState,
   SearchDataState,
   totalDataState,
+  userDataState,
+  errorState,
+  petregistDataState,
 };

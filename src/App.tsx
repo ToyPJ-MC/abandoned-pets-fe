@@ -3,9 +3,9 @@ import { Main } from "./pages";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Petindex from "./pages/Petindex";
 import Latestsearch from "./pages/Latestsearch";
-import Loginpage from "./pages/Loginpage";
-import Auth from "./api/auth";
 import Profile from "./pages/Profile";
+import KakaoLogin from "./components/KakaoLogin";
+import Errorpage from "./pages/Errorpage";
 
 const App = () => {
   return (
@@ -13,9 +13,10 @@ const App = () => {
       <Route path="/" element={<Main />} />
       <Route path="/Petindex" element={<Petindex />} />
       <Route path="/Latestsearch" element={<Latestsearch />} />
-      <Route path="/Loginpage" element={<Loginpage />} />
-      <Route path="/oauth/kakao/callback" element={<Auth />} />
       <Route path="/Profile" element={<Profile />} />
+      <Route path="/oauth2/redirect" element={<KakaoLogin />} />
+      <Route path="/profile" element={<Profile />} />
+      <Route path="*" element={<Errorpage />} />
     </Routes>
   );
 };

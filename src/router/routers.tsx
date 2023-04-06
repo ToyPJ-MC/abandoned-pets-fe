@@ -1,8 +1,9 @@
 import { Main } from "../pages";
 import Latestsearch from "../pages/Latestsearch";
-import Loginpage from "../pages/Loginpage";
 import Petindex from "../pages/Petindex";
-import Auth from "../api/auth";
+import KakaoLogin from "../components/KakaoLogin";
+import Profile from "../pages/Profile";
+import Errorpage from "../pages/Errorpage";
 const Router = [
   {
     title: "Home",
@@ -20,12 +21,19 @@ const Router = [
     component: <Latestsearch />,
   },
   {
-    title: "로그인 페이지",
-    component: <Loginpage />,
+    title: "카카오프로필",
+    url: "/profile",
+    component: <Profile />,
   },
   {
-    title: "카카오 로그인 페이지",
-    component: <Auth />,
+    title: "카카오로그인",
+    url: "/KakoLogin",
+    component: <KakaoLogin />,
+  },
+  {
+    title: "에러페이지",
+    url: "/errorpage",
+    component: <Errorpage />,
   },
 ];
 export default Router;

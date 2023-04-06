@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { Paper } from "@mui/material";
 import Petcard from "./Petcard";
 import { MaxpageAPI, TotalAPI, allAPI } from "../api/server";
@@ -11,13 +11,8 @@ import {
 } from "../states/atom";
 
 const Petnotice = () => {
-  const [alldata, setAlldata] = useRecoilState(petcardDataState);
   const [maxpage, setPage] = useRecoilState(maxpageDataState);
-  const [searchpage, setSearchpage] = useRecoilState(SearchDataState);
   const [total, setTotal] = useRecoilState(totalDataState);
-  useEffect(() => {
-    allAPI(maxpage, 6, setAlldata);
-  }, []);
   useEffect(() => {
     MaxpageAPI(setPage);
   }, []);
@@ -39,9 +34,12 @@ const Petnotice = () => {
             paddingBottom: 10,
             borderRadius: "30px",
           }}
-          elevation={3}
+          elevation={0}
+          variant="outlined"
         >
-          <Petcard />
+          <Suspense fallback={<h1>Loading....</h1>}>
+            <Petcard />
+          </Suspense>
         </Paper>
       </div>
     </>

@@ -14,7 +14,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DesktopDatePicker } from "@mui/x-date-pickers";
 import React, { ChangeEvent, useEffect, useState } from "react";
 import dayjs, { Dayjs } from "dayjs";
-import { getgunAPI, getCenterAPI, getIndexAPI, findAPI } from "../api/server";
+import { getgunAPI, getCenterAPI, getIndexAPI, findAPI, likeAPI } from "../api/server";
 import { useRecoilState } from "recoil";
 import {
   animalDataState,
@@ -24,8 +24,11 @@ import {
   placeDataState,
   stateData,
   yesDataState,
+  userDataState,
+  errorState,
 } from "../states/atom";
 import { useNavigate } from "react-router-dom";
+import { getCookie } from "../util/Cookie";
 
 const Search = () => {
   let today = new Date();
@@ -66,6 +69,8 @@ const Search = () => {
   const [state, setState] = useRecoilState(stateData);
   const [yes, setYes] = useRecoilState(yesDataState);
   const [petindex, setPetindex] = useRecoilState(petindexDataState);
+  const member = getCookie("member_id");
+  const [error, setError] = useRecoilState(errorState);
 
   const [startvalue, setStartvalue] = useState(
     dayjs(month + "/" + date + "/" + year)
@@ -110,22 +115,20 @@ const Search = () => {
       placeselect == "" ||
       animalselect == "" ||
       indexselect == "" ||
-      stateselect == "" ||
       yesselect == ""
     ) {
       window.alert("모두다 Select를 하세요!");
     } else {
       findAPI(
-        placeselect,
-        endvalue.format("YYYYMMDD"),
-        gunselect,
-        indexselect,
-        animalselect,
-        yesselect,
         select,
-        startvalue.format("YYYYMMDD"),
-        stateselect,
-        setPetindex
+        gunselect,
+        placeselect,
+        animalselect,
+        indexselect,
+        yesselect,
+        setPetindex,
+        String(member),
+        setError
       );
       navigate("/Petindex");
     }
@@ -144,18 +147,15 @@ const Search = () => {
     getIndexAPI(animalselect, setIndex);
   }, [animalselect]);
 
-  useEffect(() => {
-    //화면사이즈 측정
-    window.addEventListener("resize", handleresize);
-    return () => {
-      window.removeEventListener("resze", handleresize);
-    };
-  }, []);
 
   return (
     <>
       <div className="container mx-auto">
-        <Paper sx={{ borderRadius: "30px", minWidth: 100, maxHeight: 900 }}>
+        <Paper
+          sx={{ borderRadius: "30px", minWidth: 100, maxHeight: 900 }}
+          elevation={0}
+          variant="outlined"
+        >
           {windowSize <= 1500 ? (
             <Stack
               direction="column"
@@ -234,7 +234,7 @@ const Search = () => {
                   ))}
                 </Select>
               </FormControl>
-              <FormControl sx={{ minWidth: 110 }}>
+              {/* <FormControl sx={{ minWidth: 110 }}>
                 <InputLabel id="place">현재상태</InputLabel>
                 <Select
                   value={stateselect}
@@ -246,7 +246,7 @@ const Search = () => {
                     <MenuItem value={v.id}>{v.name}</MenuItem>
                   ))}
                 </Select>
-              </FormControl>
+              </FormControl> */}
               <FormControl sx={{ minWidth: 130 }}>
                 <InputLabel id="place">중성화 여부</InputLabel>
                 <Select
@@ -260,7 +260,7 @@ const Search = () => {
                   ))}
                 </Select>
               </FormControl>
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
+              {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DesktopDatePicker
                   label="시작일"
                   inputFormat="YYYYMMDD"
@@ -277,11 +277,11 @@ const Search = () => {
                   onChange={endcalendarhandleChange}
                   renderInput={(params) => <TextField {...params} />}
                 />
-              </LocalizationProvider>
+              </LocalizationProvider> */}
               <form onSubmit={handleSubmit}>
-                <Button variant="contained" size="medium" type="submit">
-                  조회
-                </Button>
+                <button className="bg-white text-lg outline-none" type="submit">
+                  🔎
+                </button>
               </form>
             </Stack>
           ) : (
@@ -362,7 +362,7 @@ const Search = () => {
                   ))}
                 </Select>
               </FormControl>
-              <FormControl sx={{ minWidth: 110 }}>
+              {/* <FormControl sx={{ minWidth: 110 }}>
                 <InputLabel id="place">현재상태</InputLabel>
                 <Select
                   value={stateselect}
@@ -374,7 +374,7 @@ const Search = () => {
                     <MenuItem value={v.id}>{v.name}</MenuItem>
                   ))}
                 </Select>
-              </FormControl>
+              </FormControl> */}
               <FormControl sx={{ minWidth: 130 }}>
                 <InputLabel id="place">중성화 여부</InputLabel>
                 <Select
@@ -388,7 +388,7 @@ const Search = () => {
                   ))}
                 </Select>
               </FormControl>
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
+              {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DesktopDatePicker
                   label="시작일"
                   inputFormat="YYYYMMDD"
@@ -405,11 +405,11 @@ const Search = () => {
                   onChange={endcalendarhandleChange}
                   renderInput={(params) => <TextField {...params} />}
                 />
-              </LocalizationProvider>
+              </LocalizationProvider> */}
               <form onSubmit={handleSubmit}>
-                <Button variant="contained" size="medium" type="submit">
-                  조회
-                </Button>
+                <button className="bg-white text-lg outline-none" type="submit">
+                  🔎
+                </button>
               </form>
             </Stack>
           )}
