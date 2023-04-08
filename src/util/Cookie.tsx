@@ -10,6 +10,6 @@ export const getCookie = (name: string) => {
 export const setCookie = (name: string) => {
   return cookies.set("access_token", name, {
     path: "/",
-    expires: new Date(Date.now() + 360000), // server 만료시간
+    expires: new Date(Date.now() + 3600 * 1000), // server 만료시간
   });
 };

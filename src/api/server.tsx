@@ -38,6 +38,7 @@ const getgunAPI = async (si_name: string, setGun: SetterOrUpdater<any>) => {
       handleError(error);
     });
 };
+
 const getCenterAPI = async (
   si_name: string,
   gungu_name: string,
@@ -55,6 +56,7 @@ const getCenterAPI = async (
       handleError(error);
     });
 };
+
 const getIndexAPI = async (
   kind_name: string,
   setIndex: SetterOrUpdater<any>
@@ -71,6 +73,7 @@ const getIndexAPI = async (
       handleError(error);
     });
 };
+
 const findAPI = async (
   si_code: string,
   gungu_code: string,
