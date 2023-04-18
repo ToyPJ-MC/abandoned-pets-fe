@@ -165,7 +165,7 @@ const userDataState = atom({
 });
 const errorState = atom({
   key: "Error",
-  default: "",
+  default: 0,
 });
 const petregistDataState = atom({
   key: "Petregist",

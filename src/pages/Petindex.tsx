@@ -25,11 +25,13 @@ const Petindex = () => {
 
   return (
     <>
-      {error === "잘못된 조회" ? (
-        <>
+      {error === 404 ? (
+        <div className="ml-10">
+          <div className="text-3xl mt-6 font-bold" onClick={homeClick}>
+            Home
+          </div>
           <h1>잘못된 조회</h1>
-          <Button onClick={homeClick}>홈으로</Button>
-        </>
+        </div>
       ) : petindex.length == 0 ? (
         <div className="ml-10">
           <div className="text-3xl mt-6 font-bold" onClick={homeClick}>

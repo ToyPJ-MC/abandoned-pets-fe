@@ -1,14 +1,7 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
 import { API_URL } from "../constants/Constants";
-import { Button } from "@mui/material";
-import { useNavigate } from "react-router-dom";
-import { Cookies, useCookies } from "react-cookie";
-import { Main } from "../pages";
 import { getCookie, setCookie } from "../util/Cookie";
 import { SetterOrUpdater } from "recoil";
-
-const { VITE_APP_KAKAO_KEY } = import.meta.env;
 
 const headerConfig = {
   "Content-Type": "application/json",

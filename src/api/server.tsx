@@ -83,7 +83,7 @@ const findAPI = async (
   neuter: string,
   setPetindex: SetterOrUpdater<any>,
   access_token: string,
-  setError: SetterOrUpdater<any>
+  setError: SetterOrUpdater<number>
 ) => {
   const cookies = getCookie("access_token");
   const member = cookies;
@@ -103,14 +103,13 @@ const findAPI = async (
       }
     )
     .then((response) => {
-      setError("");
       setPetindex(response.data);
     })
     .catch((error) => {
-      const err = error as AxiosError;
+      const err = error as AxiosError; // axios error
       if (err.response) {
-        console.log(err.response.data);
-        setError(err.response.data);
+        console.log(err.response.status);
+        setError(err.response.status);
       }
     });
 };
