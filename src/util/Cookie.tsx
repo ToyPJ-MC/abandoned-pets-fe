@@ -14,3 +14,6 @@ export const setCookie = (name: string, value: string, option?: any) => {
   // });
   return cookies.set(name, value, { ...option });
 };
+export const removeCookie = (name: string) => {
+  return cookies.remove(name);
+};

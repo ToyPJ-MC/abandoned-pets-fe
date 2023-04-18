@@ -47,7 +47,7 @@ const LoginAPI = (refreshtoken: string) => {
       //   "Bearer " + reponse.data.access_token;
       setCookie("access_token", reponse.data.accessToken, {
         path: "/",
-        expires: new Date(Date.now() + 60000),
+        expires: new Date(Date.now() + 3600 * 1000), // 1h
       });
       setCookie("refresh_token", reponse.data.refreshToken);
       console.log(reponse);

@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { LoginAPI, ProfileAPI } from "../../api/auth";
 import KakaoLogin from "../../components/KakaoLogin";
 import { Cookies, useCookies } from "react-cookie";
-import { getCookie } from "../../util/Cookie";
+import { getCookie, removeCookie } from "../../util/Cookie";
 import axios from "axios";
 const { VITE_APP_KAKAO_KEY } = import.meta.env;
 
@@ -17,7 +17,7 @@ const Main = () => {
   const LOGOUT_REDIRECT_URI = "http://localhost:5173";
   const kakaologout = `https://kauth.kakao.com/oauth/logout?client_id=${VITE_APP_KAKAO_KEY}&logout_redirect_uri=${LOGOUT_REDIRECT_URI}`;
   const [open, setOpen] = useState(true);
-  const [, , removeCookie] = useCookies(["access_token"]);
+  //const [, , removeCookie] = useCookies(["access_token"]);
   const handleClose = () => {
     setOpen(false);
   };
@@ -26,8 +26,10 @@ const Main = () => {
   };
   const logout = () => {
     window.location.href = kakaologout;
-    removeCookie("access_token", { path: "/" });
+    //removeCookie("access_token", { path: "/" });
     //removeCookie("refresh_token", { path: "/" });
+    removeCookie("access_token");
+    removeCookie("refresh_token");
   };
   const latestsearch = () => {
     navigate("/latestsearch");
@@ -41,9 +43,11 @@ const Main = () => {
     location.href = "http://192.168.0.16:8080/oauth2/authorization/kakao";
     // navigate("/KakaoLogin");
   };
-  useEffect(() => {
-    LoginAPI(refreshtoken);
-  }, []);
+  if (!cookies) {
+    useEffect(() => {
+      LoginAPI(refreshtoken);
+    }, []);
+  }
   return (
     <>
       <Lawdialog open={open} onClose={handleClose} />

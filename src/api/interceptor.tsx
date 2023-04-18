@@ -51,7 +51,7 @@ jinInterceptor.interceptors.response.use(
       console.log("새거" + newRefreshToken);
       setCookie("access_token", newAccessToken, {
         path: "/",
-        expires: new Date(Date.now() + 60000),
+        expires: new Date(Date.now() + 3600 * 1000),
       });
       setCookie("refresh_token", newRefreshToken);
       //originalRequest.headers["Authorization"] = `Bearer ${newAccessToken}`;
