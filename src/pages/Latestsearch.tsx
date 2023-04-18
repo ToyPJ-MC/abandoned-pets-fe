@@ -20,11 +20,11 @@ const Latestsearch = () => {
         <div className="ml-10 mr-10">
           <h1 onClick={homeClick}>MJ PET</h1>
           <h2>최근 조회 목록</h2>
-          <div>
-            <Box sx={{ flexGrow: 1 }}>
-              {searchpage.map((v, index) => (
-                <Grid item xs={2} sm={4} md={4} key={index}>
-                  {v.popfile !== "" ? (
+          {searchpage.length !== 0 ? (
+            <div>
+              <Box sx={{ flexGrow: 1 }}>
+                {searchpage.map((v, index) => (
+                  <Grid item xs={2} sm={4} md={4} key={index}>
                     <Card
                       sx={{
                         minWidth: 300,
@@ -86,15 +86,15 @@ const Latestsearch = () => {
                         </div>
                       </div>
                     </Card>
-                  ) : (
-                    <div>
-                      <h1>최근조회 내역 없음</h1>
-                    </div>
-                  )}
-                </Grid>
-              ))}
-            </Box>
-          </div>
+                  </Grid>
+                ))}
+              </Box>
+            </div>
+          ) : (
+            <div>
+              <h1>최근조회 내역 없음</h1>
+            </div>
+          )}
         </div>
       </div>
     </>
