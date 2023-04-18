@@ -195,8 +195,8 @@ const likeAPI = async (noticeNo: string) => {
   const cookies = getCookie("access_token");
   const member = cookies.toString();
   await jinInterceptor
-    .post(API_URL + `/api/member/like/token=${member}`, null, {
-      params: { access_token: member, noticeNo: noticeNo },
+    .post(API_URL + `/member/like/token=${member}`, null, {
+      params: { noticeNo: noticeNo }, //access_token: member,
       headers: headerConfig,
     })
     .then((response) => {
@@ -210,8 +210,8 @@ const likelistAPI = async (setLike: SetterOrUpdater<any>) => {
   const cookies = getCookie("access_token");
   const member = cookies.toString();
   await jinInterceptor
-    .get(API_URL + `/api/member/like/list/token=${member}`, {
-      params: { access_token: member },
+    .get(API_URL + `/member/like/list/token=${member}`, {
+      //params: { access_token: member },
       headers: headerConfig,
     })
     .then((response) => {
