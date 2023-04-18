@@ -11,11 +11,13 @@ import {
   Grid,
   Button,
 } from "@mui/material";
+import { getCookie } from "../util/Cookie";
 
 const Petindex = () => {
   let navigate = useNavigate();
   const [petindex, setPetindex] = useRecoilState(petindexDataState);
   const [error, setError] = useRecoilState(errorState);
+  const cookies = getCookie("access_token");
 
   const homeClick = () => {
     navigate("/");
@@ -69,11 +71,13 @@ const Petindex = () => {
                             <li>발견날짜 : {v.happenDt}</li>
                           </ul>
                         </CardContent>
-                        <div className="text-end mr-6 mb-6">
-                          <button className="bg-white outline-none text-lg">
-                            📦
-                          </button>
-                        </div>
+                        {!cookies ? null : (
+                          <div className="text-end mr-6 mb-6">
+                            <button className="bg-white outline-none text-lg">
+                              📦
+                            </button>
+                          </div>
+                        )}
                       </Card>
                     </Grid>
                   ))}

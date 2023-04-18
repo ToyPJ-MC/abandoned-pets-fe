@@ -1,14 +1,9 @@
-import React, { Suspense, useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Paper } from "@mui/material";
 import Petcard from "./Petcard";
-import { MaxpageAPI, TotalAPI, allAPI } from "../api/server";
+import { MaxpageAPI, TotalAPI } from "../api/server";
 import { useRecoilState } from "recoil";
-import {
-  SearchDataState,
-  maxpageDataState,
-  petcardDataState,
-  totalDataState,
-} from "../states/atom";
+import { maxpageDataState, totalDataState } from "../states/atom";
 
 const Petnotice = () => {
   const [maxpage, setPage] = useRecoilState(maxpageDataState);
@@ -37,9 +32,7 @@ const Petnotice = () => {
           elevation={0}
           variant="outlined"
         >
-          <Suspense fallback={<h1>Loading....</h1>}>
-            <Petcard />
-          </Suspense>
+          <Petcard />
         </Paper>
       </div>
     </>

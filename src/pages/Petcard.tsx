@@ -14,6 +14,7 @@ import { useRecoilState } from "recoil";
 import { maxpageDataState, petcardDataState } from "../states/atom";
 import "../index.css";
 import Loading from "../components/Loading";
+import { getCookie } from "../util/Cookie";
 
 const Petcard = () => {
   const [alldata, setAlldata] = useRecoilState(petcardDataState);
@@ -30,11 +31,16 @@ const Petcard = () => {
   const pagehandleChange = (event: React.ChangeEvent<any>, value: number) => {
     setPage(value);
   };
+  const cookies = getCookie("access_token");
   return (
     <>
-      <Box sx={{ flexGrow: 1 }}>
-        <Grid container rowSpacing={3} columnSpacing={{ xs: 1, sm: 1, md: 1 }}>
-          {!loading ? (
+      {!loading ? (
+        <Box sx={{ flexGrow: 1 }}>
+          <Grid
+            container
+            rowSpacing={3}
+            columnSpacing={{ xs: 1, sm: 1, md: 1 }}
+          >
             <>
               {alldata.map((v, index) => (
                 <Grid item xs={2} sm={4} md={4} key={index}>
@@ -49,7 +55,11 @@ const Petcard = () => {
                     elevation={0}
                     variant="outlined"
                   >
-                    <img src={alldata[index].popfile} className="h-30" />
+                    {v.popfile == "" ? (
+                      <Loading />
+                    ) : (
+                      <img src={alldata[index].popfile} className="h-30" />
+                    )}
                     <div className="relative">
                       <CardContent className="list-none text-lg">
                         <li className="font-bold">나이 : {v.age}</li>
@@ -64,35 +74,36 @@ const Petcard = () => {
                         </li>
                         <li className="font-bold">몸무게 : {v.weight}</li>
                       </CardContent>
-                      <div className="text-end absolute h-14 w-36 right-2 -bottom-1">
-                        <button
-                          className="bg-white outline-none text-2xl animate-bounce rounded-full text-center"
-                          onClick={() => likeAPI(v.noticeNo)}
-                        >
-                          📦
-                        </button>
-                      </div>
+                      {!cookies ? null : (
+                        <div className="text-end absolute h-14 w-36 right-2 -bottom-1">
+                          <button
+                            className="bg-white outline-none text-2xl animate-bounce rounded-full text-center"
+                            onClick={() => likeAPI(v.noticeNo)}
+                          >
+                            📦
+                          </button>
+                        </div>
+                      )}
                     </div>
                   </Card>
                 </Grid>
               ))}
             </>
-          ) : (
-            <Loading />
-          )}
-        </Grid>
-
-        <div>
-          <Stack spacing={2} className="place-content-center mt-10">
-            <Pagination
-              count={10}
-              page={page}
-              onChange={pagehandleChange}
-              sx={{ paddingLeft: "40%" }}
-            />
-          </Stack>
-        </div>
-      </Box>
+          </Grid>
+          <div>
+            <Stack spacing={2} className="place-content-center mt-10">
+              <Pagination
+                count={10}
+                page={page}
+                onChange={pagehandleChange}
+                sx={{ paddingLeft: "40%" }}
+              />
+            </Stack>
+          </div>
+        </Box>
+      ) : (
+        <Loading />
+      )}
     </>
   );
 };

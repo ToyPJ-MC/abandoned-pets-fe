@@ -129,9 +129,8 @@ const allAPI = async (
       headers: headerConfig,
     })
     .then(async (response: AxiosResponse) => {
-      //console.log(response.data);
-      setAllData(response.data);
       setLoading && setLoading(false);
+      setAllData(response.data);
     })
     .catch((error) => {
       handleError(error);
