@@ -3,7 +3,7 @@ import Lawdialog from "../../components/Lawdialog";
 import Petnotice from "../Petnotice";
 import Search from "../Search";
 import { Link, useNavigate } from "react-router-dom";
-import { ProfileAPI, beforeProfileAPI, loginAPI } from "../../api/auth";
+import { LoginAPI, ProfileAPI } from "../../api/auth";
 import KakaoLogin from "../../components/KakaoLogin";
 import { Cookies, useCookies } from "react-cookie";
 import { getCookie } from "../../util/Cookie";
@@ -12,6 +12,7 @@ const { VITE_APP_KAKAO_KEY } = import.meta.env;
 
 const Main = () => {
   const cookies = getCookie("access_token");
+  const refreshtoken = getCookie("refresh_token");
   const navigate = useNavigate();
   const LOGOUT_REDIRECT_URI = "http://localhost:5173";
   const kakaologout = `https://kauth.kakao.com/oauth/logout?client_id=${VITE_APP_KAKAO_KEY}&logout_redirect_uri=${LOGOUT_REDIRECT_URI}`;
@@ -26,18 +27,23 @@ const Main = () => {
   const logout = () => {
     window.location.href = kakaologout;
     removeCookie("access_token", { path: "/" });
+    //removeCookie("refresh_token", { path: "/" });
   };
   const latestsearch = () => {
     navigate("/latestsearch");
   };
-  useEffect(() => {
-    beforeProfileAPI();
-  }, []);
+  // beforeProfileAPI
+  // useEffect(() => {
+  //   beforeProfileAPI();
+  // }, []);
 
   const kakaologin = () => {
     location.href = "http://192.168.0.16:8080/oauth2/authorization/kakao";
     // navigate("/KakaoLogin");
   };
+  useEffect(() => {
+    LoginAPI(refreshtoken);
+  }, []);
   return (
     <>
       <Lawdialog open={open} onClose={handleClose} />
@@ -54,9 +60,14 @@ const Main = () => {
                 로그인
               </button>
             ) : null}
-            <button onClick={logout} className="bg-white text-lg outline-none">
-              로그아웃
-            </button>
+            {cookies ? (
+              <button
+                onClick={logout}
+                className="bg-white text-lg outline-none"
+              >
+                로그아웃
+              </button>
+            ) : null}
           </div>
         </div>
         {cookies ? (

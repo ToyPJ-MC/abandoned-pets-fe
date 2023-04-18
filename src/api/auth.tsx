@@ -2,19 +2,11 @@ import axios from "axios";
 import { API_URL } from "../constants/Constants";
 import { getCookie, setCookie } from "../util/Cookie";
 import { SetterOrUpdater } from "recoil";
+import jinInterceptor from "./interceptor";
 
 const headerConfig = {
   "Content-Type": "application/json",
   "Access-Control-Allow-Origin": "*",
-};
-const baseurl = axios.create({
-  baseURL: API_URL + "/oauth2/authorization/kakao",
-});
-const loginAPI = () => {
-  baseurl.interceptors.response.use((response: any) => {
-    // oauth2/redirect?code={accss_token} -> 쿠키 저장
-    return response;
-  });
 };
 const TokenAPI = () => {
   const code = new URL(window.location.href).searchParams.get("code");
@@ -33,7 +25,7 @@ const TokenAPI = () => {
 const ProfileAPI = (setUser: SetterOrUpdater<any>) => {
   const cookies = getCookie("access_token");
   let token = cookies;
-  axios
+  jinInterceptor
     .get(API_URL + "/kakao/info", {
       params: { access_token: token },
       headers: headerConfig,
@@ -42,15 +34,38 @@ const ProfileAPI = (setUser: SetterOrUpdater<any>) => {
       setUser(response.data);
     });
 };
-const beforeProfileAPI = () => {
-  const cookies = getCookie("access_token");
+const LoginAPI = (refreshtoken: string) => {
   axios
-    .get(API_URL + "/kakao/info", {
-      params: { access_token: cookies },
+    .get(API_URL + "api/member/token/new", {
+      params: {
+        refresh_token: refreshtoken,
+      },
       headers: headerConfig,
     })
-    .then((response) => {
-      setCookie(response.data.id);
+    .then((reponse) => {
+      // jinInterceptor.defaults.headers.common["Authorization"] =
+      //   "Bearer " + reponse.data.access_token;
+      setCookie("access_token", reponse.data.accessToken, {
+        path: "/",
+        expires: new Date(Date.now() + 60000),
+      });
+      setCookie("refresh_token", reponse.data.refreshToken);
+      console.log(reponse);
+    })
+    .catch((error) => {
+      console.log(error);
     });
 };
-export { ProfileAPI, TokenAPI, beforeProfileAPI, loginAPI };
+// const beforeProfileAPI = () => {
+//   const cookies = getCookie("access_token");
+//   axios
+//     .get(API_URL + "/kakao/info", {
+//       params: { access_token: cookies },
+//       headers: headerConfig,
+//     })
+//     .then((response) => {
+//       setCookie(response.data.id);
+//     });
+// };
+//beforeProfileAPI
+export { ProfileAPI, TokenAPI, LoginAPI };

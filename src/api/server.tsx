@@ -2,9 +2,9 @@ import React from "react";
 import axios, { AxiosError } from "axios";
 import { AxiosResponse } from "axios";
 import { API_URL } from "../constants/Constants";
-import { SetterOrUpdater, useRecoilState } from "recoil";
-import { userDataState } from "../states/atom";
+import { SetterOrUpdater } from "recoil";
 import { getCookie } from "../util/Cookie";
+import jinInterceptor from "./interceptor";
 
 const gunurl = "/gungu/find";
 const centerurl = "/center/find";
@@ -86,11 +86,11 @@ const findAPI = async (
   setError: SetterOrUpdater<number>
 ) => {
   const cookies = getCookie("access_token");
-  const member = cookies;
-  await axios
-    .get(
-      API_URL + `/api/pets/select/token=${access_token}/kindcode=${kind_code}`,
-      {
+  let member = cookies;
+  if (access_token !== undefined) {
+    member = "";
+    await axios
+      .get(API_URL + `/api/pets/select/kindcode=${kind_code}`, {
         params: {
           access_token: member,
           kind_cd: kind,
@@ -100,18 +100,41 @@ const findAPI = async (
           kind_code: kind_code,
         },
         headers: headerConfig,
-      }
-    )
-    .then((response) => {
-      setPetindex(response.data);
-    })
-    .catch((error) => {
-      const err = error as AxiosError; // axios error
-      if (err.response) {
-        console.log(err.response.status);
-        setError(err.response.status);
-      }
-    });
+      })
+      .then((response) => {
+        setPetindex(response.data);
+      })
+      .catch((error) => {
+        const err = error as AxiosError; // axios error
+        if (err.response) {
+          console.log(err.response.status);
+          setError(err.response.status);
+        }
+      });
+  } else {
+    await jinInterceptor
+      .get(API_URL + `/api/pets/select/kindcode=${kind_code}`, {
+        params: {
+          access_token: member,
+          kind_cd: kind,
+          care_nm: center,
+          org_nm: si_code + " " + gungu_code,
+          neuter_yn: neuter,
+          kind_code: kind_code,
+        },
+        headers: headerConfig,
+      })
+      .then((response) => {
+        setPetindex(response.data);
+      })
+      .catch((error) => {
+        const err = error as AxiosError; // axios error
+        if (err.response) {
+          console.log(err.response.status);
+          setError(err.response.status);
+        }
+      });
+  }
 };
 const allAPI = async (
   page: number,
@@ -149,9 +172,9 @@ const MaxpageAPI = async (setMaxpage: SetterOrUpdater<any>) => {
 const SearchAPI = async (setSearchpage: SetterOrUpdater<any>) => {
   const cookies = getCookie("access_token");
   const member = cookies.toString();
-  await axios
-    .get(API_URL + `/api/member/searchlist/memberid=${member}`, {
-      params: { access_token: member },
+  await jinInterceptor
+    .get(API_URL + `/member/searchlist/token=` + member, {
+      // params: { token: member },
       headers: headerConfig,
     })
     .then(async (response) => {
@@ -171,7 +194,7 @@ const TotalAPI = async (setTotal: SetterOrUpdater<any>) => {
 const likeAPI = async (noticeNo: string) => {
   const cookies = getCookie("access_token");
   const member = cookies.toString();
-  await axios
+  await jinInterceptor
     .post(API_URL + `/api/member/like/token=${member}`, null, {
       params: { access_token: member, noticeNo: noticeNo },
       headers: headerConfig,
@@ -186,7 +209,7 @@ const likeAPI = async (noticeNo: string) => {
 const likelistAPI = async (setLike: SetterOrUpdater<any>) => {
   const cookies = getCookie("access_token");
   const member = cookies.toString();
-  await axios
+  await jinInterceptor
     .get(API_URL + `/api/member/like/list/token=${member}`, {
       params: { access_token: member },
       headers: headerConfig,
