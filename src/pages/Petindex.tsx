@@ -22,7 +22,7 @@ const Petindex = () => {
   const homeClick = () => {
     navigate("/");
   };
-  console.log(error);
+
   return (
     <>
       {error === "잘못된 조회" ? (
@@ -30,6 +30,13 @@ const Petindex = () => {
           <h1>잘못된 조회</h1>
           <Button onClick={homeClick}>홈으로</Button>
         </>
+      ) : petindex.length == 0 ? (
+        <div className="ml-10">
+          <div className="text-3xl mt-6 font-bold" onClick={homeClick}>
+            Home
+          </div>
+          <div className="font-bold text-2xl mt-4">검색결과가 없습니다.</div>
+        </div>
       ) : (
         <div className="h-full w-full flex flex-col">
           <div className="ml-10 mr-10">
