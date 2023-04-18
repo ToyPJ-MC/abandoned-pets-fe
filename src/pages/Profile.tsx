@@ -82,8 +82,8 @@ const Profile = () => {
               {"<"}Profile{">"}
             </h1>
             <div>
-              <img src={user.picture} className="h-full mt-6"></img>
-              <h1>{user.nickname}</h1>
+              <img src={user.profile} className="h-full mt-6"></img>
+              <h1>{user.name}</h1>
               <h3>이메일: {user.email}</h3>
             </div>
           </Paper>

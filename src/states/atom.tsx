@@ -157,10 +157,9 @@ const totalDataState = atom({
 const userDataState = atom({
   key: "User",
   default: {
+    name: "",
     email: "",
-    id: 0,
-    nickname: "",
-    picture: "",
+    profile: "",
   },
 });
 const errorState = atom({
