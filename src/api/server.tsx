@@ -82,17 +82,17 @@ const findAPI = async (
   kind: string,
   neuter: string,
   setPetindex: SetterOrUpdater<any>,
-  member_id: string,
+  access_token: string,
   setError: SetterOrUpdater<any>
 ) => {
-  const cookies = getCookie("member_id");
+  const cookies = getCookie("access_token");
   const member = cookies;
   await axios
     .get(
-      API_URL + `/api/pets/select/memberid=${member_id}/kindcode=${kind_code}`,
+      API_URL + `/api/pets/select/token=${access_token}/kindcode=${kind_code}`,
       {
         params: {
-          member_id: member,
+          access_token: member,
           kind_cd: kind,
           care_nm: center,
           org_nm: si_code + " " + gungu_code,
@@ -148,11 +148,11 @@ const MaxpageAPI = async (setMaxpage: SetterOrUpdater<any>) => {
     });
 };
 const SearchAPI = async (setSearchpage: SetterOrUpdater<any>) => {
-  const cookies = getCookie("member_id");
+  const cookies = getCookie("access_token");
   const member = cookies.toString();
   await axios
     .get(API_URL + `/api/member/searchlist/memberid=${member}`, {
-      params: { member_id: member },
+      params: { access_token: member },
       headers: headerConfig,
     })
     .then(async (response) => {
@@ -170,11 +170,11 @@ const TotalAPI = async (setTotal: SetterOrUpdater<any>) => {
     });
 };
 const likeAPI = async (noticeNo: string) => {
-  const cookies = getCookie("member_id");
+  const cookies = getCookie("access_token");
   const member = cookies.toString();
   await axios
-    .post(API_URL + `/api/member/like/memberid=${member}`, null, {
-      params: { member_id: member, noticeNo: noticeNo },
+    .post(API_URL + `/api/member/like/token=${member}`, null, {
+      params: { access_token: member, noticeNo: noticeNo },
       headers: headerConfig,
     })
     .then((response) => {
@@ -185,11 +185,11 @@ const likeAPI = async (noticeNo: string) => {
     });
 };
 const likelistAPI = async (setLike: SetterOrUpdater<any>) => {
-  const cookies = getCookie("member_id");
+  const cookies = getCookie("access_token");
   const member = cookies.toString();
   await axios
-    .get(API_URL + `/api/member/like/list/memberid=${member}`, {
-      params: { member_id: member },
+    .get(API_URL + `/api/member/like/list/token=${member}`, {
+      params: { access_token: member },
       headers: headerConfig,
     })
     .then((response) => {
