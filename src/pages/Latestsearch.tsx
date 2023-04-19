@@ -48,6 +48,7 @@ const Latestsearch = () => {
   const deleteclick = async () => {
     //console.log(checkitems);
     await removesearchlistAPI(checkitems);
+    location.href = "/latestsearch";
   };
 
   useEffect(() => {

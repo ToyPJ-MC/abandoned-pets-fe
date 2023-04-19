@@ -230,8 +230,9 @@ const likelistAPI = async (setLike: SetterOrUpdater<any>) => {
 const removesearchlistAPI = (notice: Array<string>) => {
   const cookies = getCookie("access_token");
   const member = cookies.toString();
+  //console.log(notice.toString());
   axios
-    .post(API_URL + `/member/delete/searchlist`, null, {
+    .post(API_URL + `/api/member/delete/searchlist`, null, {
       params: { access_token: member, noticeNo: notice.toString() },
       headers: headerConfig,
     })
@@ -245,8 +246,9 @@ const removesearchlistAPI = (notice: Array<string>) => {
 const removelikelistAPI = (notice: Array<string>) => {
   const cookies = getCookie("access_token");
   const member = cookies.toString();
+  //console.log(notice.toString());
   axios
-    .post(API_URL + `/api/member/delete/likelist`, notice, {
+    .post(API_URL + `/api/member/delete/likelist`, null, {
       params: { access_token: member, noticeNo: notice.toString() },
       headers: headerConfig,
     })

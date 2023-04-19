@@ -52,12 +52,10 @@ const Profile = () => {
     setCheck(false);
     setScheck(true);
   };
-  useEffect(() => {
-    //console.log(checkitems);
-  }, []);
   const deleteclick = async () => {
     await removelikelistAPI(checkitems);
     //console.log(checkitems);
+    location.href = "/profile";
   };
 
   return (
