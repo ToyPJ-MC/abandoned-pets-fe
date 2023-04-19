@@ -4,7 +4,7 @@ import { ProfileAPI } from "../api/auth";
 import { useRecoilState } from "recoil";
 import { petregistDataState, userDataState } from "../states/atom";
 import { useNavigate } from "react-router-dom";
-import { Paper } from "@mui/material";
+import { Card, CardContent, Paper } from "@mui/material";
 import { likelistAPI } from "../api/server";
 
 const Profile = () => {
@@ -24,7 +24,6 @@ const Profile = () => {
   useEffect(() => {
     likelistAPI(setLike);
   }, []);
-
   const allcheckbtn = (checked: boolean) => {
     if (checked) {
       const noticeArray: any = [];
@@ -90,26 +89,29 @@ const Profile = () => {
         </div>
         <div>
           <h1>내가 관심 있는 유기동물</h1>
-          <div className="grid grid-cols-2 gap-6">
+          <div className="grid grid-cols-3 gap-6">
             <button
-              className="btn btn-ghost bg-white text-lg outline-none"
+              className="btn btn-ghost bg-white text-lg font-bold"
               onClick={allcheck}
             >
               전체선택
             </button>
             <button
-              className="btn btn-ghost bg-white text-lg outline-none"
+              className="btn btn-ghost bg-white text-lg font-bold "
               onClick={singlecheck}
             >
               개별선택
             </button>
+            <div>
+              <button
+                onClick={deleteclick}
+                className="bg-white text-lg font-bold"
+              >
+                삭제
+              </button>
+            </div>
           </div>
-          <button
-            onClick={deleteclick}
-            className="btn btn-ghost bg-white text-lg outline-none"
-          >
-            삭제
-          </button>
+
           <div className="grid grid-cols-2 gap-6 mb-8 mt-4">
             {like.map((item, index) => (
               <div key={index} className="list-none">
@@ -130,11 +132,21 @@ const Profile = () => {
                     checked={checkitems.length === like.length}
                   />
                 ) : null}
-                <img src={item.popfile} className="h-60"></img>
-                <li>{item.kindCd}</li>
-                <li>{item.colorCd}</li>
-                <li>{item.age}</li>
-                <li>{item.weight}</li>
+                <div className="font-bold text-lg">
+                  <Card
+                    sx={{ minWidth: 300, borderRadius: 5 }}
+                    elevation={0}
+                    variant="outlined"
+                  >
+                    <CardContent>
+                      <img src={item.popfile} className="h-60"></img>
+                      <li>{item.kindCd}</li>
+                      <li>{item.colorCd}</li>
+                      <li>{item.age}</li>
+                      <li>{item.weight}</li>
+                    </CardContent>
+                  </Card>
+                </div>
               </div>
             ))}
           </div>

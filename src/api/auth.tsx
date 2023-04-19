@@ -25,7 +25,6 @@ const TokenAPI = () => {
 const ProfileAPI = (setUser: SetterOrUpdater<any>) => {
   const cookies = getCookie("access_token");
   let token = cookies;
-  console.log(token);
   axios
     .get(API_URL + "/api/member/info", {
       params: { access_token: token },

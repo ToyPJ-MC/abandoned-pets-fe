@@ -56,26 +56,32 @@ const Latestsearch = () => {
         <div className="ml-10 mr-10">
           <h1 onClick={homeClick}>MJ PET</h1>
           <h2>최근 조회 목록</h2>
-          <div className="grid grid-cols-2 gap-6">
-            <button
-              className="btn btn-ghost bg-white text-lg outline-none"
-              onClick={allcheck}
-            >
-              전체선택
-            </button>
-            <button
-              className="btn btn-ghost bg-white text-lg outline-none"
-              onClick={singlecheck}
-            >
-              개별선택
-            </button>
-          </div>
-          <button
-            className="btn btn-ghost bg-white text-lg outline-none"
-            onClick={deleteclick}
-          >
-            삭제
-          </button>
+          {searchpage.length !== 0 ? (
+            <div className="grid grid-cols-3 gap-6">
+              <button
+                className="btn btn-ghost bg-white text-lg outline-none"
+                onClick={allcheck}
+              >
+                전체선택
+              </button>
+              <button
+                className="btn btn-ghost bg-white text-lg outline-none"
+                onClick={singlecheck}
+              >
+                개별선택
+              </button>
+
+              <div>
+                <button
+                  className="btn btn-ghost bg-white text-lg outline-none"
+                  onClick={deleteclick}
+                >
+                  삭제
+                </button>
+              </div>
+            </div>
+          ) : null}
+
           {searchpage.length !== 0 ? (
             <div>
               <Box sx={{ flexGrow: 1 }}>
