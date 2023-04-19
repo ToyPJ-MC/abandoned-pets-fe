@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent, Box, Grid } from "@mui/material";
 import { useRecoilState } from "recoil";
@@ -8,9 +8,45 @@ import { SearchAPI } from "../api/server";
 const Latestsearch = () => {
   let navigate = useNavigate();
   const [searchpage, setSearchpage] = useRecoilState(petindexDataState);
+  const [check, setCheck] = useState(false);
+  const [scheck, setScheck] = useState(false);
+  const [checkitems, setCheckitems] = useState<Array<string>>([]);
+
   const homeClick = () => {
     navigate("/");
   };
+  const allcheckbtn = (checked: boolean) => {
+    if (checked) {
+      const noticeArray: any = [];
+      searchpage.map((item) => noticeArray.push(item.noticeNo));
+      setCheckitems(noticeArray);
+      console.log(checkitems);
+    } else {
+      setCheckitems([]);
+      console.log(checkitems);
+    }
+  };
+  const singlecheckbtn = (checked: boolean, noticeNo: string) => {
+    if (checked) {
+      setCheckitems([...checkitems, noticeNo]);
+      console.log(checkitems);
+    } else {
+      setCheckitems(checkitems.filter((item) => item !== noticeNo));
+      console.log(checkitems);
+    }
+  };
+  const allcheck = () => {
+    setScheck(false);
+    setCheck(true);
+  };
+  const singlecheck = () => {
+    setCheck(false);
+    setScheck(true);
+  };
+  const testclick = () => {
+    console.log(checkitems);
+  };
+
   useEffect(() => {
     SearchAPI(setSearchpage);
   }, []);
@@ -20,11 +56,37 @@ const Latestsearch = () => {
         <div className="ml-10 mr-10">
           <h1 onClick={homeClick}>MJ PET</h1>
           <h2>최근 조회 목록</h2>
+          <div className="grid grid-cols-2 gap-6">
+            <button className="btn btn-ghost" onClick={allcheck}>
+              전체선택
+            </button>
+            <button className="btn btn-ghost" onClick={singlecheck}>
+              개별선택
+            </button>
+          </div>
+          <button onClick={testclick}>TEST</button>
           {searchpage.length !== 0 ? (
             <div>
               <Box sx={{ flexGrow: 1 }}>
                 {searchpage.map((v, index) => (
                   <Grid item xs={2} sm={4} md={4} key={index}>
+                    {scheck == true ? (
+                      <input
+                        type="checkbox"
+                        value={v.noticeNo}
+                        onChange={(e) =>
+                          singlecheckbtn(e.target.checked, e.target.value)
+                        }
+                        checked={checkitems.includes(v.noticeNo)}
+                      />
+                    ) : check == true ? (
+                      <input
+                        type="checkbox"
+                        value={v.noticeNo}
+                        onChange={(e) => allcheckbtn(e.target.checked)}
+                        checked={checkitems.length === searchpage.length}
+                      />
+                    ) : null}
                     <Card
                       sx={{
                         minWidth: 300,

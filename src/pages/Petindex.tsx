@@ -2,15 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { errorState, petindexDataState } from "../states/atom";
-import {
-  Card,
-  CardContent,
-  CardMedia,
-  Stack,
-  Box,
-  Grid,
-  Button,
-} from "@mui/material";
+import { Card, CardContent, Box, Grid } from "@mui/material";
 import { getCookie } from "../util/Cookie";
 
 const Petindex = () => {

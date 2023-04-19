@@ -57,6 +57,21 @@ const LoginAPI = (refreshtoken: string) => {
       console.log(error);
     });
 };
+const LogoutAPI = (accesstoken: string) => {
+  axios
+    .post(API_URL + "/api/member/logout", null, {
+      params: {
+        access_token: accesstoken,
+      },
+      headers: headerConfig,
+    })
+    .then((reponse) => {
+      console.log(reponse);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
 // const beforeProfileAPI = () => {
 //   const cookies = getCookie("access_token");
 //   axios
@@ -69,4 +84,4 @@ const LoginAPI = (refreshtoken: string) => {
 //     });
 // };
 //beforeProfileAPI
-export { ProfileAPI, TokenAPI, LoginAPI };
+export { ProfileAPI, TokenAPI, LoginAPI, LogoutAPI };

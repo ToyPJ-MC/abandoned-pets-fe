@@ -1,14 +1,5 @@
 import React, { Suspense, useEffect, useState } from "react";
-import {
-  Card,
-  CardActions,
-  CardContent,
-  Pagination,
-  Grid,
-  Button,
-  Stack,
-  Box,
-} from "@mui/material";
+import { Card, CardContent, Pagination, Grid, Stack, Box } from "@mui/material";
 import { MaxpageAPI, allAPI, likeAPI } from "../api/server";
 import { useRecoilState } from "recoil";
 import { maxpageDataState, petcardDataState } from "../states/atom";
