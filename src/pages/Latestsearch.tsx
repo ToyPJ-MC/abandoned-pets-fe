@@ -43,7 +43,7 @@ const Latestsearch = () => {
     setCheck(false);
     setScheck(true);
   };
-  const testclick = () => {
+  const deleteclick = () => {
     console.log(checkitems);
   };
 
@@ -57,14 +57,25 @@ const Latestsearch = () => {
           <h1 onClick={homeClick}>MJ PET</h1>
           <h2>최근 조회 목록</h2>
           <div className="grid grid-cols-2 gap-6">
-            <button className="btn btn-ghost" onClick={allcheck}>
+            <button
+              className="btn btn-ghost bg-white text-lg outline-none"
+              onClick={allcheck}
+            >
               전체선택
             </button>
-            <button className="btn btn-ghost" onClick={singlecheck}>
+            <button
+              className="btn btn-ghost bg-white text-lg outline-none"
+              onClick={singlecheck}
+            >
               개별선택
             </button>
           </div>
-          <button onClick={testclick}>TEST</button>
+          <button
+            className="btn btn-ghost bg-white text-lg outline-none"
+            onClick={deleteclick}
+          >
+            삭제
+          </button>
           {searchpage.length !== 0 ? (
             <div>
               <Box sx={{ flexGrow: 1 }}>

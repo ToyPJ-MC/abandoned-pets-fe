@@ -56,7 +56,7 @@ const Profile = () => {
   useEffect(() => {
     console.log(checkitems);
   }, []);
-  const testclick = () => {
+  const deleteclick = () => {
     console.log(checkitems);
   };
 
@@ -91,14 +91,25 @@ const Profile = () => {
         <div>
           <h1>내가 관심 있는 유기동물</h1>
           <div className="grid grid-cols-2 gap-6">
-            <button className="btn btn-ghost" onClick={allcheck}>
+            <button
+              className="btn btn-ghost bg-white text-lg outline-none"
+              onClick={allcheck}
+            >
               전체선택
             </button>
-            <button className="btn btn-ghost" onClick={singlecheck}>
+            <button
+              className="btn btn-ghost bg-white text-lg outline-none"
+              onClick={singlecheck}
+            >
               개별선택
             </button>
           </div>
-          <button onClick={testclick}>TEST</button>
+          <button
+            onClick={deleteclick}
+            className="btn btn-ghost bg-white text-lg outline-none"
+          >
+            삭제
+          </button>
           <div className="grid grid-cols-2 gap-6 mb-8 mt-4">
             {like.map((item, index) => (
               <div key={index} className="list-none">

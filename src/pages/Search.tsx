@@ -26,7 +26,7 @@ import { useNavigate } from "react-router-dom";
 import { getCookie } from "../util/Cookie";
 
 const Search = () => {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
   const [select, setSelect] = useState(""); //시/도 select
   const [gunselect, setGunselect] = useState("");
   const [placeselect, setPlaceselect] = useState("");
