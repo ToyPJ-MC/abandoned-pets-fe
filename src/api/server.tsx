@@ -169,7 +169,10 @@ const MaxpageAPI = async (setMaxpage: SetterOrUpdater<any>) => {
       setMaxpage(response.data);
     });
 };
-const SearchAPI = async (setSearchpage: SetterOrUpdater<any>) => {
+const SearchAPI = async (
+  setSearchpage: SetterOrUpdater<any>,
+  setLoading?: React.Dispatch<React.SetStateAction<boolean>>
+) => {
   const cookies = getCookie("access_token");
   const member = cookies.toString();
   await jinInterceptor
@@ -178,6 +181,7 @@ const SearchAPI = async (setSearchpage: SetterOrUpdater<any>) => {
       headers: headerConfig,
     })
     .then(async (response) => {
+      setLoading && setLoading(false);
       setSearchpage(response.data);
     });
 };

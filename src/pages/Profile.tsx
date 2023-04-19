@@ -91,13 +91,13 @@ const Profile = () => {
           <h1>내가 관심 있는 유기동물</h1>
           <div className="grid grid-cols-3 gap-6">
             <button
-              className="btn btn-ghost bg-white text-lg font-bold"
+              className="btn btn-ghost bg-white text-lg font-bold outline-none"
               onClick={allcheck}
             >
               전체선택
             </button>
             <button
-              className="btn btn-ghost bg-white text-lg font-bold "
+              className="btn btn-ghost bg-white text-lg font-bold outline-none"
               onClick={singlecheck}
             >
               개별선택
@@ -105,13 +105,12 @@ const Profile = () => {
             <div>
               <button
                 onClick={deleteclick}
-                className="bg-white text-lg font-bold"
+                className="btn btn-ghost bg-white text-lg font-bold outline-none"
               >
                 삭제
               </button>
             </div>
           </div>
-
           <div className="grid grid-cols-2 gap-6 mb-8 mt-4">
             {like.map((item, index) => (
               <div key={index} className="list-none">

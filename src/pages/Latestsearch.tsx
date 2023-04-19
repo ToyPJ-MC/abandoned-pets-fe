@@ -4,6 +4,7 @@ import { Card, CardContent, Box, Grid } from "@mui/material";
 import { useRecoilState } from "recoil";
 import { petindexDataState } from "../states/atom";
 import { SearchAPI } from "../api/server";
+import Loading from "../components/Loading";
 
 const Latestsearch = () => {
   let navigate = useNavigate();
@@ -11,6 +12,7 @@ const Latestsearch = () => {
   const [check, setCheck] = useState(false);
   const [scheck, setScheck] = useState(false);
   const [checkitems, setCheckitems] = useState<Array<string>>([]);
+  const [loading, setLoading] = useState(true);
 
   const homeClick = () => {
     navigate("/");
@@ -48,7 +50,7 @@ const Latestsearch = () => {
   };
 
   useEffect(() => {
-    SearchAPI(setSearchpage);
+    SearchAPI(setSearchpage, setLoading);
   }, []);
   return (
     <>
@@ -81,8 +83,7 @@ const Latestsearch = () => {
               </div>
             </div>
           ) : null}
-
-          {searchpage.length !== 0 ? (
+          {searchpage.length !== 0 && !loading ? (
             <div>
               <Box sx={{ flexGrow: 1 }}>
                 {searchpage.map((v, index) => (
@@ -169,10 +170,12 @@ const Latestsearch = () => {
                 ))}
               </Box>
             </div>
-          ) : (
+          ) : searchpage.length === 0 ? (
             <div>
               <h1>최근조회 내역 없음</h1>
             </div>
+          ) : (
+            <Loading />
           )}
         </div>
       </div>
