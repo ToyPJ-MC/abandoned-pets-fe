@@ -5,7 +5,7 @@ import { useRecoilState } from "recoil";
 import { petregistDataState, userDataState } from "../states/atom";
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent, Paper } from "@mui/material";
-import { likelistAPI } from "../api/server";
+import { likelistAPI, removelikelistAPI } from "../api/server";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -29,19 +29,19 @@ const Profile = () => {
       const noticeArray: any = [];
       like.map((item) => noticeArray.push(item.noticeNo));
       setCheckitems(noticeArray);
-      console.log(checkitems);
+      //console.log(checkitems);
     } else {
       setCheckitems([]);
-      console.log(checkitems);
+      //console.log(checkitems);
     }
   };
   const singlecheckbtn = (checked: boolean, noticeNo: string) => {
     if (checked) {
       setCheckitems([...checkitems, noticeNo]);
-      console.log(checkitems);
+      //console.log(checkitems);
     } else {
       setCheckitems(checkitems.filter((item) => item !== noticeNo));
-      console.log(checkitems);
+      //console.log(checkitems);
     }
   };
   const allcheck = () => {
@@ -53,10 +53,11 @@ const Profile = () => {
     setScheck(true);
   };
   useEffect(() => {
-    console.log(checkitems);
+    //console.log(checkitems);
   }, []);
-  const deleteclick = () => {
-    console.log(checkitems);
+  const deleteclick = async () => {
+    await removelikelistAPI(checkitems);
+    //console.log(checkitems);
   };
 
   return (

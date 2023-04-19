@@ -5,6 +5,7 @@ import { API_URL } from "../constants/Constants";
 import { SetterOrUpdater } from "recoil";
 import { getCookie } from "../util/Cookie";
 import jinInterceptor from "./interceptor";
+import { data } from "autoprefixer";
 
 const gunurl = "/gungu/find";
 const centerurl = "/center/find";
@@ -87,7 +88,7 @@ const findAPI = async (
 ) => {
   const cookies = getCookie("access_token");
   let member = cookies;
-  if (access_token !== undefined) {
+  if (access_token === undefined) {
     member = "";
     await axios
       .get(API_URL + `/api/pets/select/kindcode=${kind_code}`, {
@@ -112,8 +113,9 @@ const findAPI = async (
         }
       });
   } else {
+    console.log("jin" + member);
     await jinInterceptor
-      .get(API_URL + `/api/pets/select/kindcode=${kind_code}`, {
+      .get(API_URL + `/pets/select/kindcode=${kind_code}`, {
         params: {
           access_token: member,
           kind_cd: kind,
@@ -176,8 +178,8 @@ const SearchAPI = async (
   const cookies = getCookie("access_token");
   const member = cookies.toString();
   await jinInterceptor
-    .get(API_URL + `/member/searchlist/token=` + member, {
-      // params: { token: member },
+    .get(API_URL + "/member/searchlist", {
+      params: { access_token: member },
       headers: headerConfig,
     })
     .then(async (response) => {
@@ -199,8 +201,8 @@ const likeAPI = async (noticeNo: string) => {
   const cookies = getCookie("access_token");
   const member = cookies.toString();
   await jinInterceptor
-    .post(API_URL + `/member/like/token=${member}`, null, {
-      params: { noticeNo: noticeNo }, //access_token: member,
+    .post(API_URL + `/member/like`, null, {
+      params: { access_token: member, noticeNo: noticeNo },
       headers: headerConfig,
     })
     .then((response) => {
@@ -214,12 +216,42 @@ const likelistAPI = async (setLike: SetterOrUpdater<any>) => {
   const cookies = getCookie("access_token");
   const member = cookies.toString();
   await jinInterceptor
-    .get(API_URL + `/member/like/list/token=${member}`, {
-      //params: { access_token: member },
+    .get(API_URL + `/member/likelist`, {
+      params: { access_token: member },
       headers: headerConfig,
     })
     .then((response) => {
       setLike(response.data);
+    })
+    .catch((error) => {
+      handleError(error);
+    });
+};
+const removesearchlistAPI = (notice: Array<string>) => {
+  const cookies = getCookie("access_token");
+  const member = cookies.toString();
+  axios
+    .post(API_URL + `/member/delete/searchlist`, null, {
+      params: { access_token: member, noticeNo: notice.toString() },
+      headers: headerConfig,
+    })
+    .then((response) => {
+      console.log(response.data);
+    })
+    .catch((error) => {
+      handleError(error);
+    });
+};
+const removelikelistAPI = (notice: Array<string>) => {
+  const cookies = getCookie("access_token");
+  const member = cookies.toString();
+  axios
+    .post(API_URL + `/api/member/delete/likelist`, notice, {
+      params: { access_token: member, noticeNo: notice.toString() },
+      headers: headerConfig,
+    })
+    .then((response) => {
+      console.log(response.data);
     })
     .catch((error) => {
       handleError(error);
@@ -236,4 +268,6 @@ export {
   TotalAPI,
   likeAPI,
   likelistAPI,
+  removesearchlistAPI,
+  removelikelistAPI,
 };

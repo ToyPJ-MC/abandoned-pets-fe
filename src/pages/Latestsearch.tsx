@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Card, CardContent, Box, Grid } from "@mui/material";
 import { useRecoilState } from "recoil";
 import { petindexDataState } from "../states/atom";
-import { SearchAPI } from "../api/server";
+import { SearchAPI, removesearchlistAPI } from "../api/server";
 import Loading from "../components/Loading";
 
 const Latestsearch = () => {
@@ -22,19 +22,19 @@ const Latestsearch = () => {
       const noticeArray: any = [];
       searchpage.map((item) => noticeArray.push(item.noticeNo));
       setCheckitems(noticeArray);
-      console.log(checkitems);
+      //console.log(checkitems);
     } else {
       setCheckitems([]);
-      console.log(checkitems);
+      //console.log(checkitems);
     }
   };
   const singlecheckbtn = (checked: boolean, noticeNo: string) => {
     if (checked) {
       setCheckitems([...checkitems, noticeNo]);
-      console.log(checkitems);
+      //console.log(checkitems);
     } else {
       setCheckitems(checkitems.filter((item) => item !== noticeNo));
-      console.log(checkitems);
+      //console.log(checkitems);
     }
   };
   const allcheck = () => {
@@ -45,8 +45,9 @@ const Latestsearch = () => {
     setCheck(false);
     setScheck(true);
   };
-  const deleteclick = () => {
-    console.log(checkitems);
+  const deleteclick = async () => {
+    //console.log(checkitems);
+    await removesearchlistAPI(checkitems);
   };
 
   useEffect(() => {
