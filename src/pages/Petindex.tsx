@@ -16,23 +16,25 @@ const Petindex = () => {
     navigate("/");
   };
 
+  console.log(error);
+
   return (
     <>
-      {error === 404 || 400 ? (
+      {error === 404 ? (
         <div className="ml-10">
           <div className="text-3xl mt-6 font-bold" onClick={homeClick}>
             Home
           </div>
           <h1>잘못된 조회</h1>
         </div>
-      ) : petindex.length == 0 ? (
+      ) : petindex.length === 0 ? (
         <div className="ml-10">
           <div className="text-3xl mt-6 font-bold" onClick={homeClick}>
             Home
           </div>
           <div className="font-bold text-2xl mt-4">검색결과가 없습니다.</div>
         </div>
-      ) : (
+      ) : error === 0 ? (
         <div className="h-full w-full flex flex-col">
           <div className="ml-10 mr-10">
             <h1 className="text-green-700" onClick={homeClick}>
@@ -103,7 +105,7 @@ const Petindex = () => {
             </div>
           </div>
         </div>
-      )}
+      ) : null}
     </>
   );
 };

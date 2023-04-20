@@ -88,8 +88,8 @@ const findAPI = async (
 ) => {
   const cookies = getCookie("access_token");
   let member = cookies;
-  if (access_token === undefined || access_token === "") {
-    member = "";
+  if (!cookies) {
+    member = "No";
     await axios
       .get(API_URL + `/api/pets/select/kindcode=${kind_code}`, {
         params: {
@@ -105,6 +105,7 @@ const findAPI = async (
       .then((response) => {
         console.log(response.data);
         setPetindex(response.data);
+        setError(0);
       })
       .catch((error) => {
         const err = error as AxiosError; // axios error
@@ -114,7 +115,6 @@ const findAPI = async (
         }
       });
   } else {
-    console.log("jin" + member);
     await jinInterceptor
       .get(API_URL + `/pets/select/kindcode=${kind_code}`, {
         params: {
