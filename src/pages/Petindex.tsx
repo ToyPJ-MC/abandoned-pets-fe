@@ -18,7 +18,7 @@ const Petindex = () => {
 
   return (
     <>
-      {error === 404 ? (
+      {error === 404 || 400 ? (
         <div className="ml-10">
           <div className="text-3xl mt-6 font-bold" onClick={homeClick}>
             Home
@@ -83,7 +83,7 @@ const Petindex = () => {
                             </div>
                             <div>
                               {cookies && v.like == false ? (
-                                <div className="text-end mr-6">
+                                <div className="fixed text-end mr-6 bottom-0">
                                   <button
                                     className="bg-white outline-none text-lg"
                                     onClick={() => likeAPI(v.noticeNo)}
