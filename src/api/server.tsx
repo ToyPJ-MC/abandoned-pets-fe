@@ -88,7 +88,7 @@ const findAPI = async (
 ) => {
   const cookies = getCookie("access_token");
   let member = cookies;
-  if (access_token === undefined) {
+  if (access_token === undefined || access_token === "") {
     member = "";
     await axios
       .get(API_URL + `/api/pets/select/kindcode=${kind_code}`, {
@@ -103,6 +103,7 @@ const findAPI = async (
         headers: headerConfig,
       })
       .then((response) => {
+        console.log(response.data);
         setPetindex(response.data);
       })
       .catch((error) => {

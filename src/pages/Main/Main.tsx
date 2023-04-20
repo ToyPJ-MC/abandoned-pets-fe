@@ -15,6 +15,7 @@ const Main = () => {
   const kakaologout = `https://kauth.kakao.com/oauth/logout?client_id=${VITE_APP_KAKAO_KEY}&logout_redirect_uri=${LOGOUT_REDIRECT_URI}`;
   const [open, setOpen] = useState(true);
   const [logincheck, setLogincheck] = useState(false);
+
   const handleClose = () => {
     setOpen(false);
   };
@@ -24,22 +25,19 @@ const Main = () => {
   const logout = async () => {
     window.location.href = kakaologout;
     await LogoutAPI(cookies as string);
-    removeCookie("access_token");
-    removeCookie("refresh_token");
-    setLogincheck(true);
+    removeCookie("access_token", { path: "/" });
+    removeCookie("refresh_token", { path: "/" });
+    setLogincheck(false);
   };
   const latestsearch = () => {
     navigate("/latestsearch");
   };
-
   const kakaologin = () => {
     location.href = "http://192.168.0.16:8080/oauth2/authorization/kakao";
     setLogincheck(true);
   };
-  if (!logincheck) {
-    useEffect(() => {
-      LoginAPI(refreshtoken);
-    }, []);
+  if (!cookies) {
+    LoginAPI(refreshtoken as string);
   }
   return (
     <>

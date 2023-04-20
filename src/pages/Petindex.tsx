@@ -4,6 +4,7 @@ import { useRecoilState } from "recoil";
 import { errorState, petindexDataState } from "../states/atom";
 import { Card, CardContent, Box, Grid } from "@mui/material";
 import { getCookie } from "../util/Cookie";
+import { likeAPI } from "../api/server";
 
 const Petindex = () => {
   let navigate = useNavigate();
@@ -74,7 +75,10 @@ const Petindex = () => {
                         </CardContent>
                         {cookies && v.like == false ? (
                           <div className="text-end mr-6 mb-6">
-                            <button className="bg-white outline-none text-lg">
+                            <button
+                              className="bg-white outline-none text-lg"
+                              onClick={() => likeAPI(v.noticeNo)}
+                            >
                               📦
                             </button>
                           </div>

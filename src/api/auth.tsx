@@ -1,8 +1,10 @@
 import axios from "axios";
 import { API_URL } from "../constants/Constants";
-import { getCookie, setCookie } from "../util/Cookie";
+import { getCookie, removeCookie, setCookie } from "../util/Cookie";
 import { SetterOrUpdater } from "recoil";
 import jinInterceptor from "./interceptor";
+//import jwtDecode from "jwt-decode";
+//import decodejwtType from "../type";
 
 const headerConfig = {
   "Content-Type": "application/json",
@@ -42,15 +44,21 @@ const LoginAPI = (refreshtoken: string) => {
       },
       headers: headerConfig,
     })
-    .then((reponse) => {
+    .then((response) => {
+      //const decodeToken: decodejwtType = jwtDecode(response.data.accessToken);
       // jinInterceptor.defaults.headers.common["Authorization"] =
       //   "Bearer " + reponse.data.access_token;
-      setCookie("access_token", reponse.data.accessToken, {
+      setCookie("access_token", response.data.accessToken, {
         path: "/",
-        expires: new Date(Date.now() + 3600 * 1000), // 1h
+        //expires: new Date(decodeToken.exp * 1000),
+        //maxAge: 3600, // 1시간3600
       });
-      setCookie("refresh_token", reponse.data.refreshToken);
-      console.log(reponse);
+      setCookie("refresh_token", response.data.refreshToken, {
+        path: "/",
+      });
+      if (response.data.accessToken) {
+        window.location.href = "/";
+      }
     })
     .catch((error) => {
       console.log(error);

@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { getCookie, setCookie } from "../util/Cookie";
+import { LoginAPI } from "../api/auth";
 
 const KakaoLogin = () => {
   const code = new URL(window.location.href).searchParams.get("code");
@@ -15,7 +16,10 @@ const KakaoLogin = () => {
   // } else {
   //   window.alert("문제가 있음");
   // }
-  location.href = "/";
+  useEffect(() => {
+    LoginAPI(code as string);
+  }, []);
+
   return <></>;
 };
 export default KakaoLogin;

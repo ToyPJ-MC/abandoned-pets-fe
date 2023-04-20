@@ -23,6 +23,7 @@
     "dayjs": "^1.11.7",
     "eslint": "^8.28.0",
     "eslint-plugin-prettier": "^4.2.1",
+    "jwt-decode": "^3.1.2",
     "postcss": "^8.4.20",
     "postcss-nesting": "^10.2.0",
     "qs": "^6.11.0",

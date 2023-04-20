@@ -21,6 +21,7 @@ jinInterceptor.interceptors.request.use(
     // config.params = {
     //   token: access_token,
     // };
+    console.log("문제" + access_token);
     return config;
   },
   (error) => {
