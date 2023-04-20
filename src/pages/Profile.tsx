@@ -59,7 +59,7 @@ const Profile = () => {
   };
 
   return (
-    <>
+    <div className="overflow-hidden">
       <div className="text-6xl font-bold mt-6 ml-8" onClick={homeClick}>
         MJ PET
       </div>
@@ -86,7 +86,7 @@ const Profile = () => {
             </div>
           </Paper>
         </div>
-        <div>
+        <div className="h-full">
           <h1>내가 관심 있는 유기동물</h1>
           <div className="grid grid-cols-3 gap-6">
             <button
@@ -110,47 +110,49 @@ const Profile = () => {
               </button>
             </div>
           </div>
-          <div className="grid grid-cols-2 gap-6 mb-8 mt-4">
-            {like.map((item, index) => (
-              <div key={index} className="list-none">
-                {scheck == true ? (
-                  <input
-                    type="checkbox"
-                    value={item.noticeNo}
-                    onChange={(e) =>
-                      singlecheckbtn(e.target.checked, e.target.value)
-                    }
-                    checked={checkitems.includes(item.noticeNo)}
-                  />
-                ) : check == true ? (
-                  <input
-                    type="checkbox"
-                    value={item.noticeNo}
-                    onChange={(e) => allcheckbtn(e.target.checked)}
-                    checked={checkitems.length === like.length}
-                  />
-                ) : null}
-                <div className="font-bold text-lg">
-                  <Card
-                    sx={{ minWidth: 300, borderRadius: 5 }}
-                    elevation={0}
-                    variant="outlined"
-                  >
-                    <CardContent>
-                      <img src={item.popfile} className="h-60"></img>
-                      <li>{item.kindCd}</li>
-                      <li>{item.colorCd}</li>
-                      <li>{item.age}</li>
-                      <li>{item.weight}</li>
-                    </CardContent>
-                  </Card>
+          <div className="overflow-y-auto h-96 outline mt-4 pb-5">
+            <div className="grid grid-cols-2 gap-6 mt-4">
+              {like.map((item, index) => (
+                <div key={index} className="list-none">
+                  {scheck == true ? (
+                    <input
+                      type="checkbox"
+                      value={item.noticeNo}
+                      onChange={(e) =>
+                        singlecheckbtn(e.target.checked, e.target.value)
+                      }
+                      checked={checkitems.includes(item.noticeNo)}
+                    />
+                  ) : check == true ? (
+                    <input
+                      type="checkbox"
+                      value={item.noticeNo}
+                      onChange={(e) => allcheckbtn(e.target.checked)}
+                      checked={checkitems.length === like.length}
+                    />
+                  ) : null}
+                  <div className="font-bold text-lg">
+                    <Card
+                      sx={{ minWidth: 300, borderRadius: 5 }}
+                      elevation={0}
+                      variant="outlined"
+                    >
+                      <CardContent>
+                        <img src={item.popfile} className="h-60"></img>
+                        <li>{item.kindCd}</li>
+                        <li>{item.colorCd}</li>
+                        <li>{item.age}</li>
+                        <li>{item.weight}</li>
+                      </CardContent>
+                    </Card>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 export default Profile;

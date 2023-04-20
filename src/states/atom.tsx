@@ -82,6 +82,7 @@ const petindexDataState = atom({
       colorCd: "",
       happenDt: "",
       age: "",
+      like: false,
     },
   ],
 });
@@ -112,7 +113,7 @@ const petcardDataState = atom({
       colorCd: "",
       happenDt: "",
       age: "",
-      petregist: "not regist",
+      like: false,
     },
   ],
 });

@@ -57,9 +57,9 @@ const Petindex = () => {
                             <li>
                               성별 :{" "}
                               {v.sexCd == "F"
-                                ? "여자"
+                                ? "암컷"
                                 : v.sexCd == "M"
-                                ? "남자"
+                                ? "숫컷"
                                 : "미상"}
                             </li>
                             <li>몸무게 : {v.weight}</li>
@@ -72,13 +72,13 @@ const Petindex = () => {
                             <li>발견날짜 : {v.happenDt}</li>
                           </ul>
                         </CardContent>
-                        {!cookies ? null : (
+                        {cookies && v.like == false ? (
                           <div className="text-end mr-6 mb-6">
                             <button className="bg-white outline-none text-lg">
                               📦
                             </button>
                           </div>
-                        )}
+                        ) : null}
                       </Card>
                     </Grid>
                   ))}

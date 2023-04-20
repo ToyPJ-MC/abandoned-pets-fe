@@ -110,6 +110,7 @@ const Latestsearch = () => {
                     <Card
                       sx={{
                         minWidth: 300,
+                        maxHeight: 264,
                         marginTop: 3,
                         borderRadius: 5,
                       }}
@@ -117,7 +118,7 @@ const Latestsearch = () => {
                       variant="outlined"
                     >
                       <div className="grid grid-cols-3">
-                        <div className="w-10">
+                        <div>
                           <img
                             src={searchpage[index].popfile}
                             className="w-80 h-full"
@@ -131,9 +132,9 @@ const Latestsearch = () => {
                               <li>
                                 성별 :{" "}
                                 {v.sexCd == "F"
-                                  ? "여자"
+                                  ? "암컷"
                                   : v.sexCd == "M"
-                                  ? "남자"
+                                  ? "숫컷"
                                   : "미상"}
                               </li>
                               <li>몸무게 : {v.weight}</li>
