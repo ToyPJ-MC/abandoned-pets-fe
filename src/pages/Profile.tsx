@@ -63,7 +63,7 @@ const Profile = () => {
       <div className="text-6xl font-bold mt-6 ml-8" onClick={homeClick}>
         MJ PET
       </div>
-      <div className="grid grid-cols-1 mt-10 place-items-start ml-6 md:grid-cols-2">
+      <div className="grid grid-cols-1 mt-10 place-items-start ml-8 md:grid-cols-2">
         <div className="text-center grid place-items-center">
           <Paper
             sx={{

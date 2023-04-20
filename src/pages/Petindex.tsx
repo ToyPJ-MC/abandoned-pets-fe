@@ -53,36 +53,48 @@ const Petindex = () => {
                           className="w-full h-60"
                         />
                         <CardContent>
-                          <ul className="list-none">
-                            <li>털색 : {v.colorCd}</li>
-                            <li>
-                              성별 :{" "}
-                              {v.sexCd == "F"
-                                ? "암컷"
-                                : v.sexCd == "M"
-                                ? "숫컷"
-                                : "미상"}
-                            </li>
-                            <li>몸무게 : {v.weight}</li>
-                            <li>보호소 : {v.careAddr}</li>
-                            <li>상태 : {v.processState}</li>
-                            <li>공고 시작일 : {v.noticeSdt}</li>
-                            <li>공고번호 : {v.noticeNo}</li>
-                            <li>공고 종료일 : {v.noticeEdt}</li>
-                            <li>발견장소 : {v.happenPlace}</li>
-                            <li>발견날짜 : {v.happenDt}</li>
-                          </ul>
-                        </CardContent>
-                        {cookies && v.like == false ? (
-                          <div className="text-end mr-6 mb-6">
-                            <button
-                              className="bg-white outline-none text-lg"
-                              onClick={() => likeAPI(v.noticeNo)}
-                            >
-                              📦
-                            </button>
+                          <div className="grid grid-cols-2">
+                            <div>
+                              <ul className="list-none font-bold">
+                                <li>털색 : {v.colorCd}</li>
+                                <li>
+                                  성별 :{" "}
+                                  {v.sexCd == "F"
+                                    ? "암컷"
+                                    : v.sexCd == "M"
+                                    ? "숫컷"
+                                    : "미상"}
+                                </li>
+                                <li>몸무게 : {v.weight}</li>
+                                <li>보호소 : {v.careAddr}</li>
+                                <li>상태 : {v.processState}</li>
+                                <li>
+                                  공고 시작일 : {v.noticeSdt.substring(0, 10)}
+                                </li>
+                                <li>공고번호 : {v.noticeNo}</li>
+                                <li>
+                                  공고 종료일 : {v.noticeEdt.substring(0, 10)}
+                                </li>
+                                <li>발견장소 : {v.happenPlace}</li>
+                                <li>
+                                  발견날짜 : {v.happenDt.substring(0, 10)}
+                                </li>
+                              </ul>
+                            </div>
+                            <div>
+                              {cookies && v.like == false ? (
+                                <div className="text-end mr-6">
+                                  <button
+                                    className="bg-white outline-none text-lg"
+                                    onClick={() => likeAPI(v.noticeNo)}
+                                  >
+                                    📦
+                                  </button>
+                                </div>
+                              ) : null}
+                            </div>
                           </div>
-                        ) : null}
+                        </CardContent>
                       </Card>
                     </Grid>
                   ))}
