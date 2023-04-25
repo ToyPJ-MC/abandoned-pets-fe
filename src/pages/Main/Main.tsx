@@ -5,13 +5,14 @@ import Search from "../Search";
 import { useNavigate } from "react-router-dom";
 import { LoginAPI, LogoutAPI } from "../../api/auth";
 import { getCookie, removeCookie } from "../../util/Cookie";
-const { VITE_APP_KAKAO_KEY } = import.meta.env;
+const { VITE_APP_KAKAO_KEY, VITE_APP_SERVER_URL, VITE_APP_LOGOUT_URL } =
+  import.meta.env;
 
 const Main = () => {
   const cookies = getCookie("access_token");
   const refreshtoken = getCookie("refresh_token");
   const navigate = useNavigate();
-  const LOGOUT_REDIRECT_URI = "http://localhost:5173";
+  const LOGOUT_REDIRECT_URI = VITE_APP_LOGOUT_URL;
   const kakaologout = `https://kauth.kakao.com/oauth/logout?client_id=${VITE_APP_KAKAO_KEY}&logout_redirect_uri=${LOGOUT_REDIRECT_URI}`;
   const [open, setOpen] = useState(true);
   const [logincheck, setLogincheck] = useState(false);
@@ -33,7 +34,7 @@ const Main = () => {
     navigate("/latestsearch");
   };
   const kakaologin = () => {
-    location.href = "http://192.168.0.16:8080/oauth2/authorization/kakao";
+    location.href = VITE_APP_SERVER_URL;
     setLogincheck(true);
   };
   if (!cookies) {

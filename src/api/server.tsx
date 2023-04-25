@@ -5,7 +5,6 @@ import { API_URL } from "../constants/Constants";
 import { SetterOrUpdater } from "recoil";
 import { getCookie } from "../util/Cookie";
 import jinInterceptor from "./interceptor";
-import { data } from "autoprefixer";
 
 const gunurl = "/gungu/find";
 const centerurl = "/center/find";
@@ -169,7 +168,6 @@ const MaxpageAPI = async (setMaxpage: SetterOrUpdater<any>) => {
       headers: headerConfig,
     })
     .then(async (response) => {
-      //console.log(response.data);
       setMaxpage(response.data);
     });
 };
@@ -232,7 +230,6 @@ const likelistAPI = async (setLike: SetterOrUpdater<any>) => {
 const removesearchlistAPI = (notice: Array<string>) => {
   const cookies = getCookie("access_token");
   const member = cookies.toString();
-  //console.log(notice.toString());
   axios
     .post(API_URL + `/api/member/delete/searchlist`, null, {
       params: { access_token: member, noticeNo: notice.toString() },
@@ -248,7 +245,6 @@ const removesearchlistAPI = (notice: Array<string>) => {
 const removelikelistAPI = (notice: Array<string>) => {
   const cookies = getCookie("access_token");
   const member = cookies.toString();
-  //console.log(notice.toString());
   axios
     .post(API_URL + `/api/member/delete/likelist`, null, {
       params: { access_token: member, noticeNo: notice.toString() },
