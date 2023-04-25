@@ -1,18 +1,53 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent, Box, Grid } from "@mui/material";
 import { useRecoilState } from "recoil";
 import { petindexDataState } from "../states/atom";
-import { SearchAPI } from "../api/server";
+import { SearchAPI, removesearchlistAPI } from "../api/server";
+import Loading from "../components/Loading";
 
 const Latestsearch = () => {
   let navigate = useNavigate();
   const [searchpage, setSearchpage] = useRecoilState(petindexDataState);
+  const [check, setCheck] = useState(false);
+  const [scheck, setScheck] = useState(false);
+  const [checkitems, setCheckitems] = useState<Array<string>>([]);
+  const [loading, setLoading] = useState(true);
+
   const homeClick = () => {
     navigate("/");
   };
+  const allcheckbtn = (checked: boolean) => {
+    if (checked) {
+      const noticeArray: any = [];
+      searchpage.map((item) => noticeArray.push(item.noticeNo));
+      setCheckitems(noticeArray);
+    } else {
+      setCheckitems([]);
+    }
+  };
+  const singlecheckbtn = (checked: boolean, noticeNo: string) => {
+    if (checked) {
+      setCheckitems([...checkitems, noticeNo]);
+    } else {
+      setCheckitems(checkitems.filter((item) => item !== noticeNo));
+    }
+  };
+  const allcheck = () => {
+    setScheck(false);
+    setCheck(true);
+  };
+  const singlecheck = () => {
+    setCheck(false);
+    setScheck(true);
+  };
+  const deleteclick = async () => {
+    await removesearchlistAPI(checkitems);
+    location.href = "/latestsearch";
+  };
+
   useEffect(() => {
-    SearchAPI(setSearchpage);
+    SearchAPI(setSearchpage, setLoading);
   }, []);
   return (
     <>
@@ -20,14 +55,57 @@ const Latestsearch = () => {
         <div className="ml-10 mr-10">
           <h1 onClick={homeClick}>MJ PET</h1>
           <h2>최근 조회 목록</h2>
-          <div>
-            <Box sx={{ flexGrow: 1 }}>
-              {searchpage.map((v, index) => (
-                <Grid item xs={2} sm={4} md={4} key={index}>
-                  {v.popfile !== "" ? (
+          {searchpage.length !== 0 ? (
+            <div className="grid grid-cols-3 gap-6">
+              <button
+                className="btn btn-ghost bg-white text-lg outline-none"
+                onClick={allcheck}
+              >
+                전체선택
+              </button>
+              <button
+                className="btn btn-ghost bg-white text-lg outline-none"
+                onClick={singlecheck}
+              >
+                개별선택
+              </button>
+
+              <div>
+                <button
+                  className="btn btn-ghost bg-white text-lg outline-none"
+                  onClick={deleteclick}
+                >
+                  삭제
+                </button>
+              </div>
+            </div>
+          ) : null}
+          {searchpage.length !== 0 && !loading ? (
+            <div>
+              <Box sx={{ flexGrow: 1 }}>
+                {searchpage.map((v, index) => (
+                  <Grid item xs={2} sm={4} md={4} key={index}>
+                    {scheck == true ? (
+                      <input
+                        type="checkbox"
+                        value={v.noticeNo}
+                        onChange={(e) =>
+                          singlecheckbtn(e.target.checked, e.target.value)
+                        }
+                        checked={checkitems.includes(v.noticeNo)}
+                      />
+                    ) : check == true ? (
+                      <input
+                        type="checkbox"
+                        value={v.noticeNo}
+                        onChange={(e) => allcheckbtn(e.target.checked)}
+                        checked={checkitems.length === searchpage.length}
+                      />
+                    ) : null}
                     <Card
                       sx={{
                         minWidth: 300,
+                        maxHeight: 264,
                         marginTop: 3,
                         borderRadius: 5,
                       }}
@@ -35,7 +113,7 @@ const Latestsearch = () => {
                       variant="outlined"
                     >
                       <div className="grid grid-cols-3">
-                        <div className="w-10">
+                        <div>
                           <img
                             src={searchpage[index].popfile}
                             className="w-80 h-full"
@@ -49,9 +127,9 @@ const Latestsearch = () => {
                               <li>
                                 성별 :{" "}
                                 {v.sexCd == "F"
-                                  ? "여자"
+                                  ? "암컷"
                                   : v.sexCd == "M"
-                                  ? "남자"
+                                  ? "숫컷"
                                   : "미상"}
                               </li>
                               <li>몸무게 : {v.weight}</li>
@@ -86,15 +164,17 @@ const Latestsearch = () => {
                         </div>
                       </div>
                     </Card>
-                  ) : (
-                    <div>
-                      <h1>최근조회 내역 없음</h1>
-                    </div>
-                  )}
-                </Grid>
-              ))}
-            </Box>
-          </div>
+                  </Grid>
+                ))}
+              </Box>
+            </div>
+          ) : searchpage.length === 0 ? (
+            <div>
+              <h1>최근조회 내역 없음</h1>
+            </div>
+          ) : (
+            <Loading />
+          )}
         </div>
       </div>
     </>

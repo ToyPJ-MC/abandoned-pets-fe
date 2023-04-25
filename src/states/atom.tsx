@@ -82,6 +82,7 @@ const petindexDataState = atom({
       colorCd: "",
       happenDt: "",
       age: "",
+      like: false,
     },
   ],
 });
@@ -112,7 +113,7 @@ const petcardDataState = atom({
       colorCd: "",
       happenDt: "",
       age: "",
-      petregist: "not regist",
+      like: false,
     },
   ],
 });
@@ -157,15 +158,14 @@ const totalDataState = atom({
 const userDataState = atom({
   key: "User",
   default: {
+    name: "",
     email: "",
-    id: 0,
-    nickname: "",
-    picture: "",
+    profile: "",
   },
 });
 const errorState = atom({
   key: "Error",
-  default: "",
+  default: 0,
 });
 const petregistDataState = atom({
   key: "Petregist",

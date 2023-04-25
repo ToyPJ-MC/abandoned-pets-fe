@@ -1,11 +1,10 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { ProfileAPI } from "../api/auth";
 import { useRecoilState } from "recoil";
 import { petregistDataState, userDataState } from "../states/atom";
 import { useNavigate } from "react-router-dom";
-import { Paper } from "@mui/material";
-import { likelistAPI } from "../api/server";
+import { Card, CardContent, Paper } from "@mui/material";
+import { likelistAPI, removelikelistAPI } from "../api/server";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -24,25 +23,20 @@ const Profile = () => {
   useEffect(() => {
     likelistAPI(setLike);
   }, []);
-
   const allcheckbtn = (checked: boolean) => {
     if (checked) {
       const noticeArray: any = [];
       like.map((item) => noticeArray.push(item.noticeNo));
       setCheckitems(noticeArray);
-      console.log(checkitems);
     } else {
       setCheckitems([]);
-      console.log(checkitems);
     }
   };
   const singlecheckbtn = (checked: boolean, noticeNo: string) => {
     if (checked) {
       setCheckitems([...checkitems, noticeNo]);
-      console.log(checkitems);
     } else {
       setCheckitems(checkitems.filter((item) => item !== noticeNo));
-      console.log(checkitems);
     }
   };
   const allcheck = () => {
@@ -53,19 +47,17 @@ const Profile = () => {
     setCheck(false);
     setScheck(true);
   };
-  useEffect(() => {
-    console.log(checkitems);
-  }, []);
-  const testclick = () => {
-    console.log(checkitems);
+  const deleteclick = async () => {
+    await removelikelistAPI(checkitems);
+    location.href = "/profile";
   };
 
   return (
-    <>
+    <div className="overflow-hidden">
       <div className="text-6xl font-bold mt-6 ml-8" onClick={homeClick}>
         MJ PET
       </div>
-      <div className="grid grid-cols-2 mt-10 place-items-start ml-36">
+      <div className="grid grid-cols-1 mt-10 place-items-start ml-8 md:grid-cols-2">
         <div className="text-center grid place-items-center">
           <Paper
             sx={{
@@ -82,54 +74,79 @@ const Profile = () => {
               {"<"}Profile{">"}
             </h1>
             <div>
-              <img src={user.picture} className="h-full mt-6"></img>
-              <h1>{user.nickname}</h1>
+              <img src={user.profile} className="h-full mt-6"></img>
+              <h1>{user.name}</h1>
               <h3>이메일: {user.email}</h3>
             </div>
           </Paper>
         </div>
-        <div>
+        <div className="h-full">
           <h1>내가 관심 있는 유기동물</h1>
-          <div className="grid grid-cols-2 gap-6">
-            <button className="btn btn-ghost" onClick={allcheck}>
+          <div className="grid grid-cols-3 gap-6">
+            <button
+              className="btn btn-ghost bg-white text-lg font-bold outline-none"
+              onClick={allcheck}
+            >
               전체선택
             </button>
-            <button className="btn btn-ghost" onClick={singlecheck}>
+            <button
+              className="btn btn-ghost bg-white text-lg font-bold outline-none"
+              onClick={singlecheck}
+            >
               개별선택
             </button>
+            <div>
+              <button
+                onClick={deleteclick}
+                className="btn btn-ghost bg-white text-lg font-bold outline-none"
+              >
+                삭제
+              </button>
+            </div>
           </div>
-          <button onClick={testclick}>TEST</button>
-          <div className="grid grid-cols-2 gap-6 mb-8 mt-4">
-            {like.map((item, index) => (
-              <div key={index} className="list-none">
-                {scheck == true ? (
-                  <input
-                    type="checkbox"
-                    value={item.noticeNo}
-                    onChange={(e) =>
-                      singlecheckbtn(e.target.checked, e.target.value)
-                    }
-                    checked={checkitems.includes(item.noticeNo)}
-                  />
-                ) : check == true ? (
-                  <input
-                    type="checkbox"
-                    value={item.noticeNo}
-                    onChange={(e) => allcheckbtn(e.target.checked)}
-                    checked={checkitems.length === like.length}
-                  />
-                ) : null}
-                <img src={item.popfile} className="h-60"></img>
-                <li>{item.kindCd}</li>
-                <li>{item.colorCd}</li>
-                <li>{item.age}</li>
-                <li>{item.weight}</li>
-              </div>
-            ))}
+          <div className="overflow-y-auto h-96 outline mt-4 pb-5">
+            <div className="grid grid-cols-2 gap-6 mt-4">
+              {like.map((item, index) => (
+                <div key={index} className="list-none">
+                  {scheck == true ? (
+                    <input
+                      type="checkbox"
+                      value={item.noticeNo}
+                      onChange={(e) =>
+                        singlecheckbtn(e.target.checked, e.target.value)
+                      }
+                      checked={checkitems.includes(item.noticeNo)}
+                    />
+                  ) : check == true ? (
+                    <input
+                      type="checkbox"
+                      value={item.noticeNo}
+                      onChange={(e) => allcheckbtn(e.target.checked)}
+                      checked={checkitems.length === like.length}
+                    />
+                  ) : null}
+                  <div className="font-bold text-lg">
+                    <Card
+                      sx={{ minWidth: 300, borderRadius: 5 }}
+                      elevation={0}
+                      variant="outlined"
+                    >
+                      <CardContent>
+                        <img src={item.popfile} className="h-60"></img>
+                        <li>{item.kindCd}</li>
+                        <li>{item.colorCd}</li>
+                        <li>{item.age}</li>
+                        <li>{item.weight}</li>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 export default Profile;
