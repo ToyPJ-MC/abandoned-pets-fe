@@ -7,16 +7,34 @@
     "dev": "vite",
     "start": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "serve": "serve -s dist -p 3000",
+    "deploy": "pm2 start \"serve -s dist -p 3001\" --name abandonedpets:1.0"
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@mui/material": "^5.11.0",
+    "@mui/x-date-pickers": "^5.0.11",
+    "@types/react-cookies": "^0.1.0",
+    "@types/react-lottie": "^1.2.6",
+    "autoprefixer": "^10.4.13",
+    "axios": "^1.2.1",
+    "dayjs": "^1.11.7",
     "eslint": "^8.28.0",
     "eslint-plugin-prettier": "^4.2.1",
+    "jwt-decode": "^3.1.2",
+    "postcss": "^8.4.20",
+    "postcss-nesting": "^10.2.0",
+    "qs": "^6.11.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-cookie": "^4.1.1",
+    "react-dom": "^18.2.0",
+    "react-lottie": "^1.2.3",
+    "react-redux": "^8.0.5",
+    "react-router-dom": "^6.6.1",
+    "recoil": "^0.7.6",
+    "yarn": "1.22.19"
   },
   "devDependencies": {
     "@types/react": "^18.0.24",
