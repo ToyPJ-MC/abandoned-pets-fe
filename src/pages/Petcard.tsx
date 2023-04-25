@@ -60,9 +60,9 @@ const Petcard = () => {
                         <li className="font-bold">몸무게 : {v.weight}</li>
                       </CardContent>
                       {cookies && v.like == false ? (
-                        <div className="text-end absolute h-14 w-36 right-2 -bottom-1">
+                        <div className="text-end absolute h-14 w-36 right-2 bottom-1">
                           <button
-                            className="bg-white outline-none text-2xl rounded-full text-center"
+                            className="bg-white outline-none text-xl rounded-full text-center"
                             onClick={() => likeAPI(v.noticeNo)}
                           >
                             📦
