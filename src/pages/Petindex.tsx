@@ -15,7 +15,6 @@ const Petindex = () => {
   const homeClick = () => {
     navigate("/");
   };
-
   console.log(error);
 
   return (
@@ -42,11 +41,7 @@ const Petindex = () => {
             </h1>
             <div className="pb-6">
               <Box sx={{ flexGrow: 1 }}>
-                <Grid
-                  container
-                  spacing={{ xs: 2, md: 3 }}
-                  columns={{ xs: 4, sm: 8, md: 12 }}
-                >
+                <Grid className="grid grid-cols-1 md:grid-cols-3 gap-3">
                   {petindex.map((v, index) => (
                     <Grid item xs={2} sm={4} md={4} key={index}>
                       <Card sx={{ minWidth: 300, borderRadius: 5 }}>
@@ -85,7 +80,7 @@ const Petindex = () => {
                             </div>
                             <div>
                               {cookies && v.like == false ? (
-                                <div className="fixed text-end mr-6 bottom-0">
+                                <div className="text-end mr-6 bottom-0">
                                   <button
                                     className="bg-white outline-none text-lg"
                                     onClick={() => likeAPI(v.noticeNo)}
