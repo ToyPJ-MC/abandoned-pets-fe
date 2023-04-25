@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { ProfileAPI } from "../api/auth";
 import { useRecoilState } from "recoil";
@@ -29,19 +28,15 @@ const Profile = () => {
       const noticeArray: any = [];
       like.map((item) => noticeArray.push(item.noticeNo));
       setCheckitems(noticeArray);
-      //console.log(checkitems);
     } else {
       setCheckitems([]);
-      //console.log(checkitems);
     }
   };
   const singlecheckbtn = (checked: boolean, noticeNo: string) => {
     if (checked) {
       setCheckitems([...checkitems, noticeNo]);
-      //console.log(checkitems);
     } else {
       setCheckitems(checkitems.filter((item) => item !== noticeNo));
-      //console.log(checkitems);
     }
   };
   const allcheck = () => {
@@ -54,7 +49,6 @@ const Profile = () => {
   };
   const deleteclick = async () => {
     await removelikelistAPI(checkitems);
-    //console.log(checkitems);
     location.href = "/profile";
   };
 

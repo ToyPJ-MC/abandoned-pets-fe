@@ -1,5 +1,5 @@
-import React, { Suspense, useEffect, useState } from "react";
-import { Card, CardContent, Pagination, Grid, Stack, Box } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { Card, CardContent, Pagination, Stack } from "@mui/material";
 import { MaxpageAPI, allAPI, likeAPI } from "../api/server";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { maxpageDataState, petcardDataState } from "../states/atom";
@@ -27,13 +27,12 @@ const Petcard = () => {
     setPage(value);
   };
   const cookies = getCookie("access_token");
-  //Grid item xs={2} sm={4} md={4} key={index}
   return (
     <>
       {!loading ? (
         <>
           {page && (
-            <div className="grid grid-cols-3 gap-10">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-10">
               {alldata.map((v, index) => (
                 <div className="flex justify-center items-center" key={index}>
                   <Card

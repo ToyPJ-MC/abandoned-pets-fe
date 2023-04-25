@@ -22,19 +22,15 @@ const Latestsearch = () => {
       const noticeArray: any = [];
       searchpage.map((item) => noticeArray.push(item.noticeNo));
       setCheckitems(noticeArray);
-      //console.log(checkitems);
     } else {
       setCheckitems([]);
-      //console.log(checkitems);
     }
   };
   const singlecheckbtn = (checked: boolean, noticeNo: string) => {
     if (checked) {
       setCheckitems([...checkitems, noticeNo]);
-      //console.log(checkitems);
     } else {
       setCheckitems(checkitems.filter((item) => item !== noticeNo));
-      //console.log(checkitems);
     }
   };
   const allcheck = () => {
@@ -46,7 +42,6 @@ const Latestsearch = () => {
     setScheck(true);
   };
   const deleteclick = async () => {
-    //console.log(checkitems);
     await removesearchlistAPI(checkitems);
     location.href = "/latestsearch";
   };
