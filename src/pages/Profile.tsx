@@ -81,7 +81,9 @@ const Profile = () => {
           </Paper>
         </div>
         <div className="h-full">
-          <h1>내가 관심 있는 유기동물</h1>
+          <h1>
+            내가 관심 있는<br></br>유기동물
+          </h1>
           <div className="grid grid-cols-3 gap-6">
             <button
               className="btn btn-ghost bg-white text-lg font-bold outline-none"
@@ -105,7 +107,7 @@ const Profile = () => {
             </div>
           </div>
           <div className="overflow-y-auto h-96 outline mt-4 pb-5">
-            <div className="grid grid-cols-2 gap-6 mt-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
               {like.map((item, index) => (
                 <div key={index} className="list-none">
                   {scheck == true ? (

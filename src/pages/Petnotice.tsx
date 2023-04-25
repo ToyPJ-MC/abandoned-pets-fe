@@ -27,6 +27,8 @@ const Petnotice = () => {
             minWidth: 200,
             paddingTop: 5,
             paddingBottom: 5,
+            paddingRight: 3,
+            paddingLeft: 3,
             borderRadius: "30px",
           }}
           elevation={0}

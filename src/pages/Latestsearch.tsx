@@ -105,18 +105,17 @@ const Latestsearch = () => {
                     <Card
                       sx={{
                         minWidth: 300,
-                        maxHeight: 264,
                         marginTop: 3,
                         borderRadius: 5,
                       }}
                       elevation={0}
                       variant="outlined"
                     >
-                      <div className="grid grid-cols-3">
-                        <div>
+                      <div className="grid grid-cols-1 md:grid-cols-3">
+                        <div className="h-72">
                           <img
                             src={searchpage[index].popfile}
-                            className="w-80 h-full"
+                            className="w-full h-full object-cover"
                           />
                         </div>
                         <div className="mt-8">
