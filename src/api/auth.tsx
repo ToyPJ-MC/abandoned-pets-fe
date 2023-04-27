@@ -38,7 +38,7 @@ const ProfileAPI = (setUser: SetterOrUpdater<any>) => {
 };
 const LoginAPI = (refreshtoken: string) => {
   axios
-    .get(API_URL + "api/member/token/new", {
+    .get(API_URL + "/api/member/token/new", {
       params: {
         refresh_token: refreshtoken,
       },
@@ -79,16 +79,4 @@ const LogoutAPI = (accesstoken: string) => {
       console.log(error);
     });
 };
-// const beforeProfileAPI = () => {
-//   const cookies = getCookie("access_token");
-//   axios
-//     .get(API_URL + "/kakao/info", {
-//       params: { access_token: cookies },
-//       headers: headerConfig,
-//     })
-//     .then((response) => {
-//       setCookie(response.data.id);
-//     });
-// };
-//beforeProfileAPI
 export { ProfileAPI, TokenAPI, LoginAPI, LogoutAPI };
