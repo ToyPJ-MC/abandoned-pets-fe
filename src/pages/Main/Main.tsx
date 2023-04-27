@@ -13,7 +13,7 @@ const Main = () => {
   const refreshtoken = getCookie("refresh_token");
   const navigate = useNavigate();
   const LOGOUT_REDIRECT_URI = VITE_APP_LOGOUT_URL;
-  //const kakaologout = `https://kauth.kakao.com/oauth/logout?client_id=${VITE_APP_KAKAO_KEY}&logout_redirect_uri=${LOGOUT_REDIRECT_URI}`;
+  const kakaologout = `https://kauth.kakao.com/oauth/logout?client_id=${VITE_APP_KAKAO_KEY}&logout_redirect_uri=${LOGOUT_REDIRECT_URI}`;
   const [open, setOpen] = useState(true);
   const [logincheck, setLogincheck] = useState(false);
 
@@ -24,7 +24,7 @@ const Main = () => {
     navigate("/profile");
   };
   const logout = async () => {
-    //window.location.href = kakaologout;
+    window.location.href = kakaologout;
     await LogoutAPI(cookies as string);
     removeCookie("access_token", { path: "/" });
     removeCookie("refresh_token", { path: "/" });
