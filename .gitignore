@@ -33,6 +33,7 @@ dist-ssr
 .DS_Store
 .AppleDouble
 .LSOverride
+.env
 
 # Icon must end with two \r
 Icon
@@ -99,5 +100,4 @@ $RECYCLE.BIN/
 
 # and uncomment the following lines
 # .pnp.*
-
 .env.*
