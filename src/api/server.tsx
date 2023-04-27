@@ -115,7 +115,7 @@ const findAPI = async (
       });
   } else {
     await jinInterceptor
-      .get(API_URL + `/pets/select/kindcode=${kind_code}`, {
+      .get(API_URL + `/api/pets/select/kindcode=${kind_code}`, {
         params: {
           access_token: member,
           kind_cd: kind,
@@ -178,7 +178,7 @@ const SearchAPI = async (
   const cookies = getCookie("access_token");
   const member = cookies.toString();
   await jinInterceptor
-    .get(API_URL + "/member/searchlist", {
+    .get(API_URL + "/api/member/searchlist", {
       params: { access_token: member },
       headers: headerConfig,
     })
@@ -201,7 +201,7 @@ const likeAPI = async (noticeNo: string) => {
   const cookies = getCookie("access_token");
   const member = cookies.toString();
   await jinInterceptor
-    .post(API_URL + `/member/like`, null, {
+    .post(API_URL + `/api/member/like`, null, {
       params: { access_token: member, noticeNo: noticeNo },
       headers: headerConfig,
     })
@@ -216,7 +216,7 @@ const likelistAPI = async (setLike: SetterOrUpdater<any>) => {
   const cookies = getCookie("access_token");
   const member = cookies.toString();
   await jinInterceptor
-    .get(API_URL + `/member/likelist`, {
+    .get(API_URL + `/api/member/likelist`, {
       params: { access_token: member },
       headers: headerConfig,
     })

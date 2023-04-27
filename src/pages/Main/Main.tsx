@@ -13,7 +13,7 @@ const Main = () => {
   const refreshtoken = getCookie("refresh_token");
   const navigate = useNavigate();
   const LOGOUT_REDIRECT_URI = VITE_APP_LOGOUT_URL;
-  const kakaologout = `https://kauth.kakao.com/oauth/logout?client_id=${VITE_APP_KAKAO_KEY}&logout_redirect_uri=${LOGOUT_REDIRECT_URI}`;
+  //const kakaologout = `https://kauth.kakao.com/oauth/logout?client_id=${VITE_APP_KAKAO_KEY}&logout_redirect_uri=${LOGOUT_REDIRECT_URI}`;
   const [open, setOpen] = useState(true);
   const [logincheck, setLogincheck] = useState(false);
 
@@ -24,7 +24,7 @@ const Main = () => {
     navigate("/profile");
   };
   const logout = async () => {
-    window.location.href = kakaologout;
+    //window.location.href = kakaologout;
     await LogoutAPI(cookies as string);
     removeCookie("access_token", { path: "/" });
     removeCookie("refresh_token", { path: "/" });
@@ -44,8 +44,11 @@ const Main = () => {
     <>
       {cookies ? null : <Lawdialog open={open} onClose={handleClose} />}
       <div className="h-full w-full flex flex-col">
-        <div className="ml-10 mt-5">
-          <div className="text-6xl font-bold">MJ PET</div>
+        <div className="ml-12 mt-5">
+          <div className="text-6xl mt-4 font-bold text-transparent bg-gradient-to-r from-blue-500 to-indigo-400 bg-clip-text">
+            펫프
+          </div>
+          <div className="text-xl mt-2 font-bold overline">PET Friend</div>
           <div className="text-right pr-16 mb-4">
             {!cookies ? (
               <button
